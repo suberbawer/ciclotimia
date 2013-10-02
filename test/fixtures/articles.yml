@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  description: MyString
+  estimated_price: MyString
+  entry_date: 2013-10-01
+  commission_per: MyString
+  commission_cash: MyString
+  status: MyString
+
+two:
+  description: MyString
+  estimated_price: MyString
+  entry_date: 2013-10-01
+  commission_per: MyString
+  commission_cash: MyString
+  status: MyString
