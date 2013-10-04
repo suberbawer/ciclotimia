@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131002000418) do
+ActiveRecord::Schema.define(version: 20131004035924) do
 
   create_table "articles", force: true do |t|
     t.string   "description"
@@ -24,6 +24,36 @@ ActiveRecord::Schema.define(version: 20131002000418) do
     t.datetime "updated_at"
   end
 
+  create_table "caja_transactions", force: true do |t|
+    t.integer  "caja_id"
+    t.integer  "transaction_id"
+    t.string   "transaction_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cajas", force: true do |t|
+    t.decimal  "fecha"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "inputs", force: true do |t|
+    t.decimal  "amount"
+    t.integer  "caja_id"
+    t.integer  "caja_transaction_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "outputs", force: true do |t|
+    t.decimal  "amount"
+    t.integer  "caja_id"
+    t.integer  "caja_transaction_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "providers", force: true do |t|
     t.string   "name"
     t.string   "lastname"
@@ -31,6 +61,13 @@ ActiveRecord::Schema.define(version: 20131002000418) do
     t.string   "email"
     t.string   "address"
     t.string   "ci"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transactions", force: true do |t|
+    t.decimal  "amount"
+    t.string   "transaction_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
