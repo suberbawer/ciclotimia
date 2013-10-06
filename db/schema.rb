@@ -39,15 +39,14 @@ ActiveRecord::Schema.define(version: 20131004035924) do
   end
 
   create_table "inputs", force: true do |t|
-    t.decimal  "amount"
     t.integer  "caja_id"
     t.integer  "caja_transaction_id"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "outputs", force: true do |t|
-    t.decimal  "amount"
     t.integer  "caja_id"
     t.integer  "caja_transaction_id"
     t.datetime "created_at"
@@ -66,8 +65,6 @@ ActiveRecord::Schema.define(version: 20131004035924) do
   end
 
   create_table "transactions", force: true do |t|
-    t.decimal  "amount"
-    t.string   "transaction_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
