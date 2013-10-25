@@ -1,0 +1,20 @@
+<ul>
+	<% @inputs.each do |input| %>
+	  <li>
+	    <span><%= input.amount %></span>
+	    <span><%= input.type %></span>
+	    <!--<span><%= link_to 'Show', article %></span>
+	    <span><%= link_to 'Edit', edit_article_path(article) %></span>
+	    <span><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></span> -->
+	  </li>
+	<% end %>
+</ul>
+
+
+<%= form_tag(controller: "article", action: "show", method: "get", :remote => true, :'data-update-target' => 'update-amount-container') do%>
+
+	<%= label_tag(:article_id, "Ingresar articulo") %>
+	<%= text_field_tag(:article_id) %>
+
+	<%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit' %>
+<% end %>

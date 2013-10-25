@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131004035924) do
+ActiveRecord::Schema.define(version: 20131023014452) do
 
   create_table "articles", force: true do |t|
     t.string   "description"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20131004035924) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "input_id"
   end
 
   create_table "caja_transactions", force: true do |t|
@@ -42,6 +43,7 @@ ActiveRecord::Schema.define(version: 20131004035924) do
     t.integer  "caja_id"
     t.integer  "caja_transaction_id"
     t.string   "type"
+    t.integer  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

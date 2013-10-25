@@ -1,0 +1,35 @@
+<ul>
+	<% @inputs.each do |input| %>
+	  <li>
+	    <span><%= input.amount %></span>
+	    <span><%= input.type %></span>
+	    <!--<span><%= link_to 'Show', article %></span>
+	    <span><%= link_to 'Edit', edit_article_path(article) %></span>
+	    <span><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></span> -->
+	  </li>
+	<% end %>
+</ul>
+<div id="articleListContainer">
+
+</div>
+<div class="typeInputContainer">
+	<%= form_tag({:action => 'new_manual_input'}, :remote => true, :'data-update-target' => 'inputSuccessMessage') do%>
+	 	<%= label_tag(:amount, "Monto") %>
+	  	<%= text_field_tag(:amount) %>
+
+		<%= radio_button_tag(:type, "sale") %>
+		<%= label_tag(:sale, "Venta") %>
+		<%= radio_button_tag(:type, "rent") %>
+		<%= label_tag(:rent, "Alquiler") %> 
+
+		<%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit' %>
+	<% end %>
+
+</div>
+<input type="button" value="Buscar articulo" id="articleListPopup"/>
+
+<input type="button" value="Confirmar transaccion" id="confirmInput"/>
+
+<div id="inputSuccessMessage">
+
+</div>

@@ -61,6 +61,16 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def list
+    @articles = Article.all
+    render :partial => 'list_articles', :content_type => 'text/html'
+  end
+
+  def fetch_data
+    @article = Article.find(params[:id])
+    render :partial => 'article_detail', :content_type => 'text/html'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article

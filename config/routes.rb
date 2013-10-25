@@ -1,7 +1,24 @@
 Ciclotimia::Application.routes.draw do
-  resources :articles
+  resources :articles      
+    post "articles/list"
+
+    post "articles/fetch_data"
 
   resources :providers
+
+  resources :transactions
+
+  resources :sales
+
+  resources :transactions_sales
+
+  resources :inputs
+    
+    post "inputs/new_manual_input"    
+
+  resources :other_inputs
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

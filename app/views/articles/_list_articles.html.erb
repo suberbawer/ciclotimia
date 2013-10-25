@@ -1,0 +1,14 @@
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <div><%= article.description %></div>
+      <div><%= article.estimated_price %></div>
+      <div><%= article.entry_date %></div>
+      <div><%= article.commission_per %></div>
+      <div><%= article.commission_cash %></div>
+      <div><%= article.status %></div>
+      <input type="radio" name="selectArticle" value="Seleccionar" id="<%= article.id %>" class="selectArticle"/>
+      <input type="button" name="articleDetail" value="Ver detalle" id="<%= article.id %>" class="articleDetail"/>
+    </li>
+  <% end %>
+</ul>
