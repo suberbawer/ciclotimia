@@ -14,7 +14,9 @@ Ciclotimia::Application.routes.draw do
 
   resources :inputs
     
-    post "inputs/new_manual_input"    
+    post "inputs/new_manual_input"
+
+    post "inputs/bulk_save"    
 
   resources :other_inputs
 

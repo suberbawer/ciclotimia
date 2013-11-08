@@ -4,32 +4,30 @@ class Input < ActiveRecord::Base
 	has_one :article
 	accepts_nested_attributes_for :article
 
-	def polymorphic_method
-		raise "Not working for #{self.class}"
-	end
+	#scope :anteriores, lambda { where('created_at < = ?', Time.now) }
+	#scope :anteriores, ->(id) { where(:created_at => id)}
 
 	# 
 	# Method in charge of create and insert an input.
 	#
 	# * *Args*    :
 	#   - +input_data+ -> data of the input to save
+	#                     :type, [:amount], [:article] 
 	# * *Returns* :
 	#   - true if the input was saved, false otherwise
 	#
-	def self.insert_input(input_data)
+	def self.build_input(input_data)
 		case input_data[:type]
 		when "sale"
-		  input = Sale.new 
+		  input = Sale.new
 		when "rent"
 		  input = Rent.new
+		when "other_input"
+		  input = OtherInput.new
 		else
-		  puts "nono"
+		  puts "Tipo de input no reconocido"
 		end
-		input[:amount] = input_data[:amount]
-		return input.save
-	end
-
-	def c_new_input
-		puts 'hello world'
+		input.build_input(input_data)
+		return input
 	end
 end

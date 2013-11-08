@@ -9,7 +9,6 @@ class InputsController < ApplicationController
 	end
 
 	def list
-		
 	end
 
 	def create
@@ -26,17 +25,21 @@ class InputsController < ApplicationController
 	    end
 	end
 
+	# Recibe una lista de inputs desde la vista y los manda al modelo para salvarlos.
+	def bulk_save
+		params[:inputList].each do |input|
+	    	new_input = Input.build_input(input[1])
+	    	new_input.save
+	   	end
+	   	render nothing: true
+	end
+
 	def show
-		@inputs = Array.new
 	end
 
 	def new_manual_input
-		is_saved = Input.insert_input(params)
+		new_input = Input.build_input(params)
+		@is_saved = new_input.save
 		render :partial => 'manual_input', :content_type => 'text/html'
 	end
-
-	def insert_input
-
-	end
-
 end

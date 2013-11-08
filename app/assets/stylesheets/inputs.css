@@ -1,0 +1,15 @@
+#newInputPopup{
+	display: none;
+	border: solid 1px black;
+}
+.hide{
+	display: none;
+}
+.show{
+	display: block;
+}
+
+.inputCollectionList li > div{
+	width: 19%;
+	display: inline-block;
+}

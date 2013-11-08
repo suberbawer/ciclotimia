@@ -1,29 +1,34 @@
-<p>
-  <strong>Description:</strong>
-  <%= @article.description %>
-</p>
+<% if @article.nil? %>
+  No hay articulos con ese id.
 
-<p>
-  <strong>Estimated price:</strong>
-  <%= @article.estimated_price %>
-</p>
+<% else %>
+  <p>
+    <strong>Description:</strong>
+    <%= @article.description %> 
+  </p>
 
-<p>
-  <strong>Entry date:</strong>
-  <%= @article.entry_date %>
-</p>
+  <p>
+    <strong>Estimated price:</strong>
+    <input type="text" value="<%= @article.estimated_price %>" id="selectedAmount"/>
+  </p>
 
-<p>
-  <strong>Commission per:</strong>
-  <%= @article.commission_per %>
-</p>
+  <p>
+    <strong>Entry date:</strong>
+    <%= @article.entry_date %>
+  </p>
 
-<p>
-  <strong>Commission cash:</strong>
-  <%= @article.commission_cash %>
-</p>
+  <p>
+    <strong>Commission per:</strong>
+    <%= @article.commission_per %>
+  </p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @article.status %>
-</p>
+  <p>
+    <strong>Commission cash:</strong>
+    <%= @article.commission_cash %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= @article.status %>
+  </p>
+<% end %>

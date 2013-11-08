@@ -1,7 +1,8 @@
 class Sale < Input
 
-	def polymorphic_method
-		puts "Sale"
+	def build_input (input_data)
+		self[:amount] = input_data[:amount]
+		self.article  = Article.find input_data[:article]
 	end
 
 end

@@ -1,35 +1,63 @@
-<ul>
-	<% @inputs.each do |input| %>
-	  <li>
-	    <span><%= input.amount %></span>
-	    <span><%= input.type %></span>
-	    <!--<span><%= link_to 'Show', article %></span>
-	    <span><%= link_to 'Edit', edit_article_path(article) %></span>
-	    <span><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></span> -->
-	  </li>
-	<% end %>
+<!-- Lista de inputs en el lote actual. -->
+<ul class="inputCollectionList">
+	<li> No hay articulos en el lote</li>
 </ul>
-<div id="articleListContainer">
 
-</div>
-<div class="typeInputContainer">
-	<%= form_tag({:action => 'new_manual_input'}, :remote => true, :'data-update-target' => 'inputSuccessMessage') do%>
-	 	<%= label_tag(:amount, "Monto") %>
-	  	<%= text_field_tag(:amount) %>
+<input type="text" id="articleInputId" placeholder="Ingrese codigo de artículo"/>
+<input type="button" value="Nuevo ingreso" id="newInputButton"/>
 
-		<%= radio_button_tag(:type, "sale") %>
-		<%= label_tag(:sale, "Venta") %>
-		<%= radio_button_tag(:type, "rent") %>
-		<%= label_tag(:rent, "Alquiler") %> 
+<input type="button" value="Confirmar lote" id="confirmBatchButton"/>
 
-		<%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit' %>
-	<% end %>
-
-</div>
-<input type="button" value="Buscar articulo" id="articleListPopup"/>
-
-<input type="button" value="Confirmar transaccion" id="confirmInput"/>
 
 <div id="inputSuccessMessage">
 
 </div>
+
+<div id="newInputPopup" >
+	
+	<div id="articleDetailContainer">
+
+	</div>
+
+	<%= form_tag({:action => 'new_manual_input'}, :remote => true, :'data-update-target' => 'inputSuccessMessage') do %>
+
+		<%= radio_button_tag(:type, "sale", :checked => 'checked') %>
+		<%= label_tag(:sale, "Venta") %>
+		<%= radio_button_tag(:type, "rent") %>
+		<%= label_tag(:rent, "Alquiler") %> 
+
+	<% end %>
+	
+
+	<input type="button" value="Confirmar transaccion" id="confirmInput"/>
+</div>
+
+
+
+<!-- Templates (ponerlos en algun lugar de assets)-->
+<script type="text/template" id="template-inputList">
+	
+  	<%% if (inputs.length > 0) {
+	  	  	_.each(inputs, function(currentInput){ %>
+		  	  	<li data-id="<%%- currentInput.id %>">
+		  		 	<div> 
+		  		 		<%%- currentInput.article %>
+		  		 	</div>
+		  		 	<div> 
+		  		 		<%%- currentInput.amount %>
+		  		 	</div>
+		  		 	<div> 
+		  		 		<%%- currentInput.type %>
+		  		 	</div>
+		  		 	<div class="editButton"> 
+		  		 		Editar
+		  		 	</div>
+		  		 	<div class="deleteButton"> 
+		  		 		Eliminar
+		  		 	</div>
+		  		</li>
+	  	<%% }); 
+	  	} else { %>
+	  		<li> No hay articulos en el lote</li>
+	<%% } %>
+</script>

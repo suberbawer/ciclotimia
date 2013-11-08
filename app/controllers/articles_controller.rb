@@ -67,7 +67,7 @@ class ArticlesController < ApplicationController
   end
 
   def fetch_data
-    @article = Article.find(params[:id])
+    @article = Article.find_by_id(params[:id])
     render :partial => 'article_detail', :content_type => 'text/html'
   end
 
