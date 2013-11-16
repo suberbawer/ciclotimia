@@ -1,0 +1,3 @@
+class Report < Caja
+	
+end

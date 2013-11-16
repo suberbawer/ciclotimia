@@ -16,7 +16,7 @@ class Input < ActiveRecord::Base
 	# * *Returns* :
 	#   - true if the input was saved, false otherwise
 	#
-	def self.build_input(input_data)
+	def self.build_input (input_data)
 		case input_data[:type]
 		when "sale"
 		  input = Sale.new
@@ -29,5 +29,29 @@ class Input < ActiveRecord::Base
 		end
 		input.build_input(input_data)
 		return input
+	end
+
+	# 
+	#   Metodo encargado de salvar la lista de inputs en la caja abierta de hoy (si hay)
+	#
+	# * *Args*    :
+	#   - +input_list+ -> Lista con los inputs a ingresar.
+	#                     :type, [:amount], [:article] 
+	# * *Returns* :
+	#   - Mensaje dependiendo si salvo, o si tuvo algun error.
+	#
+	def self.save_inputs (input_list)
+		current_open = Collect.get_open_caja
+		if current_open.present?
+			input_list.each do |input|
+		    	new_input = self.build_input(input[1])
+		    	#new_input.save
+		    	current_open.caja_transactions.create(:transaction => new_input) # Agrego a la lista de inputs de la open_caja
+		   	end
+		   	#puts current_open.caja_transactions
+		   	response_message = "OK"		   	
+		else
+			response_message = Collect.reason_not_current_open
+		end   
 	end
 end

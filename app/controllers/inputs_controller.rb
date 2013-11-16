@@ -25,13 +25,10 @@ class InputsController < ApplicationController
 	    end
 	end
 
-	# Recibe una lista de inputs desde la vista y los manda al modelo para salvarlos.
+	# Recibe una lista de inputs desde la vista y los manda al modelo para salvarlos (tambien los agrega a la caja de hoy (si hay)).
 	def bulk_save
-		params[:inputList].each do |input|
-	    	new_input = Input.build_input(input[1])
-	    	new_input.save
-	   	end
-	   	render nothing: true
+		response_message = Input.save_inputs(params[:inputList])		
+	   	render json: {message: response_message}
 	end
 
 	def show

@@ -45,17 +45,31 @@ $(document).ready(function(){
 	    	this.amount = newAmount;
 	    }
 
-	    this.getArticle = function() {
+	    this.getArticleDescription = function(){
+	    	return this.articleData.description;
+	    }
+
+	    this.getArticleId = function() {
 	        return this.article;
 	    }
 
 	    this.setArticle = function(newArticle) {
+	        this.articleData = {
+	        					description    : newArticle.data( "description" ),
+	        					estimatedPrice : newArticle.data( "estimatedPrice" ),
+	        					entryDate      : newArticle.data( "entryDate" ),
+	        					comissionPer   : newArticle.data( "comissionPer" ),
+	        					status         : newArticle.data( "status" )
+	        				   };
+	    }
+
+	    this.setArticleId = function(newArticle) {
 	        this.article = newArticle;
 	    }
 
 
 	    this.hasArticle = function() {
-	    	return this.getArticle() != undefined && this.getArticle() !== '';
+	    	return this.getArticleId() != undefined && this.getArticleId() !== '';
 	    }
 
 	    /**
@@ -68,7 +82,7 @@ $(document).ready(function(){
 				dataType : 'html',
 				data     : { 
 							 'type'    : self.getType(),
-							 'article' : self.getArticle(),
+							 'article' : self.getArticleId(),
 							 'amount'  : self.getAmount() 
 							},
 				success:function(data){
@@ -89,7 +103,7 @@ $(document).ready(function(){
 					url      : '/articles/fetch_data',
 					type     : "POST",
 					dataType : 'html',
-					data     : { 'id' : self.getArticle() },
+					data     : { 'id' : self.getArticleId() },
 					success:function(data){
 						self._articleContainer.html(data); 	// muestro detalle del articulo seleccionado...
 						bindArticles();						// ... listeners de articulos...
@@ -120,7 +134,7 @@ $(document).ready(function(){
 	    // Usuario cambia articulo a referenciar.
 		this._articleId.on('blur', function(e){
 	        var articleId = $(e.currentTarget).val();
-	        self.setArticle(articleId);
+	        self.setArticleId(articleId);
 	    });
 
 		// Usuario cambia tipo de input.
@@ -191,7 +205,10 @@ $(document).ready(function(){
 		 *	Metodo para insertar un input en el lote.
  		 */
 	    this.insertInput = function() {
-	    	var clonedInput = $.extend(true, {}, this.currentInput);	// Clono el objeto a guardar para evitar inconsistencias.  
+	    	var relatedArticle = $('.articleData');						// Obtengo los datos del articulo... 
+	    	this.currentInput.setArticle(relatedArticle);				// ... y seteo los datos del articulo en el input actual.
+
+	    	var clonedInput    = $.extend(true, {}, this.currentInput);	// Clono el objeto a guardar para evitar inconsistencias.  
 	        this.inputList.push(clonedInput);
 	        this._newInputContainer.hide();
 	        this.refreshInputList();
@@ -209,9 +226,9 @@ $(document).ready(function(){
 					url      : '/inputs/bulk_save',
 					type     : "POST",
 					data     : {inputList : objectInputList},
-					success  : function(data)
+					success  : function(response)
 							   {
-							   		alert("Se agrego el lote correctamente");
+							   		alert(response.message);
 							   },
 					error 	 : function(error)
 							   {
@@ -261,7 +278,7 @@ $(document).ready(function(){
 			self.currentInput = new Input();			// Creo nuevo input...
 			self.setNewInputId();						// ... seteo id del nuevo input...
 			var articleId = self._articleId.val();		// ... obtengo el id del articulo seleccionado...
-	        self.currentInput.setArticle(articleId);	// ... seteo el articulo...
+	        self.currentInput.setArticleId(articleId);	// ... seteo el articulo...
 			self.currentInput.retrieveArticleData();	// ... y traigo el detalle del articulo.
 		});
 

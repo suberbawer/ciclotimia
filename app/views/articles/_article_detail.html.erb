@@ -1,34 +1,40 @@
 <% if @article.nil? %>
-  No hay articulos con ese id.
+    No hay articulos con ese id.
 
 <% else %>
-  <p>
-    <strong>Description:</strong>
-    <%= @article.description %> 
-  </p>
+        <div class="articleData" data-description="<%= @article.description %>"
+                                 data-estimated-price="<%= @article.estimated_price %>" 
+                                 data-entry-date="<%= @article.entry_date %>"
+                                 data-comission="<%= @article.commission_per %>"
+                                 data-status="<%= @article.status %>">
+            <p>
+              <strong>Description:</strong>
+              <%= @article.description %> 
+            </p>
 
-  <p>
-    <strong>Estimated price:</strong>
-    <input type="text" value="<%= @article.estimated_price %>" id="selectedAmount"/>
-  </p>
+            <p>
+              <strong>Estimated price:</strong>
+              <input type="text" value="<%= @article.estimated_price %>" id="selectedAmount"/>
+            </p>
 
-  <p>
-    <strong>Entry date:</strong>
-    <%= @article.entry_date %>
-  </p>
+            <p>
+              <strong>Entry date:</strong>
+              <%= @article.entry_date %>
+            </p>
 
-  <p>
-    <strong>Commission per:</strong>
-    <%= @article.commission_per %>
-  </p>
+            <p>
+              <strong>Commission per:</strong>
+              <%= @article.commission_per %>
+            </p>
 
-  <p>
-    <strong>Commission cash:</strong>
-    <%= @article.commission_cash %>
-  </p>
+            <p>
+              <strong>Commission cash:</strong>
+              <%= @article.commission_cash %>
+            </p>
 
-  <p>
-    <strong>Status:</strong>
-    <%= @article.status %>
-  </p>
+            <p>
+              <strong>Status:</strong>
+              <%= @article.status %>
+            </p>
+        </div>
 <% end %>
