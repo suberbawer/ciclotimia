@@ -1,3 +1,28 @@
 // Place all the styles related to the providers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#test tr:nth-child(even){
+    background: #C5C6C8;
+}
+
+#test tr:nth-child(odd) {
+    background: #D9DADB;
+}
+#test th {
+    background: #C5C6C8;
+}
+
+#test {
+    margin-top: 50px;
+    border-collapse: collapse;
+    border-spacing: 2px;
+    width: 100%;
+    text-align: left;
+}
+
+html {
+    background: #D9DADB;
+    border: 3px #00378b solid;
+    height: 100%;
+}
