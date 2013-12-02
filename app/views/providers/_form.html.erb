@@ -11,31 +11,59 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :lastname %><br>
-    <%= f.text_field :lastname %>
-  </div>
-  <div class="field">
-    <%= f.label :phone %><br>
-    <%= f.text_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_field :address %>
-  </div>
-  <div class="field">
-    <%= f.label :ci %><br>
-    <%= f.text_field :ci %>
-  </div>
-  <div class="actions">
+  <table>
+      <tr class="name">
+        <td>
+          <%= f.label :name %>
+        </td>
+        <td>
+          <%= f.text_field :name %>
+        </td>
+      </tr>
+      <tr class="lastname">
+        <td>
+          <%= f.label :lastname %>
+        </td>
+        <td>
+          <%= f.text_field :lastname %>
+        </td>
+      </tr>
+      <tr class="phone">
+        <td>
+          <%= f.label :phone %>
+        </td>
+        <td>
+          <%= f.text_field :phone %>
+        </td>
+      </tr>
+      <tr class="email">
+        <td>
+          <%= f.label :email %>
+        </td>
+        <td>
+          <%= f.text_field :email %>
+        </td>
+      </tr>
+      <tr class="addres">
+        <td>
+          <%= f.label :addzss %>
+        </td>
+        <td>
+          <%= f.text_field :address %>
+        </td>
+      </tr>
+      <tr class="ci">
+        <td>
+          <%= f.label :ci %>
+        </td>
+        <td>
+          <%= f.text_field :ci %>
+        </td>
+      </tr>
+  </table>
+
+  <div class="save">
     <%= f.submit %>
   </div>
+
 <% end %>
