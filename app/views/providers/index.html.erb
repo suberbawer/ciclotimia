@@ -1,6 +1,4 @@
-<h1>Listing providers</h1>
-
-<table>
+<table id="test">
   <thead>
     <tr>
       <th>Name</th>
@@ -32,6 +30,6 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Provider', new_provider_path %>
+<div class="new_provider_btn">
+  <%= button_to 'New Provider', new_provider_path, :method => "get" %>
+</div>
