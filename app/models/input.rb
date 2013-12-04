@@ -1,4 +1,5 @@
 class Input < ActiveRecord::Base
+
 	has_one :caja_transaction, :as =>:transaction
 	has_one :caja, :through => :caja_transactions
 	has_one :article
@@ -38,20 +39,19 @@ class Input < ActiveRecord::Base
 	#   - +input_list+ -> Lista con los inputs a ingresar.
 	#                     :type, [:amount], [:article] 
 	# * *Returns* :
-	#   - Mensaje dependiendo si salvo, o si tuvo algun error.
+	#   - json con los datos necesarios dependiendo si salvo, o si tuvo algun error.
 	#
 	def self.save_inputs (input_list)
-		current_open = Collect.get_open_caja
-		if current_open.present?
+		json_response = Collect.get_open_caja
+		if json_response['result'] == 'ok'
+			current_open = json_response['record']
 			input_list.each do |input|
 		    	new_input = self.build_input(input[1])
-		    	#new_input.save
-		    	current_open.caja_transactions.create(:transaction => new_input) # Agrego a la lista de inputs de la open_caja
+		    	current_open.caja_transactions.create!(:transaction => new_input) # Agrego a la lista de inputs de la open_caja
+		   		# TODO Si hay algun error aca, agregarlo a json_response
 		   	end
-		   	#puts current_open.caja_transactions
-		   	response_message = "OK"		   	
-		else
-			response_message = Collect.reason_not_current_open
-		end   
+		   	json_response['message'] = "Las transacciones se insertaron correctamente" # TODO aca tengo que ver si se salvaron los inputs correctamente.
+		end
+		return json_response
 	end
 end

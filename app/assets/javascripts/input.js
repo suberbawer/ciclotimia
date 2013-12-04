@@ -8,21 +8,23 @@ $(document).ready(function(){
 	 */
 	function Input()
 	{
-	    this.type  	 		    = 'sale';   					// Tipo, por defecto "venta".
-	    this.amount 		    = 0;  							// Monto, por defecto 0.
-	    this.article;											// Articulo relacionado.
-	    this.id;												// Id (client side) del input.
-
 		this._articleContainer  = $('#articleDetailContainer');	// Contenedor del detalle del articulo.
 		this._newInputContainer = $('#newInputPopup'); 			// Contenedor del nuevo input. 	    
 		this._articleId         = $('#articleInputId');			// Articulo relacionado.
 		this._typeRadio         = $('input:radio[name=type]');	// Selector de tipo (venta, alquiler).
+		this._amountContainer   = $('.amountContainer');        // Amount container.
+		this._amountInput       = $('#selectedAmount');         // Amount input.
+
+		this.type  	 		    = $(_.find(this._typeRadio, function(type){ return $(type).prop('checked'); })).val();
+	    this.amount 		    = 0 							// Monto (por defecto).
+	    this.article;											// Articulo relacionado.
+	    this.id;												// Id (client side) del input.
 
 		var self 			    = this;
 
 	    var privateMethod = function()
 	    {
-	        
+
 	    }
 
 	    this.setId = function(newId){
@@ -105,9 +107,11 @@ $(document).ready(function(){
 					dataType : 'html',
 					data     : { 'id' : self.getArticleId() },
 					success:function(data){
-						self._articleContainer.html(data); 	// muestro detalle del articulo seleccionado...
-						bindArticles();						// ... listeners de articulos...
-						self._newInputContainer.show();		// ... muestro popup de la venta.
+						self._articleContainer.html(data); 	// Muestro detalle del articulo seleccionado...
+						self._newInputContainer.show();		// ... y muestro popup de la venta.
+
+						var currentAmount = $('#selectedAmount').val();
+						self.setAmount(currentAmount);
 					}
 				});
 			}
@@ -143,18 +147,12 @@ $(document).ready(function(){
 	        self.setType(type);			
 	    });
 
+	    this._articleContainer.on('change', '#selectedAmount', function(e){
+	    	var amountInput = $(e.currentTarget);
+	    	var amount = amountInput.val();
+		    self.setAmount(amount);
+	    });
 
-	    /**
-	     *	Metodo encargado de agregar listeners relacionados a los articulos.
-	     */
-		function bindArticles(){
-			
-		    $('#selectedAmount').on('change', function(){
-		    	// Usuario cambia monto a ingresar.
-		    	var amount = $(this).val();
-		    	self.setAmount(amount);
-		    });
-		}
 	}
 
 	/**
@@ -220,7 +218,6 @@ $(document).ready(function(){
 	     *  @param Json de la lista de inputs a guardar.
 	     */
 	    this.saveInputList = function(objectInputList){
-	    	console.info(objectInputList);
 	    	if (this.inputList.length > 0) {
 	    		$.ajax({
 					url      : '/inputs/bulk_save',
@@ -228,14 +225,17 @@ $(document).ready(function(){
 					data     : {inputList : objectInputList},
 					success  : function(response)
 							   {
-							   		alert(response.message);
+							   		if (response.message.result === 'ok') {
+							   			// Se salvo correctamente el listado asi que borro la lista de inputs
+							   			self.closeInputList();
+							   		}
+							   		alert(response.message.message);
 							   },
 					error 	 : function(error)
 							   {
 							   		alert("Error: " + error);
 							   }
 				});
-				this.closeInputList();
 	    	}
 	    	else{
 	    		alert('No hay transacciones a guardar');

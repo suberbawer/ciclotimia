@@ -20,6 +20,7 @@ Ciclotimia::Application.routes.draw do
 
   resources :other_inputs
 
+    get "collects/today_collect"
 
 
   # The priority is based upon order of creation: first created -> highest priority.
