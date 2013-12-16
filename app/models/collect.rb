@@ -17,9 +17,9 @@ class Collect < Caja
 		end
 	end
 
-	# Cierra la caja actual, si no hay caja actual devuelve nil (no probado, testear).
+	# Cierra la caja actual , si no hay caja actual devuelve nil (no probado, testear).
 	def self.close_today_caja
-		if self.is_any_open_caja
+		if self.is_any_open_caja_today
 			current_collect 	   = self.get_open_caja
 			current_collect.status = 'closed'
 			current_collect.save
@@ -28,16 +28,31 @@ class Collect < Caja
 		end
 	end
 
-	# Devuelve true si hay una o mas cajas abiertas en cualquier fecha, falso de otra manera.
+	def self.close_previous_caja
+		if self.is_any_open_caja && !self.is_any_open_caja_today
+			current_collect = Collect.where(:status => 'open')[0]
+			current_collect.status = 'closed'
+			current_collect.save
+		else
+			current_collect = nil
+		end
+	end
+
+	# Devuelve true si hay una caja abierta en cualquier fecha, falso de otra manera.
 	# esto mismo hacerlo con una validacion.
 	def self.is_any_open_caja
 		Collect.where(:status => 'open').length >= 1
 	end
 
+	# Devuelve true si hay una caja abierta de hoy, falso de otra manera.
+	def self.is_any_open_caja_today
+		Collect.where(:status => 'open', :start_Date => DateTime.now.beginning_of_day..DateTime.now.end_of_day).length >= 1
+	end
+
 	# Obtiene un json con el mensaje (ok, o error con su mensaje correspondiente) y la caja abierta de hoy (si no hay error).
 	def self.get_open_caja
 		current_open  = Collect.where(:status => 'open', :start_Date => DateTime.now.beginning_of_day..DateTime.now.end_of_day)[0]
-		if current_open.present?
+		if !current_open.nil?
 			json_response = {'result' => 'ok', 'record' => current_open}
 		else
 			json_response = {'result' => 'error','message' => self.reason_not_current_open}
@@ -63,7 +78,7 @@ class Collect < Caja
 		reason = "No hay error con la caja"
 		if !self.is_any_open_caja
 			reason = "No hay una caja abierta" 
-		elsif !self.get_open_caja.present?
+		elsif !self.is_any_open_caja_today
 			reason = "La caja abierta no es del dia de hoy, cierrela e intente de nuevo"
 		end	
 	end

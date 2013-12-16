@@ -1,8 +1,9 @@
 <ul>
-	<% @today_inputs.each do |input| %>
+	<% @today_inputs.each do |input|  %>
 	  <li>
 	    <span><%= input.amount %></span>
 	    <span><%= input.type %></span>
+	    <span><%= input.article.description %></span>
 
 	  </li>
 	<% end %>
