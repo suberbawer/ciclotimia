@@ -6,6 +6,54 @@
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
+
+<!-- Horizontal drop down menu from all app -->
+<div id='appmenu'>
+	<ul>
+	    <li class='home'>
+	   		<a href='providers'><span>Home</span></a>
+	    </li>
+	    
+	    <li class='providers has-sub'>
+	        <%= link_to 'Proveedores', providers_path %> 
+	        <ul>
+	        	<li>
+	         		<%= link_to 'Nuevo Proveedor', new_provider_path, :method => "get" %>
+	         	</li>
+	      	</ul>
+	    </li>
+	    
+	    <li class='articles has-sub'>
+	   		<%= link_to 'Articulos', articles_path %>
+	   		<ul>
+	        	<li>
+	         		<%= link_to 'Nuevo Articulo', new_article_path, :method => "get" %>
+	         	</li>
+	      	</ul>
+	    </li>
+
+	    <li class='sales'>
+	   		<%= link_to 'Ventas', sales_path %>
+	    </li>
+	   	
+	   	<li class='inputs has-sub'>
+	   		<%= link_to 'Ingreso Caja', inputs_path %>
+	   		<ul>
+	   			<li>
+	   				<%= link_to 'Nuevo Ingreso Manual', new_input_path %>
+	   			</li>
+	   		</ul>
+	   	</li>
+
+	   	<li class='other_inputs'>
+	   		<%= link_to 'Otro Ingreso Caja', other_inputs_path %>
+	   	</li>
+	</ul>
+</div>
+
+<!-- Div to separate menu from body -->
+<div class='separate'></div>
+
 <body>
 
 <%= yield %>
