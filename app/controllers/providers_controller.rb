@@ -28,6 +28,9 @@ class ProvidersController < ApplicationController
 
     respond_to do |format|
       if @provider.save
+        # Tell the UserMailer to send a welcome email after save
+        UserMailer.welcome_email(@provider).deliver
+
         format.html { redirect_to @provider, notice: 'Provider was successfully created.' }
         format.json { render action: 'show', status: :created, location: @provider }
       else
