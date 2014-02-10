@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131113222351) do
+ActiveRecord::Schema.define(version: 20140103172655) do
 
   create_table "articles", force: true do |t|
     t.string   "description"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 20131113222351) do
     t.integer  "caja_transaction_id"
     t.string   "type"
     t.integer  "amount"
+    t.integer  "cancel_id"
+    t.string   "status",              default: "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

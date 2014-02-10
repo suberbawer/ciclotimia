@@ -2,8 +2,9 @@ class Collect < Caja
 	include ActiveModel::Validations
 
 	validate :only_one_open_caja , on: :create
-
 	#validate :start_date_not_open_collect_present
+
+
 
 	# Metodos de clase.
 
@@ -28,6 +29,7 @@ class Collect < Caja
 		end
 	end
 
+	# Cierra una caja de cualquier dia.
 	def self.close_previous_caja
 		if self.is_any_open_caja && !self.is_any_open_caja_today
 			current_collect = Collect.where(:status => 'open')[0]
@@ -63,6 +65,7 @@ class Collect < Caja
 		Collect.where(:start_Date => DateTime.now.beginning_of_day..DateTime.now.end_of_day)
 	end
 
+	# Obtiene las cajas de hoy
 	def self.get_today_transactions
 		today_cajas  = self.get_today_cajas
 		today_inputs = Array.new
@@ -82,6 +85,35 @@ class Collect < Caja
 			reason = "La caja abierta no es del dia de hoy, cierrela e intente de nuevo"
 		end	
 	end
+
+	# Metodo encargado de cancelar el input dado por parametro (se crea un nuevo input identico al anterior
+	# pero con amount opuesto y se inserta en la caja actual
+    # Devuelve ok si todo se ejecuto con exito, constantes si se reconoce el error, o el error si no lo reconoce.
+	def self.cancel_transaction (input_id)
+		message_cancelled = "ok"
+		input_to_cancel   = Input.find(input_id)
+		cancel_input      = input_to_cancel.create_cancel_input
+		
+		open_caja_response = Collect.get_open_caja
+		if open_caja_response['result'] == 'ok' && !input_to_cancel.nil? && !cancel_input.nil? 
+			begin
+			  	current_open = open_caja_response['record']
+				current_open.caja_transactions.create!(:transaction => cancel_input) # Agrego la anulacion a la open_caja
+			rescue ActiveRecord::RecordInvalid => e
+			  	message_cancelled = e.message
+			end
+		else
+			if open_caja_response['result'] != 'ok'
+				message_cancelled = "not_open_caja"	
+			elsif input_to_cancel.nil?
+				message_cancelled = "input_to_cancel_error"
+			elsif cancel_input.nil?
+				message_cancelled = "cancel_input_error"
+			end			
+		end
+		return message_cancelled
+	end
+
 
 
 	# Metodos de instancia.

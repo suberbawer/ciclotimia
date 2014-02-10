@@ -1,10 +1,28 @@
+<% if flash[:notice].present? %>
+  <p>
+  		<%= flash[:notice] %>
+  </p>
+<% end %>
 <ul>
 	<% @today_inputs.each do |input|  %>
-	  <li>
-	    <span><%= input.amount %></span>
-	    <span><%= input.type %></span>
-	    <span><%= input.article.description %></span>
-
-	  </li>
+		<a name="<%= input.id %>">
+			<li>
+				<span><%= input.amount %></span>
+				<span><%= input.type %></span>
+				<% if input.status == "active" %>
+					<!--  Es un input normal (no es cancel input) -->
+					<% if input.article.present? %>
+						<!--  El input tiene articulo, asi que mostramos su descripcion -->
+						<span><%= input.article.description %></span>
+					<% end %>
+					<%= button_to("Anular", {:action => "cancel_transaction", :input_to_cancel => input.id})%>
+				<% elsif input.status == "cancelled" %>
+					Anulado
+				<% elsif input.status == "cancel_input" %>
+					<!-- click aca, que agregue clase para animacion de input anulado -->
+					Anula: <a href="#<%= input.cancel_id %>"> transacción</a>
+				<% end %>
+			</li>
+		</a>	
 	<% end %>
 </ul>

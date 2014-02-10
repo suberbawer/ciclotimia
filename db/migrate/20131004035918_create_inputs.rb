@@ -4,7 +4,9 @@ class CreateInputs < ActiveRecord::Migration
       t.integer :caja_id
       t.integer :caja_transaction_id
       t.string  :type  
-      t.integer :amount  
+      t.integer :amount
+      t.integer :cancel_id
+      t.string  :status
       t.timestamps
     end
   end

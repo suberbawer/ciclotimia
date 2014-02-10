@@ -5,7 +5,9 @@ class Input < ActiveRecord::Base
 	has_one :article
 	accepts_nested_attributes_for :article
 
-	#scope :anteriores, lambda { where('created_at < = ?', Time.now) }
+	validate :correctly_update_status , on: :update
+
+	#scope :anteriores, lambda { where('created_at < = ?', Time.now) } named_scope
 	#scope :anteriores, ->(id) { where(:created_at => id)}
 
 	# 
@@ -53,5 +55,33 @@ class Input < ActiveRecord::Base
 		   	json_response['message'] = "Las transacciones se insertaron correctamente" # TODO aca tengo que ver si se salvaron los inputs correctamente.
 		end
 		return json_response
+	end
+
+
+	# Metodos de instancia
+
+	# Crea una copia de this (con amount inverso) y lo devuelve. 
+	def create_cancel_input
+		cancel_input           = Input.new
+		cancel_input.amount    = self.amount * -1
+		cancel_input.cancel_id = self.id
+		cancel_input.status    = "cancel_input"
+
+		self.status            = "cancelled"
+		self.save
+		return cancel_input
+	end
+
+	# Valida los posibles cambios de estado del input (por ejemplo no se puede cancelar un input ya cancelado, etc).
+	def correctly_update_status
+		errors.add(:base, 'La transaccion no fue exitosa') if self.invalid_status
+	end
+
+	# True si el cambio de status es no correcto, false de otra manera.
+	def invalid_status
+		invalid = false
+		if self.status_changed?
+			invalid = self.status_was != "active"
+		end
 	end
 end
