@@ -1,6 +1,6 @@
-<h1>Editing provider</h1>
+<h3>Editar Proveedor</h3>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @provider %> |
-<%= link_to 'Back', providers_path %>
+<%= button_to 'Show', @provider, :class => 'show_btn', :method => "get" %>
+<%= button_to 'Back', providers_path, :method => "get", :class => 'back_btn' %>

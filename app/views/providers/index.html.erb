@@ -1,35 +1,35 @@
-<table id="test">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Lastname</th>
-      <th>Phone</th>
-      <th>Email</th>
-      <th>Address</th>
-      <th>Ci</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<h3> Proveedores </h3>
 
-  <tbody>
-    <% @providers.each do |provider| %>
-      <tr>
-        <td><%= provider.name %></td>
-        <td><%= provider.lastname %></td>
-        <td><%= provider.phone %></td>
-        <td><%= provider.email %></td>
-        <td><%= provider.address %></td>
-        <td><%= provider.ci %></td>
-        <td><%= link_to 'Show', provider %></td>
-        <td><%= link_to 'Edit', edit_provider_path(provider) %></td>
-        <td><%= link_to 'Destroy', provider, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+<table id="providers">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Ci</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @providers.each do |provider| %>
+        <tr>
+            <td><%= provider.name %></td>
+            <td><%= provider.lastname %></td>
+            <td><%= provider.phone %></td>
+            <td><%= provider.email %></td>
+            <td><%= provider.address %></td>
+            <td><%= provider.ci %></td>
+            <td><%= link_to image_tag('show.png', size: "16x16"), provider %></td>
+            <td><%= link_to image_tag('edit.png', size: "16x16"), edit_provider_path(provider) %></td>
+            <td><%= link_to image_tag('delete.png', size: "16x16"), provider,  method: :delete, data: { confirm: 'Esta seguro/a?' } %></td>
+        </tr>
+        <% end %>
+    </tbody>
 </table>
 
-<div class="new_provider_btn">
-  <%= button_to 'New Provider', new_provider_path, :method => "get" %>
-</div>
+<%= button_to 'Nuevo Proveedor', new_provider_path, :method => "get", :class => 'new_provider_btn' %>

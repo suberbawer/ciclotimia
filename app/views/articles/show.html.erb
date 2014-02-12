@@ -1,3 +1,5 @@
+<h3><%= @article.description %></h3>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -30,5 +32,5 @@
   <%= @article.status %>
 </p>
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+<%= button_to 'Edit', edit_article_path(@article), :method => "get", :class => 'edit_btn' %> 
+<%= button_to 'Back', articles_path, :method => "get", :class => 'back_btn' %>
