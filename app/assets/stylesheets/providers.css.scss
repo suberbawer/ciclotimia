@@ -2,40 +2,30 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#test tr:nth-child(even){
+#providers tr:nth-child(even){
     background: #C5C6C8;
 }
 
-#test tr:nth-child(odd) {
+#providers tr:nth-child(odd) {
     background: #D9DADB;
 }
-#test th {
+#providers th {
     background: #C5C6C8;
 }
 
-#test {
+#providers {
     border-collapse: collapse;
     border-spacing: 2px;
     width: 100%;
     text-align: left;
 }
 
-html {
-    background: #D9DADB;
-    border: 3px #00378b solid;
-    height: 100%;
-}
-
 .new_provider {
     background: #D9DADB;
 }
 
-.new_provider_btn, .back_btn{
+.new_provider_btn, .back_btn, .edit_btn, .show_btn, .save{
     float: right;
     margin-top: 25px;
-}
-
-.save {
-    float: right;
-    margin-top: 25px;
+    cursor:pointer;
 }

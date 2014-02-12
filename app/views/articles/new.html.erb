@@ -1,5 +1,6 @@
-<h1>New article</h1>
+<h3>Nuevo Artículo</h3>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', articles_path %>
+<%= button_to 'Back', articles_path, :method => "get", :class => 'back_btn' %>
+

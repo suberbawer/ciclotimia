@@ -1,6 +1,6 @@
-<h1>Listing articles</h1>
+<h3>Artículos</h3>
 
-<table>
+<table id="articles">
   <thead>
     <tr>
       <th>Description</th>
@@ -24,9 +24,9 @@
         <td><%= article.commission_per %></td>
         <td><%= article.commission_cash %></td>
         <td><%= article.status %></td>
-        <td><%= link_to 'Show', article %></td>
-        <td><%= link_to 'Edit', edit_article_path(article) %></td>
-        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to image_tag('show.png', size: "16x16"), article %></td>
+        <td><%= link_to image_tag('edit.png', size: "16x16"), edit_article_path(article) %></td>
+        <td><%= link_to image_tag('delete.png', size: "16x16"), article,  method: :delete, data: { confirm: 'Esta seguro/a?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +34,4 @@
 
 <br>
 
-<%= link_to 'New Article', new_article_path %>
+<%= button_to 'Nuevo Artículo', new_provider_path, :method => "get", :class => 'new_article_btn' %>

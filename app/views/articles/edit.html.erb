@@ -1,6 +1,6 @@
-<h1>Editing article</h1>
+<h3>Editar Artículo</h3>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @article %> |
-<%= link_to 'Back', articles_path %>
+<%= button_to 'Show', @article, :class => 'show_btn', :method => "get" %>
+<%= button_to 'Back', articles_path, :method => "get", :class => 'back_btn' %>
