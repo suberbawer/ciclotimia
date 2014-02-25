@@ -10,4 +10,20 @@ class CollectsController < ApplicationController
         flash[:notice]      = (correctly_cancelled == "ok") ? "Transacción correctamente anulada": "Hubo un error en la anulación"
         redirect_to action: :today_collect
     end
+
+    def open_today_caja
+    	successfully_opened = Collect.open_caja
+    	flash[:notice]      = (successfully_opened) ? 'La caja se abrio correctamente' : 'Ya hay una caja abierta'
+    	redirect_to action: :index
+    end
+
+    def close_today_caja
+    	successfully_closed = Collect.close_today_caja
+    	flash[:notice]      = (successfully_closed) ? 'La caja de hoy fue correctamente cerrada' : 'No había caja abierta o la caja abierta no es del día de hoy'
+    	redirect_to action: :index
+    end
+
+    def index
+    	@today_open_caja = Collect.get_open_caja()
+    end
 end

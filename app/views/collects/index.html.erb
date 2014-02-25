@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+<div>
+	<% if @today_open_caja['result'] == 'ok' %>
+		<a href="/collects/today_collect">
+			Id:
+			<span><%= @today_open_caja['record'].id %></span><br />
+			Creado:
+			<span><%= @today_open_caja['record'].created_at %></span>
+		</a>
+		<%= form_tag(controller: "collects", action: "close_today_caja", method: "post") do%>
+			<%= submit_tag 'Cerrar caja actual', :disable_with => 'Please wait...', :class => 'submit' %>
+		<% end %>
+
+
+	<% else %>
+		<div>
+			<%= @today_open_caja['message'] %>	
+		</div>
+		
+		<% if @today_open_caja['result'] == 'no_open' %>
+			<%= form_tag(controller: "collects", action: "open_today_caja", method: "post") do%>
+				<%= submit_tag 'Abrir caja', :disable_with => 'Please wait...', :class => 'submit' %>
+			<% end %>
+		<% elsif @today_open_caja['result'] == 'open_before' %>
+			Boton Cerrar caja anterior
+		<% end %>
+			
+	<% end %>
+</div>

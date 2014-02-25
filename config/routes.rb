@@ -22,6 +22,12 @@ Ciclotimia::Application.routes.draw do
 
     get "collects/today_collect"
 
+    get "collects/index"
+
+    post "collects/close_today_caja"
+
+    post "collects/open_today_caja"
+
     post "collects/cancel_transaction"
 
 

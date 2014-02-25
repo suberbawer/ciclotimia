@@ -1,6 +1,8 @@
 class Collect < Caja
 	include ActiveModel::Validations
 
+	#Refactorizar toda la clase!!!!
+
 	validate :only_one_open_caja , on: :create
 	#validate :start_date_not_open_collect_present
 
@@ -21,7 +23,7 @@ class Collect < Caja
 	# Cierra la caja actual , si no hay caja actual devuelve nil (no probado, testear).
 	def self.close_today_caja
 		if self.is_any_open_caja_today
-			current_collect 	   = self.get_open_caja
+			current_collect 	   = self.get_open_caja['record']
 			current_collect.status = 'closed'
 			current_collect.save
 		else
@@ -57,7 +59,7 @@ class Collect < Caja
 		if !current_open.nil?
 			json_response = {'result' => 'ok', 'record' => current_open}
 		else
-			json_response = {'result' => 'error','message' => self.reason_not_current_open}
+			json_response = {'result' => self.error_not_open,'message' => self.reason_not_current_open}
 		end
 	end
 
@@ -86,9 +88,20 @@ class Collect < Caja
 		end	
 	end
 
+	# Obtiene la razon por la cual no hay caja abierta (solo la constante, si, hay que refactorizar).
+	def self.error_not_open
+		reason = "ok"
+		if !self.is_any_open_caja
+			reason = "no_open" 
+		elsif !self.is_any_open_caja_today
+			reason = "open_before"
+		end	
+	end
+
 	# Metodo encargado de cancelar el input dado por parametro (se crea un nuevo input identico al anterior
 	# pero con amount opuesto y se inserta en la caja actual
     # Devuelve ok si todo se ejecuto con exito, constantes si se reconoce el error, o el error si no lo reconoce.
+	# REFACTORIZAR
 	def self.cancel_transaction (input_id)
 		message_cancelled = "ok"
 		input_to_cancel   = Input.find(input_id)

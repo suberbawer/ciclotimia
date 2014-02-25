@@ -33,6 +33,8 @@ function toggleActiveOption(url){
 		$('.articles').addClass('active');
 	} else if (url.toLowerCase().indexOf('sales') > -1) {
 		$('.sales').addClass('active');
+	} else if (url.toLowerCase().indexOf('collects') > -1) {
+		$('.collects').addClass('active');
 	} else if (url.toLowerCase().indexOf('inputs') > -1) {
 		$('.inputs').addClass('active');
 	} else if (url.toLowerCase().indexOf('other_inputs') > -1) {
