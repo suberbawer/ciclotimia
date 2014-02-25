@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+<div>
+
+	<%= form_tag(controller: "articles", action: "devolution", method: "post") do%>
+		<%= label_tag(:article_id, "Ingrese artículo a devolver") %>
+  		<%= text_field_tag(:article_id) %>
+		<%= submit_tag 'Devolver artículo', :disable_with => 'Please wait...', :class => 'submit' %>
+	<% end %>
+
+</div>

@@ -66,6 +66,18 @@ class ArticlesController < ApplicationController
     render :partial => 'list_articles', :content_type => 'text/html'
   end
 
+  def devolution
+      if request.post?
+          article_to_return = Article.find(params['article_id']) 
+          returned = article_to_return.return_article
+          if returned
+              flash[:notice] = "El artículo se devolvió correctamente"
+          else
+              flash[:notice] = "El artículo no se pudo devolver, verifique que esté siendo alquilado ahora"
+          end
+      end
+  end
+
   def fetch_data
     @article = Article.find_by_id(params[:id])
     render :partial => 'article_detail', :content_type => 'text/html'

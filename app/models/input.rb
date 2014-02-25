@@ -31,6 +31,10 @@ class Input < ActiveRecord::Base
 		  puts "Tipo de input no reconocido"
 		end
 		input.build_input(input_data)
+		related_article = Article.find input_data[:article]
+		if related_article
+			related_article.set_status(input.type)
+		end
 		return input
 	end
 
@@ -68,6 +72,7 @@ class Input < ActiveRecord::Base
 		cancel_input.status    = "cancel_input"
 
 		self.status            = "cancelled"
+		self.article.status    = ""		# El articulo ya no esta ni vendido ni alquilado
 		self.save
 		return cancel_input
 	end

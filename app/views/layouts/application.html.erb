@@ -38,25 +38,21 @@
 
 
         <li class='collects has-sub'>
-            <a href="/collects/index">Gestionar caja</a>
+            <a href="/collects/today_collect">Caja</a>
             <ul>
                 <li>
-                    <a href="/collects/index">Gestionar caja</a>
+                    <a href="/collects/index">Gestionar caja actual</a>
                 </li>
             </ul>
         </li>
         
         <li class='inputs has-sub'>
-            <%= link_to 'Ingreso Caja', inputs_path %>
+            <%= link_to 'Ingreso Caja', "/inputs/show" %>
             <ul>
                 <li>
                     <%= link_to 'Nuevo Ingreso Manual', new_input_path %>
                 </li>
             </ul>
-        </li>
-
-        <li class='other_inputs'>
-            <%= link_to 'Otro Ingreso Caja', other_inputs_path %>
         </li>
     </ul>
 </div>

@@ -1,5 +1,8 @@
 Ciclotimia::Application.routes.draw do
-  resources :articles      
+  
+  get "articles/devolution"
+  post "articles/devolution"
+  resources :articles
     post "articles/list"
 
     post "articles/fetch_data"
@@ -16,7 +19,9 @@ Ciclotimia::Application.routes.draw do
     
     post "inputs/new_manual_input"
 
-    post "inputs/bulk_save"    
+    post "inputs/bulk_save" 
+
+    get "inputs/show"    
 
   resources :other_inputs
 
