@@ -49,9 +49,10 @@ ActiveRecord::Schema.define(version: 20140103172655) do
     t.integer  "caja_transaction_id"
     t.string   "type"
     t.integer  "amount"
+    t.integer  "cancel_id"
+    t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "status",              default: "active"
   end
 
   create_table "outputs", force: true do |t|

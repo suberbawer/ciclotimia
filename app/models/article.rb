@@ -1,6 +1,7 @@
 class Article < ActiveRecord::Base
 	belongs_to :transaction
 	belongs_to :input
+	belongs_to :provider
 
 	# Devuelve true si el articulo tiene un input asociado, de otra forma false.
 	def has_input
