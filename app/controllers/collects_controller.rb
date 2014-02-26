@@ -19,8 +19,14 @@ class CollectsController < ApplicationController
 
     def close_today_caja
     	successfully_closed = Collect.close_today_caja
-    	flash[:notice]      = (successfully_closed) ? 'La caja de hoy fue correctamente cerrada' : 'No había caja abierta o la caja abierta no es del día de hoy'
+    	flash[:notice]      = (successfully_closed) ? 'La caja de hoy fue correctamente cerrada' : 'No hay caja abierta o la caja abierta no es del día de hoy'
     	redirect_to action: :index
+    end
+
+    def close_another_caja
+        successfully_closed = Collect.close_previous_caja
+        flash[:notice]      = (successfully_closed) ? 'La caja anterior fue correctamente cerrada' : 'No hay caja abierta'
+        redirect_to action: :index
     end
 
     def index

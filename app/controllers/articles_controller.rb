@@ -67,15 +67,15 @@ class ArticlesController < ApplicationController
   end
 
   def devolution
-      if request.post?
-          article_to_return = Article.find(params['article_id']) 
-          returned = article_to_return.return_article
-          if returned
-              flash[:notice] = "El artículo se devolvió correctamente"
-          else
-              flash[:notice] = "El artículo no se pudo devolver, verifique que esté siendo alquilado ahora"
-          end
-      end
+    if request.post?
+        article_to_return = Article.find(params['article_id']) 
+        returned = article_to_return.return_article
+        if returned
+            flash[:notice] = "El artículo se devolvió correctamente"
+        else
+            flash[:notice] = "El artículo no se pudo devolver, verifique que esté siendo alquilado ahora"
+        end
+    end
   end
 
   def fetch_data

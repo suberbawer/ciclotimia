@@ -14,6 +14,7 @@ $(document).ready(function(){
 		this._typeRadio         = $('input:radio[name=type]');	// Selector de tipo (venta, alquiler).
 		this._amountContainer   = $('.amountContainer');        // Amount container.
 		this._amountInput       = $('#selectedAmount');         // Amount input.
+		this._formContainer     = $('#formContainer');			// Container of the form.
 
 		this.type  	 		    = $(_.find(this._typeRadio, function(type){ return $(type).prop('checked'); })).val();
 	    this.amount 		    = 0 							// Monto (por defecto).
@@ -53,6 +54,20 @@ $(document).ready(function(){
 
 	    this.getArticleId = function() {
 	        return this.article;
+	    }
+
+	    /**
+	     *	Metodo encargado de mostrar o esconder el form container.
+	     *	(depende de el estado del articulo).
+	     */
+	    this.showFormContainer = function(relatedArticle){
+	    	if (relatedArticle.data('status') == null) {
+	    		this._formContainer.hide();
+	    	}
+	    	else{
+	    		this._formContainer.show();
+	    	}
+	    	
 	    }
 
 	    this.setArticle = function(newArticle) {
@@ -108,6 +123,7 @@ $(document).ready(function(){
 					data     : { 'id' : self.getArticleId() },
 					success:function(data){
 						self._articleContainer.html(data); 	// Muestro detalle del articulo seleccionado...
+						self.showFormContainer($('.articleData'));
 						self._newInputContainer.show();		// ... y muestro popup de la venta.
 
 						var currentAmount = $('#selectedAmount').val();

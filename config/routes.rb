@@ -33,6 +33,8 @@ Ciclotimia::Application.routes.draw do
 
     post "collects/open_today_caja"
 
+    post "collects/close_another_caja"
+
     post "collects/cancel_transaction"
 
 

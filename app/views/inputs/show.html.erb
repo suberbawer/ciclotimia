@@ -13,17 +13,19 @@
 
 	</div>
 
-	<%= form_tag({:action => 'new_manual_input'}, :remote => true, :'data-update-target' => 'inputSuccessMessage') do %>
+	<div id="formContainer">
+		<%= form_tag({:action => 'new_manual_input'}, :remote => true, :'data-update-target' => 'inputSuccessMessage') do %>
 
-		<%= radio_button_tag(:type, "sale", :checked => 'checked') %>
-		<%= label_tag(:sale, "Venta") %>
-		<%= radio_button_tag(:type, "rent") %>
-		<%= label_tag(:rent, "Alquiler") %> 
+			<%= radio_button_tag(:type, "sale", :checked => 'checked') %>
+			<%= label_tag(:sale, "Venta") %>
+			<%= radio_button_tag(:type, "rent") %>
+			<%= label_tag(:rent, "Alquiler") %> 
 
-	<% end %>
-	
+		<% end %>
+		
 
-	<input type="button" value="Confirmar transaccion" id="confirmInput"/>
+		<input type="button" value="Confirmar transaccion" id="confirmInput"/>
+	</div>
 </div>
 
 <!-- Lista de inputs en el lote actual. -->
