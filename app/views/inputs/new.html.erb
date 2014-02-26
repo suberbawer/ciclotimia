@@ -1,13 +1,5 @@
 <h1>Ingreso manual</h1>
 
-
-<input type="text" id="amount-manual-input" placeholder="Importe"/>
-<input type="text" id="description-input" placeholder="Concepto"/>
-Es venta?
-<input type="checkbox" checked="checked" id="sale" />
-<br />
-<input type="button" id="new-manual-input" value="Guardar"/>
-
 <%= form_tag({:action => 'new_manual_input'}, :remote => true, :'data-update-target' => 'update-amount-container', :with => "'article_id=' + id") do%>
  	<%= label_tag(:amount, "Monto") %>
   	<%= text_field_tag(:amount) %>

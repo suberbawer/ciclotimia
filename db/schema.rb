@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20140103172655) do
     t.string   "type"
     t.integer  "amount"
     t.integer  "cancel_id"
-    t.string   "status"
+    t.string   "status",              default: "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
