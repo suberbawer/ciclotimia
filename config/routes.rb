@@ -2,6 +2,13 @@ Ciclotimia::Application.routes.draw do
   
   get "articles/devolution"
   post "articles/devolution"
+
+
+  get "reports/index"
+  post "reports/index"
+
+  resources :reports
+
   resources :articles
     post "articles/list"
 

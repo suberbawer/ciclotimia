@@ -1,0 +1,49 @@
+<h3> Reportes </h3>
+
+<div>
+	<%= form_tag(controller: "reports", action: "index", method: "post") do%>
+		<!-- Entre fecha y fecha-->
+		<%= label_tag(:start_date, "Fecha de inicio") %>
+  		<%= text_field_tag(:start_date) %>
+  		<%= label_tag(:end_date, "Fecha de fin") %>
+  		<%= text_field_tag(:end_date) %>
+		<%= submit_tag 'Reporte', :disable_with => 'Please wait...', :class => 'submit' %>
+	<% end %>
+
+	<%= form_tag(controller: "reports", action: "index", method: "post") do%>
+		<%= hidden_field_tag(:start_date, "mes") %>
+		<!-- Mes corriente -->
+		<%= submit_tag 'Reporte de mes corriente', :disable_with => 'Please wait...', :class => 'submit' %>
+	<% end %>
+
+	<%= form_tag(controller: "reports", action: "index", method: "post") do%>
+		<%= hidden_field_tag(:start_date, "diario") %>
+		<!-- Mes corriente -->
+		<%= submit_tag 'Reporte de hoy', :disable_with => 'Please wait...', :class => 'submit' %>
+	<% end %>
+		
+
+</div>
+
+<table id="reports">
+    <thead>
+        <tr>
+            <th>Descripcion de Articulo</th>
+            <th>Precio Estimado</th>
+            <th>Estado</th>
+            <th>Precio Final</th>
+            <th>Fecha de Venta</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @transactions.each do |transaction| %>
+        <tr>
+        	<td><%= transaction.article.description %></td>
+        	<td><%= transaction.article.estimated_price %></td>
+        	<td><%= transaction.status %></td>
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.created_at %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
