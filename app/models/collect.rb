@@ -70,7 +70,7 @@ class Collect < Caja
 	# Obtiene las cajas de hoy
 	def self.get_today_transactions
 		today_cajas  = self.get_today_cajas
-		today_inputs = Array.new
+		today_inputs = []
 		today_cajas.each do |today_caja|
 		   today_inputs.concat( today_caja.inputs ) 
 		end

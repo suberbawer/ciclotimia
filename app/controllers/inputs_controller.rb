@@ -35,8 +35,10 @@ class InputsController < ApplicationController
 	end
 
 	def new_manual_input
-		new_input = Input.build_input(params)
-		@is_saved = new_input.save
-		render :partial => 'manual_input', :content_type => 'text/html'
+		#response_message = Input.save_inputs(params[:inputList])
+		params[:type]  = 'other_input'
+		new_input      = Input.save_single_input(params)
+		flash[:notice] = (new_input) ? 'La transacción manual se realizo correctamente' : 'La transacción no se pudo realizar'
+		redirect_to controller: :collects, action: :today_collect
 	end
 end

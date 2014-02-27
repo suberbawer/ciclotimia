@@ -6,6 +6,7 @@ class CreateInputs < ActiveRecord::Migration
       t.string  :type  
       t.integer :amount
       t.integer :cancel_id
+      t.string  :concept
       t.string  :status, :default => 'active'
       t.timestamps
     end

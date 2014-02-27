@@ -31,9 +31,11 @@ class Input < ActiveRecord::Base
 		  puts "Tipo de input no reconocido"
 		end
 		input.build_input(input_data)
-		related_article = Article.find input_data[:article]
-		if related_article
-			related_article.set_status(input.type)
+		if input_data[:article]
+			related_article = Article.find input_data[:article]
+			if related_article
+				related_article.set_status(input.type)
+			end
 		end
 		return input
 	end
@@ -59,6 +61,16 @@ class Input < ActiveRecord::Base
 		   	json_response['message'] = "Las transacciones se insertaron correctamente" # TODO aca tengo que ver si se salvaron los inputs correctamente.
 		end
 		return json_response
+	end
+
+	def self.save_single_input (input_data)
+		json_response = Collect.get_open_caja
+		if json_response['result'] == 'ok'
+			current_open = json_response['record']
+			new_input = self.build_input(input_data)
+		    current_open.caja_transactions.create!(:transaction => new_input)
+		end
+		return new_input
 	end
 
 
