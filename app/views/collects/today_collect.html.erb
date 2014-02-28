@@ -4,24 +4,24 @@
   </p>
 <% end %>
 <ul>
-	<% if @today_inputs.length > 0 %>
-		<% @today_inputs.each do |input|  %>
-			<a name="<%= input.id %>">
+	<% if @today_transactions.length > 0 %>
+		<% @today_transactions.each do |transaction|  %>
+			<a name="<%= transaction.id %>">
 				<li>
-					<span><%= input.amount %></span>
-					<span><%= input.type %></span>
-					<% if input.status == "active" %>
-						<!--  Es un input normal (no es cancel input) -->
-						<% if input.article.present? %>
-							<!--  El input tiene articulo, asi que mostramos su descripcion -->
-							<span><%= input.article.description %></span>
-						<% end %>
-						<%= button_to("Anular", {:action => "cancel_transaction", :input_to_cancel => input.id})%>
-					<% elsif input.status == "cancelled" %>
+					<span><%= transaction.amount %></span>
+					<span><%= transaction.type %></span>
+					<% if transaction.status == "active" %>
+						<!--  Es un transaction normal (no es cancel transaction) -->
+							<% if transaction.article.present? %>
+								<!--  El transaction tiene articulo, asi que mostramos su descripcion -->
+								<span><%= transaction.article.description %></span>
+							<% end %>	
+						<%= button_to("Anular", {:action => "cancel_transaction", :input_to_cancel => transaction.id})%>
+					<% elsif transaction.status == "cancelled" %>
 						Anulado
-					<% elsif input.status == "cancel_input" %>
-						<!-- click aca, que agregue clase para animacion de input anulado -->
-						Anula: <a href="#<%= input.cancel_id %>"> transacción</a>
+					<% elsif transaction.status == "cancel_input" %>
+						<!-- click aca, que agregue clase para animacion de transaction anulado -->
+						Anula: <a href="#<%= transaction.cancel_id %>"> transacción</a>
 					<% end %>
 				</li>
 			</a>	

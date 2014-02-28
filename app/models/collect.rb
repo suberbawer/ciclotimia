@@ -69,12 +69,15 @@ class Collect < Caja
 
 	# Obtiene las cajas de hoy
 	def self.get_today_transactions
-		today_cajas  = self.get_today_cajas
-		today_inputs = []
+		today_cajas   = self.get_today_cajas
+		today_inputs  = []
+		today_outputs = []
 		today_cajas.each do |today_caja|
-		   today_inputs.concat( today_caja.inputs ) 
+			puts today_caja.inputs
+		   today_inputs.concat( today_caja.inputs )
+		   today_outputs.concat( today_caja.outputs ) 
 		end
-		return today_inputs
+		return today_inputs.concat( today_outputs )
 		# despues concatenar los inputs con los outputs [ "a", "b" ].concat( ["c", "d"] ) 
 	end
 

@@ -29,6 +29,7 @@ class Input < ActiveRecord::Base
 		  input = OtherInput.new
 		else
 		  puts "Tipo de input no reconocido"
+		  return nil
 		end
 		input.build_input(input_data)
 		if input_data[:article]

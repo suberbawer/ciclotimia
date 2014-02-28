@@ -2,6 +2,7 @@ class Output < ActiveRecord::Base
 	has_one :caja_transaction, :as =>:transaction
 	has_one :caja, :through => :caja_transactions
 	has_one :article
+	accepts_nested_attributes_for :article
 
 	def self.save_single_output (output_data)
 		json_response = Collect.get_open_caja

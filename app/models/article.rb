@@ -1,6 +1,7 @@
 class Article < ActiveRecord::Base
 	belongs_to :transaction
 	belongs_to :input
+	belongs_to :output
 	belongs_to :provider
 
 	# Devuelve true si el articulo tiene un input asociado, de otra forma false.
@@ -19,7 +20,7 @@ class Article < ActiveRecord::Base
 		when "OtherInput"
 		  	new_status = ""
 		else
-		  	new_status = ""
+		  	new_status = "Output"
 		end
 		self.status = new_status
 		self.save
