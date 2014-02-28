@@ -1,0 +1,20 @@
+<h1>Egreso manual</h1>
+
+<%= form_tag({:action => 'new_manual_output'}) do%>
+ 	<%= label_tag(:amount, "Monto") %>
+  	<%= text_field_tag(:amount) %>
+
+  	<%= label_tag(:concept, "Concepto") %>
+  	<%= text_field_tag(:concept) %>
+
+	<%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit' %>
+<% end %>
+
+
+<%= link_to 'Back', inputs_path %>
+
+
+<div id="update-amount-container">
+
+
+</div>

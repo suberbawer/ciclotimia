@@ -21,7 +21,11 @@ Ciclotimia::Application.routes.draw do
 
     post "inputs/bulk_save" 
 
-    get "inputs/show"    
+    get "inputs/show" 
+
+  resources :outputs
+    
+    post "outputs/new_manual_output" 
 
   resources :other_inputs
 
