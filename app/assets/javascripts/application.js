@@ -37,8 +37,8 @@ function toggleActiveOption(url){
 		$('.collects').addClass('active');
 	} else if (url.toLowerCase().indexOf('inputs') > -1) {
 		$('.inputs').addClass('active');
-	} else if (url.toLowerCase().indexOf('other_inputs') > -1) {
-		$('.other_inputs').addClass('active');
+	} else if (url.toLowerCase().indexOf('outputs') > -1) {
+		$('.outputs').addClass('active');
 	}
 }
 
