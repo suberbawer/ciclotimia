@@ -12,24 +12,28 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :description %><br>
+    <%= f.label 'Descripción' %><br>
     <%= f.text_field :description %>
   </div>
   <div class="field">
-    <%= f.label :estimated_price %><br>
+    <%= f.label 'Precio Estimado' %><br>
     <%= f.text_field :estimated_price %>
   </div>
   <div class="field">
-    <%= f.label :entry_date %><br>
+    <%= f.label 'Fecha de Entrada' %><br>
     <%= f.date_select :entry_date %>
   </div>
   <div class="field">
-    <%= f.label :commission_per %><br>
+    <%= f.label 'Porcetaje Comisión' %><br>
     <%= f.text_field :commission_per %>
   </div>
   <div class="field">
-    <%= f.label :commission_cash %><br>
+    <%= f.label 'Efectivo Comisión' %><br>
     <%= f.text_field :commission_cash %>
+  </div>
+  <div class="field">
+    <%= f.label 'Proveedor' %><br>
+    <%= f.collection_select :provider_id, Provider.order(:name),:id,:name, include_blank: true %>
   </div>
   <div class="actions">
     <%= f.submit %>

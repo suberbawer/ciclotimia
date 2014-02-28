@@ -27,10 +27,7 @@ class ProvidersController < ApplicationController
     @provider = Provider.new(provider_params)
 
     respond_to do |format|
-      if @provider.save
-        # Tell the UserMailer to send a welcome email after save
-        UserMailer.welcome_email(@provider).deliver
-
+      if @provider.save        
         format.html { redirect_to @provider, notice: 'Provider was successfully created.' }
         format.json { render action: 'show', status: :created, location: @provider }
       else
@@ -45,6 +42,10 @@ class ProvidersController < ApplicationController
   def update
     respond_to do |format|
       if @provider.update(provider_params)
+        # Tell the UserMailer to send a welcome email after save
+        # Colocar en el envio del mail boton
+        UserMailer.new_articles_provider(@provider).deliver 
+        
         format.html { redirect_to @provider, notice: 'Provider was successfully updated.' }
         format.json { head :no_content }
       else

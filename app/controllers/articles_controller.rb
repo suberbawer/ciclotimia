@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.all
+    @articles = Article.find(:all, :order => "created_at DESC" )
   end
 
   # GET /articles/1
@@ -28,6 +28,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
+        BarcodeController.generate_barcodes(@article.id)
         format.html { redirect_to @article, notice: 'Article was successfully created.' }
         format.json { render action: 'show', status: :created, location: @article }
       else
@@ -91,6 +92,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:description, :estimated_price, :entry_date, :commission_per, :commission_cash, :status)
+      params.require(:article).permit(:description, :estimated_price, :entry_date, :commission_per, :commission_cash, :status, :provider_id)
     end
 end

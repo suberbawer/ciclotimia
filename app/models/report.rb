@@ -18,8 +18,16 @@ class Report < Caja
 		end
 
 		return Input.find(:all, :conditions => ["created_at between ? and ?", start_date, end_date])
-		
 	end
-	#Input.find(:all, :conditions => ["created_at between ? and ?", 
-	#		Date.today, Date.today.next_month.beginning_of_month])
+
+	def self.total_amount(list_transactions)
+		aux = 0;
+		total_amount = 0;
+		list_transactions.each do |transaction|
+			aux = transaction.amount
+			total_amount = aux + total_amount
+		end
+
+		return total_amount
+	end
 end

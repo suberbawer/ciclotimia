@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140103172655) do
+ActiveRecord::Schema.define(version: 20140228031549) do
 
   create_table "articles", force: true do |t|
     t.string   "description"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140103172655) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "input_id"
+    t.integer  "provider_id"
   end
 
   create_table "caja_transactions", force: true do |t|
@@ -49,10 +50,9 @@ ActiveRecord::Schema.define(version: 20140103172655) do
     t.integer  "caja_transaction_id"
     t.string   "type"
     t.integer  "amount"
-    t.integer  "cancel_id"
-    t.string   "status",              default: "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status",              default: "active"
   end
 
   create_table "outputs", force: true do |t|
