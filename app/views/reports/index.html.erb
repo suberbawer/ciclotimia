@@ -1,28 +1,77 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+
+<script>
+    $(function() {
+        $( "#start_date" ).datepicker();
+        $( "#end_date" ).datepicker();
+    });
+
+    function validateDates(){
+        var startDate = $('#start_date').val();
+        var endDate   = $('#end_date').val();
+
+        var startDateDay   = startDate.split('/')[1];
+        var startDateMonth = startDate.split('/')[0];
+        var startDateYear  = startDate.split('/')[2];
+
+        var endDateDay   = endDate.split('/')[1];
+        var endDateMonth = endDate.split('/')[0];
+        var endDateYear  = endDate.split('/')[2];
+
+        if (startDate == '' || endDate == '') {
+            alert('No pueden haber fechas vacías, por favor corregir');
+        } else {
+            if(startDateYear <= endDateYear) {
+                if(startDateMonth <= endDateMonth) {
+                    if(startDateDay > endDateDay) {
+                        alert('La fecha de inicio debe ser menor q la de fin');
+                    }
+                } else {
+                    alert('La fecha de inicio debe ser menor q la de fin');
+                }
+            } else {
+                alert('La fecha de inicio debe ser menor q la de fin');
+            }
+        }
+    }
+
+    $(document).ready(function (){
+        $('.submit_from_to').bind('click', function(){
+            validateDates();
+        }); 
+    });
+
+</script>
+
 <h3> Reportes </h3>
 
-<div>
-	<%= form_tag(controller: "reports", action: "index", method: "post") do%>
-		<!-- Entre fecha y fecha-->
-		<%= label_tag(:start_date, "Fecha de inicio") %>
-  		<%= text_field_tag(:start_date) %>
-  		<%= label_tag(:end_date, "Fecha de fin") %>
-  		<%= text_field_tag(:end_date) %>
-		<%= submit_tag 'Reporte', :disable_with => 'Please wait...', :class => 'submit' %>
-	<% end %>
-
-	<%= form_tag(controller: "reports", action: "index", method: "post") do%>
-		<%= hidden_field_tag(:start_date, "mes") %>
-		<!-- Mes corriente -->
-		<%= submit_tag 'Reporte de mes corriente', :disable_with => 'Please wait...', :class => 'submit' %>
-	<% end %>
-
-	<%= form_tag(controller: "reports", action: "index", method: "post") do%>
-		<%= hidden_field_tag(:start_date, "diario") %>
-		<!-- Mes corriente -->
-		<%= submit_tag 'Reporte de hoy', :disable_with => 'Please wait...', :class => 'submit' %>
-	<% end %>
-	
+<div class="report_options">
+        <%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "from_to_specified") do%>
+    		<!-- Entre fecha y fecha-->
+    		<%= label_tag(:start_date, "Fecha de inicio") %>
+      		<%= text_field_tag(:start_date) %>
+      		<%= label_tag(:end_date, "Fecha de fin") %>
+      		<%= text_field_tag(:end_date) %>
+    		<%= submit_tag 'Reporte', :disable_with => 'Please wait...', :class => 'submit_from_to' %>
+    	<% end %>    
+    
+    	<%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "month") do%>
+    		<%= hidden_field_tag(:start_date, "mes") %>
+    		<!-- Mes corriente -->
+    		<%= submit_tag 'Reporte de mes corriente', :disable_with => 'Please wait...', :class => 'submit_month' %>
+    	<% end %>
+   
+    	<%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "day") do%>
+    		<%= hidden_field_tag(:start_date, "diario") %>
+    		<!-- Mes corriente -->
+    		<%= submit_tag 'Reporte de hoy', :disable_with => 'Please wait...', :class => 'submit_day' %>
+    	<% end %>
 </div>
+
+<br/><br/><br/>
 
 <table id="reports">
     <thead>

@@ -1,0 +1,44 @@
+.month {
+	float:left;
+	border-right: solid 2px #00378b;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.from_to_specified{
+	float:left;
+	border-right: solid 2px #00378b;
+	padding-right: 10px;
+}
+
+.day{
+	padding-left: 10px;
+	float: left;
+}
+
+#end_date{
+	width: 66px;
+}
+
+#start_date{
+	width: 66px;
+}
+
+#reports tr:nth-child(even){
+    background: #C5C6C8;
+}
+
+#reports tr:nth-child(odd) {
+    background: #D9DADB;
+}
+#reports th {
+    background: #C5C6C8;
+}
+
+#reports {
+    border-collapse: collapse;
+    border-spacing: 2px;
+    width: 100%;
+    text-align: left;
+}
+
