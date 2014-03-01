@@ -7,7 +7,7 @@ class CreateArticles < ActiveRecord::Migration
       t.string :commission_per
       t.string :commission_cash
       t.string :status
-
+      
       t.timestamps
     end
   end
