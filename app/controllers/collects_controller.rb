@@ -2,8 +2,6 @@ class CollectsController < ApplicationController
     
     def today_collect
         @today_transactions = Collect.get_today_transactions
-        puts "##########"
-        puts @today_transactions[0].has_attribute? "article"
     end
 
     def cancel_transaction
