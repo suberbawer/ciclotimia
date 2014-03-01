@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Sr. <%= @provider.name %></h1>
+    <p>
+      Envio copia de los articulos recientemente ingresados con sus precios estimados respectivos como forma de garantia.
+    </p>
+    <table id="articles">
+      <thead>
+        <tr>
+          <th>Descripción</th>
+          <th>Precio Estimado</th>
+          <th>Fecha de Ingreso</th>
+          <th>Porcentaje Comisión</th>
+          <th>Efectivo Comisión</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @provider.articles.each do |article| %>
+          <tr>
+            <td><%= article.description %></td>
+            <td><%= article.estimated_price %></td>
+            <td><%= article.entry_date %></td>
+            <td><%= article.commission_per %></td>
+            <td><%= article.commission_cash %></td>
+            <td><%= article.status %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br/>
+    <p>Gracias por confiar en nuestro serivcio. Saluda atte.</p>
+    <p>Ciclotimia</p>
+  </body>
+</html>

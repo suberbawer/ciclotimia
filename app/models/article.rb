@@ -25,7 +25,33 @@ class Article < ActiveRecord::Base
 		self.status = new_status
 		self.save
 	end
+	
+	def self.get_barcode(articleId)
+		require 'barby'
+		require 'barby/barcode/code_128' 
+		require 'barby/outputter/svg_outputter'
+		require 'barby/outputter/png_outputter'
 
+		# if the barcode image doesn't already exist then generate and save it
+		fname = articleId.to_s+'.png';
+
+		if ! File.exists?(fname)
+		 
+			str = 'Barcode.new("'+articleId.to_s+'")'
+			 
+			begin
+			barcode = eval str
+		
+			rescue Exception => exc
+				barcode = Barby::Code128B.new(articleId) # fall back to Code128 type B
+			end
+		 
+			File.open(File.join("app/assets/images/barcodes", fname), 'w') do |f|
+				f.write Barby::PngOutputter.new(barcode).to_png
+			end
+		end
+	end
+	
 	def return_article
 		if self.status == "rented"
 			self.status = ""
