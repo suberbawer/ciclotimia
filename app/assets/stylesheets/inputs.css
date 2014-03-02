@@ -1,6 +1,13 @@
 #newInputPopup{
-	display: none;
-	border: solid 1px black;
+	background: whitesmoke;
+	border: solid 2px #5555DD;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 10px 30px 20px;
+	width: 50%;
+	margin: 0 auto;
+	margin-top: 4%;
 }
 .hide{
 	display: none;
@@ -9,7 +16,62 @@
 	display: block;
 }
 
-.inputCollectionList li > div{
+#articleInputId{
+	width: 20%;
+	height: 25px;
+}
+
+#newInputButton{
+	width: 120px;
+	height: 33px;
+}
+
+.inputCollectionTable{
+	border-collapse: collapse;
+	border-spacing: 2px;
+	width: 100%;
+	text-align: left;
+}
+	.inputCollectionTable th {
+	  background: #C5C6C8; 
+	}
+
+	.inputCollectionTable tr:nth-child(even) {
+  		background: #C5C6C8; 
+  	}
+
+	.inputCollectionTable tr:nth-child(odd) {
+	  background: #D9DADB; 
+	}
+
+.inputCollectionTable li > div{
 	width: 19%;
 	display: inline-block;
+}
+
+.modalBackground{
+	display: none;
+	position: absolute;
+	width: 100%;
+	background: rgba(100, 100, 100, 0.7);
+	height: 100%;
+}
+
+#confirmBatchButton{
+	width: 130px;
+	float: right;
+	margin: 15px 10px 0 0;
+}
+
+/* Botones */
+body input[type="button"], button{
+    width: 100%;
+    background: #5555dd;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 2px solid #2222aa;
+    margin-top: 10px;
+    color: white;
+    padding: 5px 0;
 }

@@ -202,3 +202,13 @@ html {
 #appmenu .has-sub .has-sub ul li a:hover {
     background: #00193e;
 }
+
+/* Estilos genericos */
+
+input[type="button"]{
+    cursor: pointer;
+}
+
+.withPointer{
+    cursor: pointer;
+}

@@ -4,6 +4,7 @@ class Input < ActiveRecord::Base
 	has_one :caja, :through => :caja_transactions
 	has_one :article
 	accepts_nested_attributes_for :article
+	after_destroy :free_article
 
 	validate :correctly_update_status , on: :update
 
@@ -78,16 +79,29 @@ class Input < ActiveRecord::Base
 	# Metodos de instancia
 
 	# Crea una copia de this (con amount inverso) y lo devuelve. 
-	def create_cancel_input
+	def create_cancel_transaction
 		cancel_input           = Input.new
 		cancel_input.amount    = self.amount * -1
 		cancel_input.cancel_id = self.id
 		cancel_input.status    = "cancel_input"
 
 		self.status            = "cancelled"
-		self.article.status    = ""		# El articulo ya no esta ni vendido ni alquilado
+		if self.article	
+			self.article.status    = ""		# El articulo ya no esta ni vendido ni alquilado
+		end
 		self.save
 		return cancel_input
+	end
+
+	# Llamado luego de borrarse un input (deja el articulo disponible para ser alquilado o vendido de nuevo).
+	def free_article
+		puts '########1'
+		if self.article
+			puts self.article
+			self.article.status = ""
+			self.article.save()
+			puts self.article
+		end	
 	end
 
 	# Valida los posibles cambios de estado del input (por ejemplo no se puede cancelar un input ya cancelado, etc).

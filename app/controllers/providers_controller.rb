@@ -10,6 +10,7 @@ class ProvidersController < ApplicationController
   # GET /providers/1
   # GET /providers/1.json
   def show
+    @article_list = @provider.articles 
   end
 
   # GET /providers/new

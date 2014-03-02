@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 20140301001906) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "input_id"
-    t.integer  "output_id"
     t.integer  "provider_id"
+    t.integer  "output_id"
     t.boolean  "sent",            default: false
   end
 

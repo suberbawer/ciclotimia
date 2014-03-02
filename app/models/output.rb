@@ -16,8 +16,21 @@ class Output < ActiveRecord::Base
 
 	def self.build_output (output_data)
     	output = Output.new
-    	output[:amount] = output_data[:amount]
+    	output[:type] = 'Output'
+    	output[:amount] = output_data[:amount].to_i * -1
     	output[:concept] = output_data[:concept]
 		return output
+	end
+
+	# Crea una copia de this (con amount inverso) y lo devuelve. 
+	def create_cancel_transaction
+		cancel_output           = Output.new
+		cancel_output.amount    = self.amount * -1
+		cancel_output.cancel_id = self.id
+		cancel_output.status    = "cancel_input"
+
+		self.status            = "cancelled"
+		self.save
+		return cancel_output
 	end
 end

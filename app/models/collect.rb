@@ -67,18 +67,24 @@ class Collect < Caja
 		Collect.where(:start_Date => DateTime.now.beginning_of_day..DateTime.now.end_of_day)
 	end
 
-	# Obtiene las cajas de hoy
-	def self.get_today_transactions
+	# Obtiene los inputs de hoy
+	def self.get_today_inputs
 		today_cajas   = self.get_today_cajas
 		today_inputs  = []
+		today_cajas.each do |today_caja|
+		   today_inputs.concat( today_caja.inputs )
+		end
+		return today_inputs 
+	end
+
+	# Obtiene los outputs de hoy
+	def self.get_today_outputs
+		today_cajas   = self.get_today_cajas
 		today_outputs = []
 		today_cajas.each do |today_caja|
-			puts today_caja.inputs
-		   today_inputs.concat( today_caja.inputs )
 		   today_outputs.concat( today_caja.outputs ) 
 		end
-		return today_inputs.concat( today_outputs )
-		# despues concatenar los inputs con los outputs [ "a", "b" ].concat( ["c", "d"] ) 
+		return today_outputs
 	end
 
 	# Obtiene la razon por la cual no hay caja abierta (esto hacerlo con validaciones).
@@ -105,25 +111,31 @@ class Collect < Caja
 	# pero con amount opuesto y se inserta en la caja actual
     # Devuelve ok si todo se ejecuto con exito, constantes si se reconoce el error, o el error si no lo reconoce.
 	# REFACTORIZAR
-	def self.cancel_transaction (input_id)
+	def self.cancel_transaction (input_id, cancel_type)
 		message_cancelled = "ok"
-		input_to_cancel   = Input.find(input_id)
-		cancel_input      = input_to_cancel.create_cancel_input
+
+		if cancel_type == 'input'
+			transaction_to_cancel   = Input.find(input_id)
+			cancel_transaction      = transaction_to_cancel.create_cancel_transaction
+		elsif cancel_type == 'output'
+			transaction_to_cancel   = Output.find(input_id)
+			cancel_transaction      = transaction_to_cancel.create_cancel_transaction
+		end	
 		
 		open_caja_response = Collect.get_open_caja
-		if open_caja_response['result'] == 'ok' && !input_to_cancel.nil? && !cancel_input.nil? 
+		if open_caja_response['result'] == 'ok' && !transaction_to_cancel.nil? && !cancel_transaction.nil? 
 			begin
 			  	current_open = open_caja_response['record']
-				current_open.caja_transactions.create!(:transaction => cancel_input) # Agrego la anulacion a la open_caja
+				current_open.caja_transactions.create!(:transaction => cancel_transaction) # Agrego la anulacion a la open_caja
 			rescue ActiveRecord::RecordInvalid => e
 			  	message_cancelled = e.message
 			end
 		else
 			if open_caja_response['result'] != 'ok'
 				message_cancelled = "not_open_caja"	
-			elsif input_to_cancel.nil?
+			elsif transaction_to_cancel.nil?
 				message_cancelled = "input_to_cancel_error"
-			elsif cancel_input.nil?
+			elsif cancel_transaction.nil?
 				message_cancelled = "cancel_input_error"
 			end			
 		end

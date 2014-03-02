@@ -49,3 +49,28 @@ function removeActiveClass(){
 $(document).ready(function(){
 	toggleActiveOption(window.location.pathname);
 });
+
+/**
+ *  Devuelve el tipo de input en espanol.
+ *
+ *  @param Tipo de input.
+ *  @return Tipo de input en formato humano y espanol.
+ */
+function obtainTransactionType(transactionType){
+	var humanType;
+	switch (transactionType) {
+	  case "sale":
+	    humanType = 'Venta';
+	    break;
+	  case "rent":
+	    humanType = 'Alquiler';
+	    break;
+	  default:
+	    humanType = 'Transaccion no reconocida';
+	}
+	return humanType;
+}
+
+function isUndefined(elem){
+	return typeof elem == 'undefined'
+}

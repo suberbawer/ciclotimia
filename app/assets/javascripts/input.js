@@ -9,6 +9,7 @@ $(document).ready(function(){
 	function Input()
 	{
 		this._articleContainer  = $('#articleDetailContainer');	// Contenedor del detalle del articulo.
+		this._modalBackground   = $('.modalBackground');
 		this._newInputContainer = $('#newInputPopup'); 			// Contenedor del nuevo input. 	    
 		this._articleId         = $('#articleInputId');			// Articulo relacionado.
 		this._typeRadio         = $('input:radio[name=type]');	// Selector de tipo (venta, alquiler).
@@ -116,20 +117,26 @@ $(document).ready(function(){
 	     */
 	    this.retrieveArticleData = function(){
 	    	if (this.hasArticle()) {
-				$.ajax({
-					url      : '/articles/fetch_data',
-					type     : "POST",
-					dataType : 'html',
-					data     : { 'id' : self.getArticleId() },
-					success:function(data){
-						self._articleContainer.html(data); 	// Muestro detalle del articulo seleccionado...
-						self.showFormContainer($('.articleData'));
-						self._newInputContainer.show();		// ... y muestro popup de la venta.
+	    		var currentLotInput = _.find(inputCollection.inputList, function(cInput){ return cInput.article == self.getArticleId(); });
+				if (isUndefined(currentLotInput)) {
+					$.ajax({
+						url      : '/articles/fetch_data',
+						type     : "POST",
+						dataType : 'html',
+						data     : { 'id' : self.getArticleId() },
+						success:function(data){
+							self._articleContainer.html(data); 	// Muestro detalle del articulo seleccionado...
+							self.showFormContainer($('.articleData'));
+							self._modalBackground.show();		// ... y muestro popup de la venta.
 
-						var currentAmount = $('#selectedAmount').val();
-						self.setAmount(currentAmount);
-					}
-				});
+							var currentAmount = $('#selectedAmount').val();
+							self.setAmount(currentAmount);
+						}
+					});
+				}
+				else{
+					alert('El artículo esta ingresado en el lote actual');
+				}
 			}
 			else{
 				alert('El ingreso no tiene un artículo relacionado');
@@ -186,8 +193,9 @@ $(document).ready(function(){
 		this._confirmButton      = $('#confirmInput');		  // Boton para confirmar insertar el input.
 		this._confirmBatchButton = $('#confirmBatchButton');  // Confirma agregar lote.
 		this._newInputContainer  = $('#newInputPopup'); 	  // Contenedor del nuevo input.
-		this._inputListContainer = $('.inputCollectionList'); // Contenedor de los inputs en el lote.
-		this._deleteButton       = $('.deleteButton');        // Boton para borrar una venta (fila). 
+		this._inputListContainer = $('.inputCollectionTable'); // Contenedor de los inputs en el lote.
+		this._deleteButton       = $('.deleteButton');        // Boton para borrar una venta (fila).
+		this._modalBackground    = $('.modalBackground'); 
 
 		var self                 = this;
 
@@ -224,7 +232,7 @@ $(document).ready(function(){
 
 	    	var clonedInput    = $.extend(true, {}, this.currentInput);	// Clono el objeto a guardar para evitar inconsistencias.  
 	        this.inputList.push(clonedInput);
-	        this._newInputContainer.hide();
+	        this._modalBackground.hide();
 	        this.refreshInputList();
 	    }
 
@@ -275,7 +283,7 @@ $(document).ready(function(){
 	     *	Refresco lista de inputs.
 	     */
 	    this.refreshInputList = function(){
-	    	this._inputListContainer.html(_.template(this.templateInputList, {inputs : this.inputList}));
+	    	this._inputListContainer.find('tbody').html(_.template(this.templateInputList, {inputs : this.inputList}));
 	    }
 
 	    /**
@@ -313,6 +321,13 @@ $(document).ready(function(){
 	    this._inputListContainer.on('click', '.deleteButton', function(e){
 	    	var inputId = $(e.currentTarget).parent().data('id');
 	    	self.deleteInput(inputId);
+	    });
+
+	    $('.modalBackground:not(.modalBackground#newInputPopup)').on('click', function(e){
+	    	if (e.target === e.currentTarget) {
+	    		// Esta dando click fuera del detalle del articulo, quiere cerrar el popup.
+	    		$('.modalBackground').hide();
+	    	}
 	    });
 	}
 

@@ -4,8 +4,9 @@
   </p>
 <% end %>
 <ul>
-	<% if @today_transactions.length > 0 %>
-		<% @today_transactions.each do |transaction|  %>
+	<h3>Ingresos</h3>
+	<% if @today_inputs.length > 0 %>
+		<% @today_inputs.each do |transaction|  %>
 			<a name="<%= transaction.id %>">
 				<li>
 					<span><%= transaction.amount %></span>
@@ -16,7 +17,7 @@
 								<!--  El transaction tiene articulo, asi que mostramos su descripcion -->
 								<span><%= transaction.article.description %></span>
 							<% end %>	
-						<%= button_to("Anular", {:action => "cancel_transaction", :input_to_cancel => transaction.id})%>
+						<%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'input'})%>
 					<% elsif transaction.status == "cancelled" %>
 						Anulado
 					<% elsif transaction.status == "cancel_input" %>
@@ -27,6 +28,33 @@
 			</a>	
 		<% end %>
 	<% else %>
-		No hay transacciones en la caja de hoy.
+		No hay ingresos en la caja de hoy.
+	<% end %>
+
+	<h3>Egresos</h3>
+	<% if @today_outputs.length > 0 %>
+		<% @today_outputs.each do |transaction|  %>
+			<a name="<%= transaction.id %>">
+				<li>
+					<span><%= transaction.amount %></span>
+					<span><%= transaction.type %></span>
+					<% if transaction.status == "active" %>
+						<!--  Es un transaction normal (no es cancel transaction) -->
+							<% if transaction.article.present? %>
+								<!--  El transaction tiene articulo, asi que mostramos su descripcion -->
+								<span><%= transaction.article.description %></span>
+							<% end %>	
+						<%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'output'})%>
+					<% elsif transaction.status == "cancelled" %>
+						Anulado
+					<% elsif transaction.status == "cancel_input" %>
+						<!-- click aca, que agregue clase para animacion de transaction anulado -->
+						Anula: <a href="#<%= transaction.cancel_id %>"> transacción</a>
+					<% end %>
+				</li>
+			</a>	
+		<% end %>
+	<% else %>
+		No hay egresos en la caja de hoy.
 	<% end %>	
 </ul>
