@@ -1,3 +1,47 @@
+<script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
+
+<script>
+  // Change message of required validation
+  jQuery.extend(jQuery.validator.messages, {
+    required: "Este campo es requerido."
+  });
+
+  function set_default_values(){
+    $(article_commission_per).val('35%');
+  }
+
+  function calculate_winning_amount(){
+    if($('#article_estimated_price').val() != '' && $('#article_estimated_price').val() != undefined) {
+      var total_percentual = parseInt($('#article_estimated_price').val(), 10) * (parseInt($('#article_commission_per').val())/100);
+
+      var total_iva = total_percentual * 0.22;
+
+      $('#article_commission_cash').val(total_percentual + total_iva);
+
+      // Just enable to save data 
+      $('#article_commission_cash').prop('disabled', false);
+    } else {
+      $('#article_commission_cash').val('');
+    }
+  }
+
+  function set_required_data(){
+    $('#article_estimated_price').addClass('required');
+    $('#article_description').addClass('required');
+    $('#article_commission_per').addClass('required');
+    $('#article_commission_cash').prop('disabled','disabled');
+
+    $('.new_article').validate();
+  }
+
+  $(document).ready(function(){
+    set_required_data();
+    set_default_values();
+    $("input[name='commit']").click(function(){calculate_winning_amount();});
+
+  });
+
+</script>
 <%= form_for(@article) do |f| %>
   <% if @article.errors.any? %>
     <div id="error_explanation">
