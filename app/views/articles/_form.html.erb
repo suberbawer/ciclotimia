@@ -29,6 +29,7 @@
     $('#article_estimated_price').addClass('required');
     $('#article_description').addClass('required');
     $('#article_commission_per').addClass('required');
+    $('#article_provider_id').addClass('required');
     $('#article_commission_cash').prop('disabled','disabled');
 
     $('.new_article').validate();
@@ -64,7 +65,7 @@
     <%= f.text_field :estimated_price %>
   </div>
   <div class="field">
-    <%= f.label 'Fecha de Entrada' %><br>
+    <%= f.label 'Fecha de Ingreso' %><br>
     <%= f.date_select :entry_date %>
   </div>
   <div class="field">

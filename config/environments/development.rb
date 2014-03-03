@@ -35,8 +35,8 @@ Ciclotimia::Application.configure do
     domain: "gmail.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: "santiago.blankleider@gmail.com",
-    password: "4436829"
+    user_name: "ciclotimia.moda@gmail.com",
+    password: "ciclotimia1234"
   }
 
 end

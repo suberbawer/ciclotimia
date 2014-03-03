@@ -79,16 +79,20 @@
             <th>Precio Estimado</th>
             <th>Estado</th>
             <th>Precio Final</th>
+            <th>Porcentaje Comisión</th>
+            <th>Efectivo Comisión</th>
             <th>Fecha de Venta</th>
         </tr>
     </thead>
     <tbody>
         <% @transactions.each do |transaction| %>
         <tr>
-        	<td><%= transaction.article.description %></td>
-        	<td><%= transaction.article.estimated_price %></td>
-        	<td><%= transaction.status %></td>
+        	<td><%= transaction.article ? transaction.article.description : '' %></td>
+        	<td><%= transaction.article ? transaction.article.estimated_price : '' %></td>
+        	<td><%= transaction.article ? transaction.article.status : transaction.status %></td>
             <td><%= transaction.amount %></td>
+            <td><%= transaction.comission_per %></td>
+            <td><%= transaction.comission_cash %></td>
             <td><%= transaction.created_at %></td>
         </tr>
         <% end %>
@@ -97,9 +101,13 @@
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
+            <td></td>
             <td>---------------------------</td>
         </tr>
         <tr>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>

@@ -2,7 +2,6 @@ var input;			 // Input actual (a ingresar).
 var inputCollection; // Input list (lote).
 
 $(document).ready(function(){
-
 	/**
 	 *	Clase input.
 	 */
@@ -18,6 +17,8 @@ $(document).ready(function(){
 
 		this.type  	 		    = $(_.find(this._typeRadio, function(type){ return $(type).prop('checked'); })).val();
 	    this.amount 		    = 0 							// Monto (por defecto).
+	    this.percent			= 0
+	    this.cash				= 0
 	    this.article;											// Articulo relacionado.
 	    this.id;												// Id (client side) del input.
 
@@ -44,8 +45,25 @@ $(document).ready(function(){
 	    	return this.amount;
 	    }
 
+	    this.getCash = function() {
+	    	return this.cash;
+	    }
+
+	    this.getPercent = function() {
+	    	return parseInt(this.percent, 10);
+	    }
+
 	    this.setAmount = function(newAmount) {
 	    	this.amount = newAmount;
+	    }
+
+	    this.setPercent = function() {
+	    	this.percent = $('.articleData').attr('data-comission');
+	    }
+
+	    this.setCash = function(newAmount, percent) {
+	    	this.cash = newAmount * (percent/100) + ( newAmount * (percent/100) * 0.22);
+	    	alert('3 '+this.cash);
 	    }
 
 	    this.getArticleDescription = function(){
@@ -100,7 +118,9 @@ $(document).ready(function(){
 				data     : { 
 							 'type'    : self.getType(),
 							 'article' : self.getArticleId(),
-							 'amount'  : self.getAmount() 
+							 'amount'  : self.getAmount(), 
+							 'cash'	   : self.getCash(),
+							 'percent' : self.getPercent()
 							},
 				success:function(data){
 					self._articleContainer.html(data);
@@ -128,6 +148,8 @@ $(document).ready(function(){
 
 						var currentAmount = $('#selectedAmount').val();
 						self.setAmount(currentAmount);
+						self.setPercent();
+		    			self.setCash(currentAmount, self.getPercent());
 					}
 				});
 			}
@@ -146,6 +168,8 @@ $(document).ready(function(){
 	    	obj.type 	= this.type;
 	    	obj.article = this.article;
 	    	obj.amount  = this.amount;
+	    	obj.cash    = this.cash;
+	    	obj.percent = this.percent;
 	    	return obj;
 	    }
 
@@ -167,6 +191,8 @@ $(document).ready(function(){
 	    	var amountInput = $(e.currentTarget);
 	    	var amount = amountInput.val();
 		    self.setAmount(amount);
+		    self.setPercent();
+		    self.setCash(amount, self.getPercent());
 	    });
 
 	}

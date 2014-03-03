@@ -42,7 +42,6 @@ class ProvidersController < ApplicationController
   def update
     respond_to do |format|
       if @provider.update(provider_params)
-        # Tell the UserMailer to send a welcome email after save
         # Colocar en el envio del mail boton
         UserMailer.new_articles_provider(@provider).deliver 
         
