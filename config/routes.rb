@@ -1,4 +1,4 @@
-Ciclotimia::Application.routes.draw do
+Ciclotimia::Application.routes.draw do 
   
   get "articles/devolution"
   post "articles/devolution"
@@ -14,7 +14,11 @@ Ciclotimia::Application.routes.draw do
 
     post "articles/fetch_data"
 
+    #get "providers/articles_not_sent"
+
   resources :providers
+
+  match 'providers_:id' => 'providers#articles_not_sent', :via => [:get], :as => 'art_not_sent'
 
   resources :transactions
 

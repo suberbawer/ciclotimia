@@ -1,0 +1,30 @@
+<h3>Artículos no enviados de <%= @provider.name %></h3>
+<% if @article_not_sent_list %>
+    <table id="reports">
+        <thead>
+            <tr>
+                <th>Descripcion de Articulo</th>
+                <th>Precio Estimado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @article_not_sent_list.each do |article| %>
+            <tr>
+              <td><%= article.description %></td>
+              <td><%= article.estimated_price %></td>
+            </tr>
+            <% end %>
+           <tr>
+                <td></td>
+                <td>---------------------------</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <%= button_to 'Enviar artículos', "/providers/magia_del_mago", :method => "get", :class => 'edit_btn' %>
+<% else %>
+    No hay artículos para enviar (es un error que entre acá).
+<% end %>

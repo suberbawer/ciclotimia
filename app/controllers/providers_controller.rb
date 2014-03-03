@@ -1,5 +1,5 @@
 class ProvidersController < ApplicationController
-  before_action :set_provider, only: [:show, :edit, :update, :destroy]
+  before_action :set_provider, only: [:show, :edit, :update, :destroy, :articles_not_sent]
 
   # GET /providers
   # GET /providers.json
@@ -64,6 +64,10 @@ class ProvidersController < ApplicationController
       format.html { redirect_to providers_url }
       format.json { head :no_content }
     end
+  end
+
+  def articles_not_sent
+    @article_not_sent_list = @provider.get_articles_not_sent 
   end
 
   private
