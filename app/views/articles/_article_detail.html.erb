@@ -1,8 +1,10 @@
 <% if @article.nil? %>
     No hay articulos con ese id.
 
-<% elsif @article.status == "rented" || @article.status == "sold" %>    
+<% elsif @article.status == "rented" || @article.status == "sold" %>  
+  <p class="articleMessageContainer">  
     El artículo está <%= (@article.status == "rented") ? "alquilado" : "vendido" %>
+  </p>  
 <% else %>
         <div class="articleData" data-description="<%= @article.description %>"
                                  data-estimated-price="<%= @article.estimated_price %>" 

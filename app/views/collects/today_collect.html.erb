@@ -25,6 +25,8 @@
 							<% if transaction.article.present? %>
 								<!--  El transaction tiene articulo, asi que mostramos su descripcion -->
 								<%= transaction.article.description %>
+							<% elsif transaction.concept? %>
+								<%= transaction.concept %>	
 							<% end %>
 						</td>
 						<td><%= transaction.created_at %></td>
@@ -45,7 +47,8 @@
 				No hay ingresos en la caja de hoy.
 			<% end %>
 		</tbody>	
-	</table>	
+	</table>
+	Total ingresos: $<%= @today_inputs_total %>
 </div>
 
 <h3>Egresos</h3>
@@ -95,5 +98,6 @@
 			<% end %>
 		</tbody>		
 	</table>
+	Total egresos: $<%= @today_outputs_total %>
 </div>
-Total: $ <%= @today_cajas_total %>
+Total: $ <%= @today_inputs_total + @today_outputs_total %>

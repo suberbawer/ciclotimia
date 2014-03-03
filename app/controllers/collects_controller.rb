@@ -2,8 +2,9 @@ class CollectsController < ApplicationController
     
     def today_collect
         @today_inputs = Collect.get_today_inputs
+        @today_inputs_total = @today_inputs.inject(0){|sum,e| sum += e.amount }
         @today_outputs = Collect.get_today_outputs
-        @today_cajas_total = @today_inputs.inject(0){|sum,e| sum += e.amount } + @today_outputs.inject(0){|sum,e| sum += e.amount }
+        @today_outputs_total = @today_outputs.inject(0){|sum,e| sum += e.amount }
     end
 
     def cancel_transaction

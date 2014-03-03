@@ -58,13 +58,19 @@
 }
 
 .tableContainer{
-	height: 160px;
+	height: 200px;
 	overflow-y: auto;
 }
 #confirmBatchButton{
 	width: 130px;
 	float: right;
 	margin: 15px 10px 0 0;
+}
+
+.articleMessageContainer{
+	text-align: center;
+	font-size: 1.2em;
+	font-weight: bold;
 }
 
 /* Botones */
