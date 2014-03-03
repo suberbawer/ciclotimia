@@ -59,4 +59,12 @@ class Article < ActiveRecord::Base
 		end
 		return false	
 	end
+
+	def self.search_articles(search_text)
+		if search_text != ''
+			return Article.find(:all, :conditions => ["description like ? or id = ? or provider_id = ?", "%#{search_text}%", search_text, search_text])
+		else
+			return Article.all
+		end
+	end
 end

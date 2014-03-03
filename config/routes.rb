@@ -7,15 +7,20 @@ Ciclotimia::Application.routes.draw do
   get "reports/index"
   post "reports/index"
 
+  get "billings/index"
+
+  post "search/index"
+
   resources :reports
 
   resources :articles
     post "articles/list"
-
+    post "articles/filter"
     post "articles/fetch_data"
 
   resources :providers
-
+  post "providers/filter"
+  
   resources :transactions
 
   resources :sales

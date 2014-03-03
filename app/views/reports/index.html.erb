@@ -49,26 +49,26 @@
 <h3> Reportes </h3>
 
 <div class="report_options">
-        <%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "from_to_specified") do%>
-    		<!-- Entre fecha y fecha-->
-    		<%= label_tag(:start_date, "Fecha de inicio") %>
-      		<%= text_field_tag(:start_date) %>
-      		<%= label_tag(:end_date, "Fecha de fin") %>
-      		<%= text_field_tag(:end_date) %>
-    		<%= submit_tag 'Reporte', :disable_with => 'Please wait...', :class => 'submit_from_to' %>
-    	<% end %>    
-    
-    	<%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "month") do%>
-    		<%= hidden_field_tag(:start_date, "mes") %>
-    		<!-- Mes corriente -->
-    		<%= submit_tag 'Reporte de mes corriente', :disable_with => 'Please wait...', :class => 'submit_month' %>
-    	<% end %>
-   
-    	<%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "day") do%>
-    		<%= hidden_field_tag(:start_date, "diario") %>
-    		<!-- Mes corriente -->
-    		<%= submit_tag 'Reporte de hoy', :disable_with => 'Please wait...', :class => 'submit_day' %>
-    	<% end %>
+    <%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "from_to_specified") do%>
+		<!-- Entre fecha y fecha-->
+		<%= label_tag(:start_date, "Fecha de inicio") %>
+  		<%= text_field_tag(:start_date) %>
+  		<%= label_tag(:end_date, "Fecha de fin") %>
+  		<%= text_field_tag(:end_date) %>
+		<%= submit_tag 'Reporte', :disable_with => 'Please wait...', :class => 'submit_from_to' %>
+	<% end %>    
+
+	<%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "month") do%>
+		<%= hidden_field_tag(:start_date, "mes") %>
+		<!-- Mes corriente -->
+		<%= submit_tag 'Reporte de mes corriente', :disable_with => 'Please wait...', :class => 'submit_month' %>
+	<% end %>
+
+	<%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "day") do%>
+		<%= hidden_field_tag(:start_date, "diario") %>
+		<!-- Mes corriente -->
+		<%= submit_tag 'Reporte de hoy', :disable_with => 'Please wait...', :class => 'submit_day' %>
+	<% end %>
 </div>
 
 <br/><br/><br/>
