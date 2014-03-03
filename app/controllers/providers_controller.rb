@@ -10,7 +10,8 @@ class ProvidersController < ApplicationController
   # GET /providers/1
   # GET /providers/1.json
   def show
-    @article_list = @provider.articles 
+    @article_list = @provider.articles
+    @not_sent_articles = @provider.get_articles_not_sent
   end
 
   # GET /providers/new
