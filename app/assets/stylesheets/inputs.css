@@ -26,21 +26,21 @@
 	height: 33px;
 }
 
-.inputCollectionTable{
+.inputCollectionTable, .outputTable, .inputTable{
 	border-collapse: collapse;
 	border-spacing: 2px;
 	width: 100%;
 	text-align: left;
 }
-	.inputCollectionTable th {
+	.inputCollectionTable th, .outputTable th, .inputTable th{
 	  background: #C5C6C8; 
 	}
 
-	.inputCollectionTable tr:nth-child(even) {
+	.inputCollectionTable tr:nth-child(even), .outputTable tr:nth-child(even), .inputTable tr:nth-child(even){
   		background: #C5C6C8; 
   	}
 
-	.inputCollectionTable tr:nth-child(odd) {
+	.inputCollectionTable tr:nth-child(odd), .outputTable tr:nth-child(odd), .inputTable tr:nth-child(odd) {
 	  background: #D9DADB; 
 	}
 
@@ -57,6 +57,10 @@
 	height: 100%;
 }
 
+.tableContainer{
+	height: 160px;
+	overflow-y: auto;
+}
 #confirmBatchButton{
 	width: 130px;
 	float: right;

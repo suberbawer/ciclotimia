@@ -60,11 +60,19 @@ function obtainTransactionType(transactionType){
 	var humanType;
 	switch (transactionType) {
 	  case "sale":
+	  case "Sale":
 	    humanType = 'Venta';
 	    break;
 	  case "rent":
+	  case "Rent":
 	    humanType = 'Alquiler';
 	    break;
+	  case "Output":
+	    humanType = 'Egreso';
+	    break;
+	  case "cancel_input":
+	    humanType = 'Anulacion';
+	    break;  
 	  default:
 	    humanType = 'Transaccion no reconocida';
 	}

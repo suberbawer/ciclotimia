@@ -95,7 +95,6 @@ class Input < ActiveRecord::Base
 
 	# Llamado luego de borrarse un input (deja el articulo disponible para ser alquilado o vendido de nuevo).
 	def free_article
-		puts '########1'
 		if self.article
 			puts self.article
 			self.article.status = ""
@@ -114,6 +113,25 @@ class Input < ActiveRecord::Base
 		invalid = false
 		if self.status_changed?
 			invalid = self.status_was != "active"
+		end
+	end
+
+	def obtain_human_label
+		return self.retrieve_label(self.type || self.status)
+	end
+
+	def retrieve_label(type)
+		case type
+		when "sale", "Sale"
+		  return "Venta" 
+		when "rent", "Rent"
+		  return "Alquiler"
+		when "Output"
+		  return "Egreso"
+		when "cancel_input"
+		  return "Anulacion"    
+		else
+		  puts "Tipo no reconocido"
 		end
 	end
 end

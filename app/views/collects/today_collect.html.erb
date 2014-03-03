@@ -3,58 +3,97 @@
   		<%= flash[:notice] %>
   </p>
 <% end %>
-<ul>
-	<h3>Ingresos</h3>
-	<% if @today_inputs.length > 0 %>
-		<% @today_inputs.each do |transaction|  %>
-			<a name="<%= transaction.id %>">
-				<li>
-					<span><%= transaction.amount %></span>
-					<span><%= transaction.type %></span>
-					<% if transaction.status == "active" %>
-						<!--  Es un transaction normal (no es cancel transaction) -->
+<h3>Ingresos</h3>
+<div class="tableContainer">
+	<table class="inputTable">
+		<thead>
+		        <tr>
+		            <th>Monto</th>
+		            <th>Tipo</th>
+		            <th>Descripción</th>
+		            <th>Creado</th>
+		            <th></th>
+		        </tr>
+		</thead>
+		<tbody>
+			<% if @today_inputs.length > 0 %>
+				<% @today_inputs.each do |transaction|  %>
+					<tr>
+						<td><%= transaction.amount %></td>
+						<td><%= transaction.obtain_human_label %></td>
+						<td>
 							<% if transaction.article.present? %>
 								<!--  El transaction tiene articulo, asi que mostramos su descripcion -->
-								<span><%= transaction.article.description %></span>
-							<% end %>	
-						<%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'input'})%>
-					<% elsif transaction.status == "cancelled" %>
-						Anulado
-					<% elsif transaction.status == "cancel_input" %>
-						<!-- click aca, que agregue clase para animacion de transaction anulado -->
-						Anula: <a href="#<%= transaction.cancel_id %>"> transacción</a>
-					<% end %>
-				</li>
-			</a>	
-		<% end %>
-	<% else %>
-		No hay ingresos en la caja de hoy.
-	<% end %>
+								<%= transaction.article.description %>
+							<% end %>
+						</td>
+						<td><%= transaction.created_at %></td>
+						<% if transaction.status == "active" %>	
+							<!--  Es un transaction normal (no es cancel transaction) -->	
+							<td>		
+								<%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'input'})%>
+							</td>
+						<% elsif transaction.status == "cancelled" %>
+							<td>Anulado</td>
+						<% elsif transaction.status == "cancel_input" %>
+							<!-- click aca, que agregue clase para animacion de transaction anulado -->
+							<td>Anula: <a href="#<%= transaction.cancel_id %>"> transacción</a></td>
+						<% end %>
+					</tr>		
+				<% end %>
+			<% else %>
+				No hay ingresos en la caja de hoy.
+			<% end %>
+		</tbody>	
+	</table>	
+</div>
 
-	<h3>Egresos</h3>
-	<% if @today_outputs.length > 0 %>
-		<% @today_outputs.each do |transaction|  %>
-			<a name="<%= transaction.id %>">
-				<li>
-					<span><%= transaction.amount %></span>
-					<span><%= transaction.type %></span>
-					<% if transaction.status == "active" %>
-						<!--  Es un transaction normal (no es cancel transaction) -->
-							<% if transaction.article.present? %>
-								<!--  El transaction tiene articulo, asi que mostramos su descripcion -->
-								<span><%= transaction.article.description %></span>
-							<% end %>	
-						<%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'output'})%>
-					<% elsif transaction.status == "cancelled" %>
-						Anulado
-					<% elsif transaction.status == "cancel_input" %>
-						<!-- click aca, que agregue clase para animacion de transaction anulado -->
-						Anula: <a href="#<%= transaction.cancel_id %>"> transacción</a>
-					<% end %>
-				</li>
-			</a>	
-		<% end %>
-	<% else %>
-		No hay egresos en la caja de hoy.
-	<% end %>	
-</ul>
+<h3>Egresos</h3>
+<div class="tableContainer">
+	<table class="outputTable">
+		<thead>
+		        <tr>
+		            <th>Monto</th>
+		            <th>Tipo</th>
+		            <th>Descripción</th>
+		            <th>Creado</th>
+		            <th></th>
+		        </tr>
+		</thead>
+		<tbody>
+			<% if @today_outputs.length > 0 %>
+				<% @today_outputs.each do |transaction|  %>
+					<tr>
+							<td><%= transaction.amount %></td>
+							<td><%= transaction.obtain_human_label %></td>
+							<td>
+								<% if transaction.article.present? %>
+									<!--  El transaction tiene articulo, asi que mostramos su descripcion -->
+									<a href="/articles/<%= transaction.article.id %>">
+										<%= transaction.article.description %>
+									</a>
+								<% elsif transaction.concept? %>
+									<%= transaction.concept %>	
+								<% end %>
+							</td>
+							<td><%= transaction.created_at %></td>
+							<% if transaction.status == "active" %>	
+								<!--  Es un transaction normal (no es cancel transaction) -->	
+								<td>		
+									<%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'output'})%>
+								</td>
+							<% elsif transaction.status == "cancelled" %>
+								<td>Anulado</td>
+							<% elsif transaction.status == "cancel_input" %>
+								<!-- click aca, que agregue clase para animacion de transaction anulado -->
+								<td>Anula: <a href="#<%= transaction.cancel_id %>"> transacción</a></td>
+							<% end %>
+					</tr>	
+				<% end %>
+			<% else %>
+				No hay egresos en la caja de hoy.
+			<% end %>
+		</tbody>		
+	</table>
+</div>
+Total: $ <%= @today_cajas_total %>

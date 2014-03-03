@@ -1,10 +1,11 @@
 <p id="notice"><%= notice %></p>
 <div>
 	<% if @today_open_caja['result'] == 'ok' %>
+		Caja: 
 		<a href="/collects/today_collect">
 			Id:
-			<span><%= @today_open_caja['record'].id %></span><br />
-			Creado:
+			<span><%= @today_open_caja['record'].id %></span>
+			Creada:
 			<span><%= @today_open_caja['record'].created_at %></span>
 		</a>
 		<%= form_tag(controller: "collects", action: "close_today_caja", method: "post") do%>
