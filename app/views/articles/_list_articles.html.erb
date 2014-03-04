@@ -1,15 +1,35 @@
-<ul>
-  <% @articles.each do |article| %>
-    <li>
-      <div><%= article.description %></div>
-      <div><%= article.estimated_price %></div>
-      <div><%= article.entry_date %></div>
-      <div><%= article.commission_per %></div>
-      <div><%= article.commission_cash %></div>
-      <div><%= article.status %></div>
-      <input type="radio" name="selectArticle" id="<%= article.id %>" class="selectArticle"/>
-      <input type="button" name="articleDetail" value="Ver detalle" id="<%= article.id %>" class="articleDetail"/>
+<table id="articles">
+  <thead>
+    <tr>
+      <th>Descripción</th>
+      <th>Precio Estimado</th>
+      <th>Fecha de Ingreso</th>
+      <th>Porcentaje Comisión</th>
+      <th>Efectivo Comisión</th>
+      <th>Estado</th>
+      <th>Proveedor</th>
+      <th>Código</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
 
-    </li>
-  <% end %>
-</ul>
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= article.description %></td>
+        <td><%= article.estimated_price %></td>
+        <td><%= article.entry_date %></td>
+        <td><%= article.commission_per %></td>
+        <td><%= article.commission_cash %></td>
+        <td><%= article.status %></td>
+        <td><%= article.provider_id %></td>
+        <td><%= image_tag('barcodes/'+article.id.to_s+'.png', size: "60x30") %></td>
+        <td><%= link_to image_tag('show.png', size: "16x16"), article %></td>
+        <td><%= link_to image_tag('edit.png', size: "16x16"), edit_article_path(article) %></td>
+        <td><%= link_to image_tag('delete.png', size: "16x16"), article,  method: :delete, data: { confirm: 'Esta seguro/a?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

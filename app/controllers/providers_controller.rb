@@ -44,7 +44,6 @@ class ProvidersController < ApplicationController
   def update
     respond_to do |format|
       if @provider.update(provider_params)
-        # Tell the UserMailer to send a welcome email after save
         # Colocar en el envio del mail boton
         UserMailer.new_articles_provider(@provider).deliver 
         
@@ -66,7 +65,12 @@ class ProvidersController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
+  def filter
+    @providers = Provider.filter_providers(params[:search_text])
+    render :index    
+  end
+  
   def articles_not_sent
     @article_not_sent_list = @provider.get_articles_not_sent 
   end

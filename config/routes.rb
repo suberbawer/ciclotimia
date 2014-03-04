@@ -7,19 +7,23 @@ Ciclotimia::Application.routes.draw do
   get "reports/index"
   post "reports/index"
 
+  get "billings/index"
+
+  post "search/index"
+
   resources :reports
 
   resources :articles
     post "articles/list"
-
+    post "articles/filter"
     post "articles/fetch_data"
 
     #get "providers/articles_not_sent"
 
   resources :providers
-
+  post "providers/filter"
   match 'providers_:id' => 'providers#articles_not_sent', :via => [:get], :as => 'art_not_sent'
-
+  
   resources :transactions
 
   resources :sales
