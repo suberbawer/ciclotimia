@@ -1,3 +1,4 @@
+<h3>Venta / alquiler de artículos</h3>
 <div class="modalBackground">
 	<div id="newInputPopup" >
 		
@@ -21,44 +22,44 @@
 	</div>
 </div>
 
-<input type="text" id="articleInputId" placeholder="Ingrese codigo de artículo"/>
-<input type="button" value="Nuevo ingreso" id="newInputButton"/>
+<div class="inputArticleSection">
+	<h3>Ingreso de artículo</h3>
+	<input type="text" id="articleInputId" placeholder="Ingrese código de artículo"/>
+	<input type="button" value="Nuevo ingreso" id="newInputButton"/>
+	<div id="inputSuccessMessage"></div>
+</div>	
 
-
-<div id="inputSuccessMessage">
-
-</div>
-
+<div class="batchSection">
 <!-- Lista de inputs en el lote actual. -->
-<h3>Lote</h3>
-<table class="inputCollectionTable">
-	<thead>
-        <tr>
-            <th>Articulo</th>
-            <th>Precio Estimado</th>
-            <th>Tipo</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-		<tr>
-			<td>
-				No hay articulos en el lote
-			</td>
-			<td>
-				
-			</td> 
-			<td>
-				
-			</td>
-			<td>
-				
-			</td>	
-		</tr>
-	</tbody>
-</table>
-<input type="button" value="Confirmar lote" id="confirmBatchButton"/>
-
+	<h3>Lote</h3>
+	<table class="inputCollectionTable">
+		<thead>
+	        <tr>
+	            <th>Articulo</th>
+	            <th>Precio Estimado ($)</th>
+	            <th>Tipo</th>
+	            <th></th>
+	        </tr>
+	    </thead>
+	    <tbody>
+			<tr>
+				<td>
+					No hay articulos en el lote
+				</td>
+				<td>
+					
+				</td> 
+				<td>
+					
+				</td>
+				<td>
+					
+				</td>	
+			</tr>
+		</tbody>
+	</table>
+	<input type="button" value="Confirmar lote" id="confirmBatchButton"/>
+</div>
 
 <!-- Templates (ponerlos en algun lugar de assets)-->
 <script type="text/template" id="template-inputList">

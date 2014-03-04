@@ -17,13 +17,26 @@
 }
 
 #articleInputId{
-	width: 20%;
+	width: 45%;
 	height: 25px;
 }
 
 #newInputButton{
 	width: 120px;
 	height: 33px;
+}
+
+.inputArticleSection, .batchSection{
+	display: inline-block;
+}
+
+.inputArticleSection{
+	width: 30%;
+}
+
+.batchSection{
+	width: 69%;
+	vertical-align: top;
 }
 
 .inputCollectionTable, .outputTable, .inputTable{
