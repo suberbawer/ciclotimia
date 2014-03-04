@@ -1,7 +1,10 @@
 class OutputsController < ApplicationController
 
 	def new
-
+		c_response = Collect.get_open_caja
+		if c_response['result'] != 'ok'
+			flash[:notice] = c_response['message']
+		end
 	end 
 
 	def new_manual_output

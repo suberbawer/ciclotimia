@@ -324,14 +324,32 @@ $(document).ready(function(){
 
 		// Usuario confirma el lote (levanto json y mando a la controller).
 		this._confirmBatchButton.on('click', function(){
-			var objectInputList = self.obtainInputList();	// Obtengo el json de la lista de inputs.
-			self.saveInputList(objectInputList);			// Guardo la lista de inputs en el servidor.
+			new Messi('Desea salvar las transacciones?', 
+						  {title: '',
+						   	buttons: [{id: 0, label: 'Yes', val: 'Y'}, 
+						   		     {id: 1, label: 'No', val: 'N'}], 
+						   	callback: function(val) { 
+						   		if (val === 'Yes') {
+						   			var objectInputList = self.obtainInputList();	// Obtengo el json de la lista de inputs.
+									self.saveInputList(objectInputList);			// Guardo la lista de inputs en el servidor.
+		    					}
+						   	}
+						  });
 		});
 
 	    // Usuario da click en el boton "Borrar" en un un input en la lista de inputs (ul.inputListContainer li).
 	    this._inputListContainer.on('click', '.deleteButton', function(e){
-	    	var inputId = $(e.currentTarget).parent().data('id');
-	    	self.deleteInput(inputId);
+	    	new Messi('Desea borrar el artículo del lote?', 
+						  {title: '',
+						   	buttons: [{id: 0, label: 'Yes', val: 'Y'}, 
+						   		     {id: 1, label: 'No', val: 'N'}], 
+						   	callback: function(val) { 
+						   		if (val === 'Yes') {
+							   		var inputId = $(e.currentTarget).parent().data('id');
+		    						self.deleteInput(inputId);
+		    					}
+						   	}
+						  });
 	    });
 
 	    $('.modalBackground:not(.modalBackground#newInputPopup)').on('click', function(e){

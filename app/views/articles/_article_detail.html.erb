@@ -1,6 +1,7 @@
 <% if @article.nil? %>
+  <p class="articleMessageContainer">
     No hay articulos con ese id.
-
+  </p>
 <% elsif @article.status == "rented" || @article.status == "sold" %>  
   <p class="articleMessageContainer">  
     El artículo está <%= (@article.status == "rented") ? "alquilado" : "vendido" %>

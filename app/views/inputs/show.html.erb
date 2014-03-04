@@ -1,3 +1,4 @@
+<p id="notice"><%= notice %></p>
 <h3>Venta / alquiler de artículos</h3>
 <div class="modalBackground">
 	<div id="newInputPopup" >
@@ -24,7 +25,7 @@
 
 <div class="inputArticleSection">
 	<h3>Ingreso de artículo</h3>
-	<input type="text" id="articleInputId" placeholder="Ingrese código de artículo"/>
+	<input type="text" id="articleInputId" placeholder="Ingrese código"/>
 	<input type="button" value="Nuevo ingreso" id="newInputButton"/>
 	<div id="inputSuccessMessage"></div>
 </div>	
@@ -84,6 +85,10 @@
 		  		</tr>
 	  	<%% }); 
 	  	} else { %>
-	  		<li> No hay articulos en el lote</li>
+	  		<tr>
+	  			<td>
+	  				 No hay articulos en el lote
+	  			</td>
+	  		</tr>	
 	<%% } %>
 </script>

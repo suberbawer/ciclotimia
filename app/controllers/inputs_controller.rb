@@ -5,7 +5,10 @@ class InputsController < ApplicationController
 	end
 
 	def new
-
+		c_response = Collect.get_open_caja
+		if c_response['result'] != 'ok'
+			flash[:notice] = c_response['message']
+		end
 	end
 
 	def list
@@ -32,6 +35,10 @@ class InputsController < ApplicationController
 	end
 
 	def show
+		c_response = Collect.get_open_caja
+		if c_response['result'] != 'ok'
+			flash[:notice] = c_response['message']
+		end
 	end
 
 	def new_manual_input
