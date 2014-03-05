@@ -30,13 +30,13 @@ Ciclotimia::Application.routes.draw do
 
   resources :transactions_sales
 
+  get "inputs/input_article"
+
   resources :inputs
     
     post "inputs/new_manual_input"
 
-    post "inputs/bulk_save" 
-
-    get "inputs/show" 
+    post "inputs/bulk_save"  
 
   resources :outputs
     

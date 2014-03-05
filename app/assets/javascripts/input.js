@@ -116,7 +116,7 @@ $(document).ready(function(){
 					self._articleContainer.html(data);
 				},
 	            error: function(XMLHttpRequest, textStatus, errorThrown) {
-	            	alert('Error: ' + errorThrown + ', ' + textStatus)
+	            	new Messi('Error: ' + errorThrown + ', ' + textStatus, {title: 'Modal Window', modal: true});
 	            } 
 			});
 	    }
@@ -144,11 +144,11 @@ $(document).ready(function(){
 					});
 				}
 				else{
-					alert('El artículo esta ingresado en el lote actual');
+					new Messi('El artículo esta ingresado en el lote actual', {title: 'Modal Window', modal: true});
 				}
 			}
 			else{
-				alert('El ingreso no tiene un artículo relacionado');
+				new Messi('El ingreso no tiene un artículo relacionado', {title: 'Modal Window', modal: true});
 			}
 	    }
 
@@ -264,16 +264,16 @@ $(document).ready(function(){
 							   			// Se salvo correctamente el listado asi que borro la lista de inputs
 							   			self.closeInputList();
 							   		}
-							   		alert(response.message.message);
+							   		new Messi(response.message.message, {title: 'Modal Window', modal: true});
 							   },
 					error 	 : function(error)
 							   {
-							   		alert("Error: " + error);
+							   		new Messi("Error: " + error, {title: 'Modal Window', modal: true});
 							   }
 				});
 	    	}
 	    	else{
-	    		alert('No hay transacciones a guardar');
+	    		new Messi('No hay transacciones a guardar', {title: 'Modal Window', modal: true});
 	    	}
 	    } 
 
