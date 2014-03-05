@@ -217,6 +217,10 @@ input[type="button"]{
     cursor: pointer;
 }
 
+.small-button{
+    width: 85px !important;
+}
+
 .messi-titlebox{
     background: rgb(137,171,183) !important; /* Old browsers */
     background: -moz-linear-gradient(top,  rgba(137,171,183,1) 0%, rgba(35,83,138,1) 100%) !important; /* FF3.6+ */

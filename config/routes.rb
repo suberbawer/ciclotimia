@@ -36,6 +36,8 @@ Ciclotimia::Application.routes.draw do
 
   get "inputs/batch_receipt"
 
+  post "inputs/batch_receipt"
+
   resources :inputs
     
     post "inputs/new_manual_input"

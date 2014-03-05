@@ -1,56 +1,65 @@
 <p id="notice"><%= notice %></p>
 <h3>Ingresos</h3>
+<%= form_tag(controller: "inputs", action: "batch_receipt") do %>
 <div class="tableContainer">
-	<table class="inputTable">
-		<thead>
-		        <tr>
-		        	<th>Id</th>
-		            <th>Monto</th>
-		            <th>Porcentaje</th>
-		            <th>Ganancia Neta</th>
-		            <th>Tipo</th>
-		            <th>Descripción</th>
-		            <th>Creado</th>
-		            <th></th>
-		        </tr>
-		</thead>
-		<tbody>
-			<% if @today_inputs.length > 0 %>
-				<% @today_inputs.each do |transaction|  %>
-					<tr>
-						<td><%= transaction.id %></td>
-						<td><%= transaction.amount %></td>
-						<td><%= transaction.comission_per ? transaction.comission_per + "%" : "-" %></td>
-						<td><%= transaction.comission_cash %></td>
-						<td><%= transaction.obtain_human_label %></td>
-						<td>
-							<% if transaction.article.present? %>
-								<!--  El transaction tiene articulo, asi que mostramos su descripcion -->
-								<%= transaction.article.description %>
-							<% elsif transaction.concept? %>
-								<%= transaction.concept %>	
-							<% end %>
-						</td>
-						<td><%= l transaction.created_at %></td>
-						<% if transaction.status == "active" %>	
-							<!--  Es un transaction normal (no es cancel transaction) -->	
-							<td>		
-								<%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'input'}, :confirm => 'Seguro que desea anular la transacción?')%>
-							</td>
-						<% elsif transaction.status == "cancelled" %>
-							<td>Anulado</td>
-						<% elsif transaction.status == "cancel_input" %>
-							<!-- click aca, que agregue clase para animacion de transaction anulado -->
-							<td>Anula: <a href="/inputs/<%= transaction.cancel_id %>" target="_blank"> transacción <%= transaction.cancel_id %></a></td>
-						<% end %>
-					</tr>		
+		<table class="inputTable">
+			<thead>
+			        <tr>
+			        	<th>Id</th>
+			            <th>Monto</th>
+			            <th>Porcentaje</th>
+			            <th>Ganancia Neta</th>
+			            <th>Tipo</th>
+			            <th>Descripción</th>
+			            <th>Creado</th>
+			            <th>Anular</th>
+			            <th>Reimprimir</th>
+			        </tr>
+			</thead>
+			<tbody>
+				<% if @today_inputs.length > 0 %>
+						<% @today_inputs.each do |transaction|  %>
+							<tr>
+								<td><%= transaction.id %></td>
+								<td><%= transaction.amount %></td>
+								<td><%= transaction.comission_per ? transaction.comission_per + "%" : "-" %></td>
+								<td><%= transaction.comission_cash %></td>
+								<td><%= transaction.obtain_human_label %></td>
+								<td>
+									<% if transaction.article.present? %>
+										<!--  El transaction tiene articulo, asi que mostramos su descripcion -->
+										<%= transaction.article.description %>
+									<% elsif transaction.concept? %>
+										<%= transaction.concept %>	
+									<% end %>
+								</td>
+								<td><%= l transaction.created_at %></td>
+								<% if transaction.status == "active" %>	
+									<!--  Es un transaction normal (no es cancel transaction) -->	
+									<td>		
+										<%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'input'}, :confirm => 'Seguro que desea anular la transacción?')%>
+									</td>
+								<% elsif transaction.status == "cancelled" %>
+									<td>Anulado</td>
+								<% elsif transaction.status == "cancel_input" %>
+									<!-- click aca, que agregue clase para animacion de transaction anulado -->
+									<td>Anula: <a href="/inputs/<%= transaction.cancel_id %>" target="_blank"> transacción <%= transaction.cancel_id %></a></td>
+								<% end %>
+								<td>
+								<% if transaction.status == "active" %>
+									<%= check_box_tag 'inputs[]', transaction.id %>
+								<% end %>
+								</td>
+							</tr>		
+						<% end %>	
+				<% else %>
+					No hay ingresos en la caja de hoy.
 				<% end %>
-			<% else %>
-				No hay ingresos en la caja de hoy.
-			<% end %>
-		</tbody>	
-	</table>
-</div>
+			</tbody>	
+		</table>
+		</div>
+	<%= submit_tag 'Reimprimir transacciones seleccionadas', :disable_with => 'Espere', :class => 'submit c-submit' %>
+<% end %>
 <strong>Total ingresos: $<%= @today_inputs_total %></strong>
 
 <h3>Egresos</h3>

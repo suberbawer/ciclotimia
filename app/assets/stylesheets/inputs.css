@@ -76,6 +76,7 @@
 .tableContainer{
 	height: 200px;
 	overflow-y: auto;
+	margin-bottom: 20px;
 }
 #confirmBatchButton{
 	width: 130px;
