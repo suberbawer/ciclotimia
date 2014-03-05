@@ -34,7 +34,7 @@
 
                 var total_iva = total_percentual * 0.22;
 
-                $('#article_commission_cash').val(total_percentual + total_iva);
+                $('#article_commission_cash').val((total_percentual + total_iva).toFixed(0));
                 
                 // Just enable to save data 
                 $('#article_commission_cash').prop('disabled', false);
@@ -88,6 +88,10 @@
                 }
             }
         });
+
+        if ($('.edit_article').attr('id') != undefined) {
+            $("select[id*='article_entry_date']").prop("disabled","disabled");
+        }
     }
 
     $(document).ready(function(){
