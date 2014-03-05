@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+<h2>Detalle de ingreso</h2>
+
+	<p id="notice"><%= notice %></p>
+
+	<p>
+	  <strong>Id</strong>
+	  <%= @input.id %>
+	</p>
+
+	<p>
+	  <strong>Monto</strong>
+	  $<%= @input.amount %>
+	</p>
+
+	<p>
+	  <strong>Artículo</strong>
+	  <% if @input.article %>
+	  	<a target="_blank" href="/articles/<%= @input.article.id %>"><%= @input.article.description %></a>
+	  <% else %>
+	  		-	
+	  <% end %>
+	</p>
+
+	<p>
+	  <strong>Concepto</strong>
+	  <% if @input.concept %>
+	  		<%= @input.concept %>
+	  <% else %>
+	  		-	
+	  <% end %>
+	</p>
+
+	<p>
+	  <strong>Fecha</strong>
+	  <%= @input.created_at %>
+	</p>
+
+
+
+
+<%= link_to 'Atrás', inputs_path %>

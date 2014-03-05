@@ -116,7 +116,7 @@ $(document).ready(function(){
 					self._articleContainer.html(data);
 				},
 	            error: function(XMLHttpRequest, textStatus, errorThrown) {
-	            	new Messi('Error: ' + errorThrown + ', ' + textStatus, {title: 'Modal Window', modal: true});
+	            	new Messi('Error: ' + errorThrown + ', ' + textStatus, {title: 'Información', modal: true});
 	            } 
 			});
 	    }
@@ -144,11 +144,11 @@ $(document).ready(function(){
 					});
 				}
 				else{
-					new Messi('El artículo esta ingresado en el lote actual', {title: 'Modal Window', modal: true});
+					new Messi('El artículo esta ingresado en el lote actual', {title: 'Información', modal: true});
 				}
 			}
 			else{
-				new Messi('El ingreso no tiene un artículo relacionado', {title: 'Modal Window', modal: true});
+				new Messi('El ingreso no tiene un artículo relacionado', {title: 'Información', modal: true});
 			}
 	    }
 
@@ -264,16 +264,16 @@ $(document).ready(function(){
 							   			// Se salvo correctamente el listado asi que borro la lista de inputs
 							   			self.closeInputList();
 							   		}
-							   		new Messi(response.message.message, {title: 'Modal Window', modal: true});
+							   		new Messi(response.message.message, {title: 'Información', modal: true});
 							   },
 					error 	 : function(error)
 							   {
-							   		new Messi("Error: " + error, {title: 'Modal Window', modal: true});
+							   		new Messi("Error: " + error, {title: 'Información', modal: true});
 							   }
 				});
 	    	}
 	    	else{
-	    		new Messi('No hay transacciones a guardar', {title: 'Modal Window', modal: true});
+	    		new Messi('No hay transacciones a guardar', {title: 'Información', modal: true});
 	    	}
 	    } 
 

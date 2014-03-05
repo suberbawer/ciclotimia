@@ -1,4 +1,5 @@
 class InputsController < ApplicationController
+	before_action :set_input, only: [:show]
 
   	def index
 
@@ -52,4 +53,10 @@ class InputsController < ApplicationController
 		flash[:notice] = (new_input) ? 'La transacción manual se realizo correctamente' : 'La transacción no se pudo realizar'
 		redirect_to controller: :collects, action: :today_collect
 	end
+
+	private
+	    # Use callbacks to share common setup or constraints between actions.
+	    def set_input
+	      @input = Input.find(params[:id])
+	    end
 end
