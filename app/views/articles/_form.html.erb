@@ -1,48 +1,105 @@
-<script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
-
 <script>
-  // Change message of required validation
-  jQuery.extend(jQuery.validator.messages, {
-    required: "Este campo es requerido."
-  });
+    // Change message of required validation
+    jQuery.extend(jQuery.validator.messages, {
+        required: "Este campo es requerido."
+    });
 
-  function set_default_values(){
-    $(article_commission_per).val('35%');
-  }
+    $.validator.addMethod('positiveNumber',
+        function (value) { 
+            return Number(value) > 0;
+        }, 'Por favor ingresa un valor positivo');
 
-  function calculate_winning_amount(){
-    if($('#article_estimated_price').val() != '' && $('#article_estimated_price').val() != undefined) {
-      var total_percentual = parseInt($('#article_estimated_price').val(), 10) * (parseInt($('#article_commission_per').val())/100);
+    $.validator.addMethod('noDecimal',
+        function(value){
+          return /^(\d{1,3})?$/.test(value);
+        }, 'Por favor ingresa un numero entero y con un máximo de 3 cifras');
 
-      var total_iva = total_percentual * 0.22;
+    $.validator.addMethod('number',
+        function (value) { 
+            return Number(value);
+        }, 'Por favor ingresa un número');
 
-      $('#article_commission_cash').val(total_percentual + total_iva);
-
-      // Just enable to save data 
-      $('#article_commission_cash').prop('disabled', false);
-    } else {
-      $('#article_commission_cash').val('');
+    function set_default_values(){
+        if( $(article_commission_per).val() == undefined || $(article_commission_per).val() == '') {
+          $(article_commission_per).val('35');
+        }
     }
-  }
 
-  function set_required_data(){
-    $('#article_estimated_price').addClass('required');
-    $('#article_description').addClass('required');
-    $('#article_commission_per').addClass('required');
-    $('#article_provider_id').addClass('required');
-    $('#article_commission_cash').prop('disabled','disabled');
+    function calculate_winning_amount(){
+        // Si no hay errores
+        if($('.error').attr('id') == undefined) {
+          
+            if($('#article_estimated_price').val() != '' && $('#article_estimated_price').val() != undefined) {
+                var total_percentual = parseInt($('#article_estimated_price').val(), 10) * (parseInt($('#article_commission_per').val())/100);
 
-    $('.new_article').validate();
-  }
+                var total_iva = total_percentual * 0.22;
 
-  $(document).ready(function(){
-    set_required_data();
-    set_default_values();
-    $("input[name='commit']").click(function(){calculate_winning_amount();});
+                $('#article_commission_cash').val(total_percentual + total_iva);
+                
+                // Just enable to save data 
+                $('#article_commission_cash').prop('disabled', false);
+            } else {
+                $('#article_commission_cash').val('');
+            }
+        } else {
+            $('#article_commission_cash').val('');
+        }
+    }
 
+    function set_required_data(){
+        $('#article_estimated_price').addClass('required');
+        $('#article_description').addClass('required');
+        $('#article_commission_per').addClass('required');
+        $('#article_provider_id').addClass('required');
+        $('#article_commission_cash').prop('disabled','disabled');
+
+        validate_fields();
+    }
+
+    function validate_fields(){
+        $('.new_article').validate({
+            rules: {
+                'article[estimated_price]': {
+                    required: true,
+                    number: true,
+                    positiveNumber: true
+                },
+                'article[commission_per]': {
+                    required: true,
+                    positiveNumber: true,
+                    number: true,
+                    noDecimal: true
+                }
+            }
+        });
+    
+        $('.edit_article').validate({
+            rules: {
+                'article[estimated_price]': {
+                    required: true,
+                    number: true,
+                    positiveNumber: true
+                },
+                'article[commission_per]': {
+                    required: true,
+                    positiveNumber: true,
+                    number: true,
+                    noDecimal: true
+                }
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        set_required_data();
+        set_default_values();
+    
+        $("input[name='commit']").click(function(){
+            calculate_winning_amount();
+        });
   });
-
 </script>
+
 <%= form_for(@article) do |f| %>
   <% if @article.errors.any? %>
     <div id="error_explanation">

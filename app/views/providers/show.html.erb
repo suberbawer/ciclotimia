@@ -44,7 +44,7 @@
         <% @article_list.each do |article| %>
         <tr>
           <td><%= article.description %></td>
-          <td><%= article.estimated_price %></td>
+          <td><%= '$' + article.estimated_price %></td>
           <td><img src="/assets/<%= (article.sent) ? 'tick' : 'cross' %>.png" width="15" height="15"/></td>
         </tr>
         <% end %>

@@ -133,7 +133,7 @@ class Input < ActiveRecord::Base
 		when "Output"
 		  return "Egreso"
 		when "cancel_input"
-		  return "Anulacion"    
+		  return "Anulación"    
 		else
 		  puts "Tipo no reconocido"
 		end

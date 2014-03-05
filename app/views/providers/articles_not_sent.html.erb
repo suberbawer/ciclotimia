@@ -24,7 +24,7 @@
             </tr>
         </tbody>
     </table>
-    <%= button_to 'Enviar artículos', "/providers/magia_del_mago", :method => "get", :class => 'edit_btn' %>
+    <%= button_to 'Enviar artículos', send_art_path(@provider), :method => "post", :class => 'edit_btn' %>
 <% else %>
     No hay artículos para enviar (es un error que entre acá).
 <% end %>

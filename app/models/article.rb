@@ -67,4 +67,19 @@ class Article < ActiveRecord::Base
 			return Article.all
 		end
 	end
+
+	def obtain_human_label
+		return self.retrieve_label(self.status)
+	end
+
+	def retrieve_label(type)
+		case type
+		when "sold", "sold"
+		  return "Vendido" 
+		when "rented", "Rented"
+		  return "Alquilado"    
+		else
+		  puts "Tipo no reconocido"
+		end
+	end
 end

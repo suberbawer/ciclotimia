@@ -1,22 +1,36 @@
-<script src="http://jquery.bassistance.de/validate/jquery.validate.js"></script>
-
 <script>
   // Change message of required validation
   jQuery.extend(jQuery.validator.messages, {
-    required: "Este campo es requerido."
+    required: "Este campo es requerido.",
+    email: "Por favor ingresa un Email válido."
   });
-  
+
   function set_required_data() {
     $('#provider_name').addClass('required');
     $('#provider_lastname').addClass('required');
     $('#provider_email').addClass('required');
     $('#provider_ci').addClass('required');
 
-    $('.new_provider').validate();
+    $('.new_provider').validate({
+      rules: {
+          'provider[email]': {
+              required: true,
+              email: true,
+          }
+      }
+    });
+
+    $('.edit_provider').validate({
+      rules: {
+          'provider[email]': {
+              required: true,
+              email: true,
+          }
+      }
+    });
   }
 
   $(document).ready(function(){
-    alert('asdfasdfasdfasd');
     set_required_data();
   });
 </script>
