@@ -4,6 +4,7 @@
 	<table class="inputTable">
 		<thead>
 		        <tr>
+		        	<th>Id</th>
 		            <th>Monto</th>
 		            <th>Tipo</th>
 		            <th>Descripción</th>
@@ -15,6 +16,7 @@
 			<% if @today_inputs.length > 0 %>
 				<% @today_inputs.each do |transaction|  %>
 					<tr>
+						<td><%= transaction.id %></td>
 						<td><%= transaction.amount %></td>
 						<td><%= transaction.obtain_human_label %></td>
 						<td>
@@ -35,7 +37,7 @@
 							<td>Anulado</td>
 						<% elsif transaction.status == "cancel_input" %>
 							<!-- click aca, que agregue clase para animacion de transaction anulado -->
-							<td>Anula: <a href="/inputs/<%= transaction.cancel_id %>" target="_blank"> transacción</a></td>
+							<td>Anula: <a href="/inputs/<%= transaction.cancel_id %>" target="_blank"> transacción <%= transaction.cancel_id %></a></td>
 						<% end %>
 					</tr>		
 				<% end %>
@@ -52,6 +54,7 @@
 	<table class="outputTable">
 		<thead>
 		        <tr>
+		        	<th>Id</th>
 		            <th>Monto</th>
 		            <th>Tipo</th>
 		            <th>Descripción</th>
@@ -63,6 +66,7 @@
 			<% if @today_outputs.length > 0 %>
 				<% @today_outputs.each do |transaction|  %>
 					<tr>
+							<td><%= transaction.id %></td>
 							<td><%= transaction.amount %></td>
 							<td><%= transaction.obtain_human_label %></td>
 							<td>
@@ -85,7 +89,7 @@
 								<td>Anulado</td>
 							<% elsif transaction.status == "cancel_input" %>
 								<!-- click aca, que agregue clase para animacion de transaction anulado -->
-								<td>Anula: <a href="/outputs/<%= transaction.cancel_id %>" target="_blank"> transacción</a></td>
+								<td>Anula: <a href="/outputs/<%= transaction.cancel_id %>" target="_blank"> transacción <%= transaction.cancel_id %></a></td>
 							<% end %>
 					</tr>	
 				<% end %>
