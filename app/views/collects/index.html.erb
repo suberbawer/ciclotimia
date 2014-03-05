@@ -10,7 +10,7 @@
 			<span><%= @today_open_caja['record'].created_at %></span>
 		</a>
 		<%= form_tag(controller: "collects", action: "close_today_caja", method: "post") do%>
-			<%= submit_tag 'Cerrar caja actual', :disable_with => 'Espere...', :class => 'submit' %>
+			<%= submit_tag 'Cerrar caja actual', :disable_with => 'Espere...', :class => 'submit', :confirm => 'Seguro que desea cerrar esta caja?' %>
 		<% end %>
 
 
@@ -21,11 +21,11 @@
 		
 		<% if @today_open_caja['result'] == 'no_open' %>
 			<%= form_tag(controller: "collects", action: "open_today_caja", method: "post") do%>
-				<%= submit_tag 'Abrir caja', :disable_with => 'Espere...', :class => 'submit' %>
+				<%= submit_tag 'Abrir caja', :disable_with => 'Espere...', :class => 'submit', :confirm => 'Seguro que desea abrir una caja?' %>
 			<% end %>
 		<% elsif @today_open_caja['result'] == 'open_before' %>
 			<%= form_tag(controller: "collects", action: "close_another_caja", method: "post") do%>
-				<%= submit_tag 'Cerrar caja anterior', :disable_with => 'Espere...', :class => 'submit' %>
+				<%= submit_tag 'Cerrar caja anterior', :disable_with => 'Espere...', :class => 'submit', :confirm => 'Seguro que desea cerrar la caja de un día anterior?' %>
 			<% end %>
 		<% end %>
 			

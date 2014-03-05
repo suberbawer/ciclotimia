@@ -4,7 +4,7 @@
 	<%= form_tag(controller: "articles", action: "devolution", method: "post") do%>
 		<h3>Ingrese artículo a devolver</h3>
   		<%= text_field_tag(:article_id) %>
-		<%= submit_tag 'Devolver artículo', :disable_with => 'Please wait...', :class => 'submit' %>
+		<%= submit_tag 'Devolver artículo', :disable_with => 'Please wait...', :class => 'submit', :confirm => "Desea devolver el artículo?" %>
 	<% end %>
 
 </div>

@@ -35,8 +35,11 @@
 }
 
 .batchSection{
-	width: 74%;
+	width: 71%;
 	vertical-align: top;
+	border-left: solid 1px #888888;
+	margin-left: 10px;
+	padding-left: 10px;
 }
 
 .inputCollectionTable, .outputTable, .inputTable{
