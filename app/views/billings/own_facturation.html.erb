@@ -5,6 +5,10 @@
 	.print{
 		width: 100px;
 	}
+	.right{
+		text-align: right;
+		padding-right: 10px;
+	}
 </style>
 
 <script>
@@ -31,7 +35,7 @@
 </style>
 
 <div id="billing_table">
-	<h3> Facturas para imprimir del mes <%= Time.now.strftime("%m-%Y") %></h3>
+	<h3> Facturas ganancia neta para imprimir del mes <%= Time.now.strftime("%m-%Y") %></h3>
 
 	<% @providers_to_print.each do |provider| %>
      <div class="provider_container" id="provider_container_<%= provider.id%>">
@@ -39,62 +43,37 @@
 		<table id="articles">
 			<thead>
 		        <tr>
-					<th>Código Artículo</th>
-					<th>Descripción</th>
-					<th>Estado</th>
-					<th>Precio</th>
-					<th>Porcentaje Comisión</th>
-					<th>Efectivo Comisión</th>
+					<th>Detalle</th>
+					<th>Importe</th>
 		        </tr>
 		      </thead>
 			<tbody>
-				<% sub_total = 0 %>
 				<% total     = 0 %>
 				<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
-					<tr>
-						<td><%= input.article.id %></td>
-						<td><%= input.article.description %></td>
-						<td><%= input.obtain_human_label %></td>
-						<td>$<%= input.amount %></td>
-						<td><%= input.comission_per %>%</td>
-						<td>$<%= input.comission_cash %></td>
-					</tr>
-					<% sub_total = sub_total + input.amount %>
-					<% total     = total + (input.amount - input.comission_cash.to_i) %>
+					<% total = total + input.comission_cash.to_i %>
 				<% end %>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>-----------</td>
-					<td>-----------</td>
+					<td>Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
+					<td>$<%= total - total * 0.22 %></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>Sub Total:</td>
-					<td>$<%= sub_total %></td>
+					<td class="right">SUB TOTAL</td>
+					<td>$<%= total - total * 0.22 %></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>Total Neto:</td>
+					<td class="right">IVA</td>
+					<td>$<%= total * 0.22 %></td>
+				</tr>
+				<tr>
+					<td class="right">TOTAL</td>
 					<td>$<%= total %></td>
 				</tr>
 			</tbody>
 		</table>
-		<p> Recibí de Ciclotimia la suma de: $ <%= total %> </p>
 		<p> Montevideo, <%= Time.now.strftime("%d-%m-%Y") %></p>
 	</div>
 	<% end %>
 </div>
 <div>
 	<button class="print">Imprimir</button>
-	<%= button_to("Enviar via Email", :action => "send_billing_monthly", :method => "post") %>
 </div>
-

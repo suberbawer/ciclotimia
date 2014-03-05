@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+	</head>
+	<body>
+	    <div class="provider_container" id="provider_container">
+			<p>Sr/Sra. <%= @provider.name %> <%= @provider.lastname %></p>
+			<table id="articles">
+				<thead>
+			        <tr>
+						<th>Código Artículo</th>
+						<th>Descripción</th>
+						<th>Estado</th>
+						<th>Precio</th>
+						<th>Porcentaje Comisión</th>
+						<th>Efectivo Comisión</th>
+			        </tr>
+			      </thead>
+				<tbody>
+					<% sub_total = 0 %>
+					<% total     = 0 %>
+					<% (@provider.instance_variable_get "@custom_input_list").each do |input| %>
+						<tr>
+							<td><%= input.article.id %></td>
+							<td><%= input.article.description %></td>
+							<td><%= input.obtain_human_label %></td>
+							<td>$<%= input.amount %></td>
+							<td><%= input.comission_per %>%</td>
+							<td>$<%= input.comission_cash %></td>
+						</tr>
+						<% sub_total = sub_total + input.amount %>
+						<% total     = total + (input.amount - input.comission_cash.to_i) %>
+					<% end %>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>-----------</td>
+						<td>-----------</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>Sub Total:</td>
+						<td>$<%= sub_total %></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>Total Neto:</td>
+						<td>$<%= total %></td>
+					</tr>
+				</tbody>
+			</table>
+			<p> Recibí de Ciclotimia la suma de: $ <%= total %> </p>
+			<p> Montevideo, <%= Time.now.strftime("%d-%m-%Y") %></p>
+		</div>
+	</body>
+</html>

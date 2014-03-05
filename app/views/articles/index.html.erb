@@ -1,7 +1,3 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
 <script>
   function printImg(id) {
     pwin = window.open(document.getElementById(id).src,"_blank");
@@ -14,6 +10,12 @@
     });
   });
 </script>
+<style>
+.articles_container{
+  height: 450px;
+  overflow-y: auto;
+}
+</style>
 
 <h3>Artículos</h3>
 
@@ -26,44 +28,46 @@
 
 <br/><br/>
 
-<table id="articles">
-  <thead>
-    <tr>
-      <th>Código</th>
-      <th>Descripción</th>
-      <th>Precio Estimado</th>
-      <th>Fecha de Ingreso</th>
-      <th>Porcentaje Comisión</th>
-      <th>Efectivo Comisión</th>
-      <th>Estado</th>
-      <th>Proveedor</th>
-      <th>Código</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @articles.each do |article| %>
+<div class="articles_container">
+  <table id="articles">
+    <thead>
       <tr>
-        <td><%= article.id %></td>
-        <td><%= article.description %></td>
-        <td><%= '$' + article.estimated_price %></td>
-        <td><%= article.created_at %></td>
-        <td><%= article.commission_per + '%'%></td>
-        <td><%= '$' + article.commission_cash %></td>
-        <td><%= article.obtain_human_label %></td>
-        <td><%= article.provider.name + ' ' + article.provider.lastname %></td>
-        <td><%= image_tag('barcodes/'+article.id.to_s+'.png', size: "60x30", :class => 'barcode_image', :id => "barcode_" + article.id.to_s) %></td>
-        <td><%= link_to image_tag('show.png', size: "16x16"), article %></td>
-        <td><%= link_to image_tag('edit.png', size: "16x16"), edit_article_path(article) %></td>
-        <td><%= link_to image_tag('delete.png', size: "16x16"), article,  method: :delete, data: { confirm: 'Esta seguro/a?' } %></td>
+        <th>Código</th>
+        <th>Descripción</th>
+        <th>Precio Estimado</th>
+        <th>Fecha de Ingreso</th>
+        <th>Porcentaje Comisión</th>
+        <th>Efectivo Comisión</th>
+        <th>Estado</th>
+        <th>Proveedor</th>
+        <th>Código</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @articles.each do |article| %>
+        <tr>
+          <td><%= article.id %></td>
+          <td><%= article.description %></td>
+          <td><%= '$' + article.estimated_price %></td>
+          <td><%= article.created_at %></td>
+          <td><%= article.commission_per + '%'%></td>
+          <td><%= '$' + article.commission_cash %></td>
+          <td><%= article.obtain_human_label %></td>
+          <td><%= article.provider.name + ' ' + article.provider.lastname %></td>
+          <td><%= image_tag('barcodes/'+article.id.to_s+'.png', size: "60x30", :class => 'barcode_image', :id => "barcode_" + article.id.to_s) %></td>
+          <td><%= link_to image_tag('show.png', size: "16x16"), article %></td>
+          <td><%= link_to image_tag('edit.png', size: "16x16"), edit_article_path(article) %></td>
+          <td><%= link_to image_tag('delete.png', size: "16x16"), article,  method: :delete, data: { confirm: 'Esta seguro/a?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= button_to 'Nuevo Artículo', new_article_path, :method => "get", :class => 'new_article_btn' %>
+  <%= button_to 'Nuevo Artículo', new_article_path, :method => "get", :class => 'new_article_btn' %>
+</div>
+
+

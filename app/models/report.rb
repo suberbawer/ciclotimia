@@ -25,6 +25,23 @@ class Report < Caja
 		return Input.find(:all, :conditions => ["created_at between ? and ?", start_date, end_date])
 	end
 
+	def self.reports_outputs_between_dates(start_date, end_date)
+		if start_date != ''
+			if start_date == 'mes'
+				start_date = Date.today.beginning_of_month.beginning_of_day
+				end_date   = Date.today.end_of_month.end_of_day
+			elsif start_date == 'diario'
+				start_date = Date.today.beginning_of_day
+				end_date   = Date.today.end_of_day
+			else 
+				start_date = Date.strptime(start_date, "%m/%d/%Y").beginning_of_day
+				end_date   = Date.strptime(end_date, "%m/%d/%Y").end_of_day
+			end
+		end	
+				
+		return Output.find(:all, :conditions => ["created_at between ? and ?", start_date, end_date])
+	end
+
 	def self.total_amount(list_transactions)
 		aux = 0;
 		total_amount = 0;
@@ -35,4 +52,26 @@ class Report < Caja
 
 		return total_amount
 	end
-end
+
+	def self.total_liquid(list_transactions)
+		aux = 0;
+		total_liquid = 0;
+		list_transactions.each do |transaction|
+			aux = transaction.comission_cash
+			total_liquid = total_liquid + aux.to_i
+		end
+		
+		return total_liquid
+	end
+
+	def self.total_output_amount(list_outputs)
+		aux = 0;
+		total_amount = 0;
+		list_outputs.each do |output|
+			aux = output.amount
+			total_amount = aux + total_amount
+		end
+
+		return total_amount
+	end
+end 
