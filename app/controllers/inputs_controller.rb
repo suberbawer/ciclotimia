@@ -54,6 +54,14 @@ class InputsController < ApplicationController
 		redirect_to controller: :collects, action: :today_collect
 	end
 
+	def batch_receipt
+		puts '--------------------------------'
+		puts params['inputs']
+		@new_inputs = Input.where(id: params['inputs'])
+		puts @new_inputs
+		puts '--------------------------------'
+	end
+
 	private
 	    # Use callbacks to share common setup or constraints between actions.
 	    def set_input

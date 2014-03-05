@@ -210,6 +210,30 @@ $(document).ready(function(){
 
 		var self                 = this;
 
+		var printInputs = function(path) {
+		    newWin = window.open(path);
+		    newWin.onload = function(){
+		    	var divToPrint = newWin.document.getElementById('receiptContainer');
+		    	newWin.document.write(divToPrint.outerHTML);
+				newWin.print();
+			}
+		}
+
+		/**
+		 *	Recibe un array de ids y los convierte en un array de parametros para enviar.
+		 *
+		 *  @param Array de ids.
+		 *  @return Parametro para ser enviado.
+		 */
+		this.createParameterList = function(inputIds){
+			var paramString = "";
+			for(var i in inputIds){
+				var separator = (i > 0) ? "&" : "";
+				paramString += separator + "inputs[]=" + inputIds[i].toString()
+			}
+			return paramString;
+		}
+
 		this.getLastInputId = function() {
 	        return this.lastInputId;
 	    }
@@ -265,6 +289,8 @@ $(document).ready(function(){
 							   			self.closeInputList();
 							   		}
 							   		new Messi(response.message.message, {title: 'Información', modal: true});
+							   		var param = self.createParameterList(response.message.saved_inputs);
+							   		printInputs('/inputs/batch_receipt?' + param);
 							   },
 					error 	 : function(error)
 							   {
