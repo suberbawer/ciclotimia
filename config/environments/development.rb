@@ -27,6 +27,13 @@ Ciclotimia::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  #config.active_record.default_timezone = 'America/Montevideo'
+  config.time_zone = 'America/Montevideo'
+  #Time.zone = 'America/Montevideo'
+
+  #config.time_zone = 'Montevideo'
+  #config.active_record.default_timezone = 'Montevideo'
+
   config.action_mailer.raise_delivery_errors = true  
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

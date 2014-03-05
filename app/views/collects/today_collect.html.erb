@@ -31,7 +31,7 @@
 								<%= transaction.concept %>	
 							<% end %>
 						</td>
-						<td><%= transaction.created_at %></td>
+						<td><%= l transaction.created_at %></td>
 						<% if transaction.status == "active" %>	
 							<!--  Es un transaction normal (no es cancel transaction) -->	
 							<td>		
@@ -83,7 +83,7 @@
 									<%= transaction.concept %>	
 								<% end %>
 							</td>
-							<td><%= transaction.created_at %></td>
+							<td><%= l transaction.created_at %></td>
 							<% if transaction.status == "active" %>	
 								<!--  Es un transaction normal (no es cancel transaction) -->	
 								<td>		

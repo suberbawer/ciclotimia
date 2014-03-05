@@ -7,7 +7,7 @@
 			Id:
 			<span><%= @today_open_caja['record'].id %></span>
 			Creada:
-			<span><%= @today_open_caja['record'].created_at %></span>
+			<span><%= l (@today_open_caja['record'].created_at) %></span>
 		</a>
 		<%= form_tag(controller: "collects", action: "close_today_caja", method: "post") do%>
 			<%= submit_tag 'Cerrar caja actual', :disable_with => 'Espere...', :class => 'submit', :confirm => 'Seguro que desea cerrar esta caja?' %>
