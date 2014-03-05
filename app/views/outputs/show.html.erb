@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+<h2>Detalle de egreso</h2>
+
+	<p id="notice"><%= notice %></p>
+
+	<p>
+	  <strong>Id</strong>
+	  <%= @output.id %>
+	</p>
+
+	<p>
+	  <strong>Monto</strong>
+	  $<%= @output.amount %>
+	</p>
+
+	<p>
+	  <strong>Concepto</strong>
+	  <% if @output.concept %>
+	  		<%= @output.concept %>
+	  <% else %>
+	  		-	
+	  <% end %>
+	</p>
+
+	<p>
+	  <strong>Fecha</strong>
+	  <%= @output.created_at %>
+	</p>
