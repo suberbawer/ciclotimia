@@ -31,7 +31,7 @@
 								<%= transaction.concept %>	
 							<% end %>
 						</td>
-						<td><%= transaction.created_at %></td>
+						<td><%= l transaction.created_at %></td>
 						<% if transaction.status == "active" %>	
 							<!--  Es un transaction normal (no es cancel transaction) -->	
 							<td>		
@@ -50,8 +50,8 @@
 			<% end %>
 		</tbody>	
 	</table>
-	Total ingresos: $<%= @today_inputs_total %>
 </div>
+<strong>Total ingresos: $<%= @today_inputs_total %></strong>
 
 <h3>Egresos</h3>
 <div class="tableContainer">
@@ -83,7 +83,7 @@
 									<%= transaction.concept %>	
 								<% end %>
 							</td>
-							<td><%= transaction.created_at %></td>
+							<td><%= l transaction.created_at %></td>
 							<% if transaction.status == "active" %>	
 								<!--  Es un transaction normal (no es cancel transaction) -->	
 								<td>		
@@ -102,6 +102,6 @@
 			<% end %>
 		</tbody>		
 	</table>
-	Total egresos: $<%= @today_outputs_total %>
 </div>
-Total: $ <%= @today_inputs_total + @today_outputs_total %>
+<strong>Total egresos: $<%= @today_outputs_total %> </br></strong>
+<h3>Total: $ <%= @today_inputs_total + @today_outputs_total %></h3>

@@ -55,10 +55,12 @@ class Input < ActiveRecord::Base
 		json_response = Collect.get_open_caja
 		if json_response['result'] == 'ok'
 			current_open = json_response['record']
+			json_response['saved_inputs'] = []
 			input_list.each do |input|
 		    	new_input = self.build_input(input[1])
 		    	current_open.caja_transactions.create!(:transaction => new_input) # Agrego a la lista de inputs de la open_caja
 		   		# TODO Si hay algun error aca, agregarlo a json_response
+		   		json_response['saved_inputs'].push(new_input.id)
 		   	end
 		   	json_response['message'] = "Las transacciones se insertaron correctamente" # TODO aca tengo que ver si se salvaron los inputs correctamente.
 		end

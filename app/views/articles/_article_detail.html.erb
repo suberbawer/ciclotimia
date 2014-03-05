@@ -9,7 +9,7 @@
 <% else %>
         <div class="articleData" data-description="<%= @article.description %>"
                                  data-estimated-price="<%= @article.estimated_price %>" 
-                                 data-entry-date="<%= @article.entry_date %>"
+                                 data-entry-date="<%= @article.created_at %>"
                                  data-comission="<%= @article.commission_per %>"
                                  data-status="<%= @article.status %>">
             <p>
@@ -24,7 +24,7 @@
 
             <p>
               <strong>Fecha de Ingreso:</strong>
-              <%= @article.entry_date %>
+              <%= l @article.created_at %>
             </p>
 
             <p>
