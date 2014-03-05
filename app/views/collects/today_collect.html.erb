@@ -6,6 +6,8 @@
 		        <tr>
 		        	<th>Id</th>
 		            <th>Monto</th>
+		            <th>Porcentaje</th>
+		            <th>Ganancia Neta</th>
 		            <th>Tipo</th>
 		            <th>Descripción</th>
 		            <th>Creado</th>
@@ -18,6 +20,8 @@
 					<tr>
 						<td><%= transaction.id %></td>
 						<td><%= transaction.amount %></td>
+						<td><%= transaction.comission_per ? transaction.comission_per + "%" : "-" %></td>
+						<td><%= transaction.comission_cash %></td>
 						<td><%= transaction.obtain_human_label %></td>
 						<td>
 							<% if transaction.article.present? %>
