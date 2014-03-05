@@ -89,7 +89,7 @@
         <tr>
         	<td><%= transaction.article ? transaction.article.description : '' %></td>
         	<td><%= transaction.article ? transaction.article.estimated_price : '' %></td>
-        	<td><%= transaction.article ? transaction.article.status : transaction.status %></td>
+        	<td><%= transaction.obtain_human_label %></td>
             <td><%= transaction.amount %></td>
             <td><%= transaction.comission_per %></td>
             <td><%= transaction.comission_cash %></td>

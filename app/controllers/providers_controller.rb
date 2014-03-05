@@ -1,5 +1,5 @@
 class ProvidersController < ApplicationController
-  before_action :set_provider, only: [:show, :edit, :update, :destroy, :articles_not_sent]
+  before_action :set_provider, only: [:show, :edit, :update, :destroy, :articles_not_sent, :send_articles_provider]
 
   # GET /providers
   # GET /providers.json
@@ -44,8 +44,7 @@ class ProvidersController < ApplicationController
   def update
     respond_to do |format|
       if @provider.update(provider_params)
-        # Colocar en el envio del mail boton
-        UserMailer.new_articles_provider(@provider).deliver 
+         
         
         format.html { redirect_to @provider, notice: 'Provider was successfully updated.' }
         format.json { head :no_content }
@@ -72,7 +71,25 @@ class ProvidersController < ApplicationController
   end
   
   def articles_not_sent
-    @article_not_sent_list = @provider.get_articles_not_sent 
+    @article_not_sent_list = @provider.get_articles_not_sent
+  end
+  
+  def send_articles_provider
+    begin
+      provider = Provider.find(params[:id])
+      UserMailer.new_articles_provider(provider).deliver
+    
+      provider.get_articles_not_sent.each do |article|
+        article.sent = true
+        puts article.save
+      end
+
+      flash[:notice] = "Mail enviado a proveedor correctamente"
+    
+    rescue
+      flash[:notice] = "Mail no enviado por falta de internet, reconectar y volver a intentar. Gracias."
+    end
+      redirect_to action: :index
   end
 
   private

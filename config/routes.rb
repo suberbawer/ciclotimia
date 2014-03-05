@@ -23,7 +23,9 @@ Ciclotimia::Application.routes.draw do
   resources :providers
   post "providers/filter"
   match 'providers_:id' => 'providers#articles_not_sent', :via => [:get], :as => 'art_not_sent'
-  
+  match 'mail_:id' => 'providers#send_articles_provider', :via => [:post], :as => 'send_art'
+
+
   resources :transactions
 
   resources :sales
