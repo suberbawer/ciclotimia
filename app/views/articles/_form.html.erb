@@ -34,7 +34,7 @@
 
                 var total_iva = total_percentual * 0.22;
 
-                $('#article_commission_cash').val(total_percentual + total_iva);
+                $('#article_commission_cash').val((total_percentual + total_iva).toFixed(0));
                 
                 // Just enable to save data 
                 $('#article_commission_cash').prop('disabled', false);
@@ -120,10 +120,6 @@
   <div class="field">
     <%= f.label 'Precio Estimado' %><br>
     <%= f.text_field :estimated_price %>
-  </div>
-  <div class="field">
-    <%= f.label 'Fecha de Ingreso' %><br>
-    <%= f.date_select :entry_date %>
   </div>
   <div class="field">
     <%= f.label 'Porcetaje Comisión' %><br>

@@ -29,6 +29,7 @@
 <table id="articles">
   <thead>
     <tr>
+      <th>Código</th>
       <th>Descripción</th>
       <th>Precio Estimado</th>
       <th>Fecha de Ingreso</th>
@@ -46,6 +47,7 @@
   <tbody>
     <% @articles.each do |article| %>
       <tr>
+        <td><%= article.id %></td>
         <td><%= article.description %></td>
         <td><%= '$' + article.estimated_price %></td>
         <td><%= l article.created_at %></td>
