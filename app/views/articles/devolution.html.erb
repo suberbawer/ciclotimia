@@ -1,10 +1,40 @@
+<script>
+// Change message of required validation
+jQuery.extend(jQuery.validator.messages, {
+    required: "Este campo es requerido."
+});
+
+$.validator.addMethod('number',
+    function (value) { 
+        return  Number(value);
+    }, 'Por favor ingresa un número');
+
+$.validator.addMethod('positiveNumber',
+        function (value) { 
+            return Number(value) > 0;
+        }, 'Por favor ingresa un valor positivo');
+
+$(document).ready(function(){
+	$('.devolution_article').validate({
+        rules: {
+            'article_id': {
+                required: true,
+                number: true,
+                positiveNumber: true
+            }
+        }
+    });
+});
+</script>
+
 <p id="notice"><%= notice %></p>
 <div>
 
-	<%= form_tag(controller: "articles", action: "devolution", method: "post") do%>
+	<%= form_tag({controller: "articles", action: "devolution", method: "post"}, {:class => 'devolution_article'}) do%>
 		<h3>Ingrese artículo a devolver</h3>
+  		<%= submit_tag 'Devolver artículo', :disable_with => 'Please wait...', :class => 'submit', :confirm => "Desea devolver el artículo?" %>
   		<%= text_field_tag(:article_id) %>
-		<%= submit_tag 'Devolver artículo', :disable_with => 'Please wait...', :class => 'submit', :confirm => "Desea devolver el artículo?" %>
+		
 	<% end %>
 
 </div>
