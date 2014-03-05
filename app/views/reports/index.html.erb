@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <script>
@@ -45,6 +43,13 @@
 
 </script>
 
+<style>
+.table_container{
+    height: 450px;
+    overflow-y: auto;
+}
+</style>
+
 <h3> Reportes </h3>
 
 <div class="report_options">
@@ -71,48 +76,111 @@
 </div>
 
 <br/><br/><br/>
+<div class = "table_container">
 
-<table id="reports">
-    <thead>
-        <tr>
-            <th>Descripcion de Articulo</th>
-            <th>Precio Estimado</th>
-            <th>Estado</th>
-            <th>Precio Final</th>
-            <th>Porcentaje Comisión</th>
-            <th>Efectivo Comisión</th>
-            <th>Fecha de Venta</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @transactions.each do |transaction| %>
-        <tr>
-        	<td><%= transaction.article ? transaction.article.description : '' %></td>
-        	<td><%= transaction.article ? transaction.article.estimated_price : '' %></td>
-        	<td><%= transaction.obtain_human_label %></td>
-            <td><%= transaction.amount %></td>
-            <td><%= transaction.comission_per %></td>
-            <td><%= transaction.comission_cash %></td>
-            <td><%= l transaction.created_at %></td>
-        </tr>
-        <% end %>
-       <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>---------------------------</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>Total: <%= @total_amount %></td>
-        </tr>
-    </tbody>
-</table>
+    <div id="input_transactions">
+        <h3> Ingresos </h3>
+        <table id="articles">
+            <thead>
+                <tr>
+                    <th>Descripcion de Articulo</th>
+                    <th>Precio Estimado</th>
+                    <th>Estado</th>
+                    <th>Precio Final</th>
+                    <th>Porcentaje Comisión</th>
+                    <th>Efectivo Comisión</th>
+                    <th>Fecha de Venta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @transactions.each do |transaction| %>
+                <tr>
+                	<td><%= transaction.article ? transaction.article.description : '-' %></td>
+                	<td><%= transaction.article ? '$' + transaction.article.estimated_price : '-' %></td>
+                	<td><%= transaction.obtain_human_label %></td>
+                    <td>$<%= transaction.amount %></td>
+                    <td><%= transaction.comission_per ? transaction.comission_per + '%' : '-'%></td>
+                    <td>$<%= transaction.comission_cash %></td>
+                    <td><%= l transaction.created_at %></td>
+                </tr>
+                <% end %>
+               <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>---------------------------</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total Neto: ($<%= @total_liquid_amount %>)</td>
+                    <td>Total: $<%= @total_amount %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <br/><br/>
+
+    <div id="output_transactions">
+        <h3> Egresos </h3>
+        <table id="articles">
+            <thead>
+                <tr>
+                    <th>Concepto de Egreso</th>
+                    <th>Egreso</th>
+                    <th>Estado</th>
+                    <th>Fecha de Egreso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @outputs_transactions.each do |output| %>
+                <tr>
+                    <td><%= output.concept %></td>
+                    <td>$<%= output.amount %></td>
+                    <td><%= output.obtain_human_label %></td>
+                    <td><%= output.created_at %></td>
+                </tr>
+                <% end %>
+               <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>---------------------------</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total: <%= @total_output_amount %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="totals">
+        <h3> Totales </h3>
+        <div id="output_transactions">
+            <table id="articles">
+                <thead>
+                    <tr>
+                        <th>Total Neto</th>
+                        <th>Total Bruto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>$<%= @total_general_liquid %></td>
+                        <td>$<%= @total_general %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

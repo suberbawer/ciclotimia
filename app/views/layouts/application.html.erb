@@ -4,9 +4,11 @@
     <title>Ciclotimia</title>
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
     <%= stylesheet_link_tag    "messi", media: "all", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag    "jquery-ui", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "messi", "data-turbolinks-track" => true %>
 	<%= javascript_include_tag "jquery.validate", "data-turbolinks-track" => true %> 
+    <%= javascript_include_tag "jquery-ui", "data-turbolinks-track" => true %> 
 <%= csrf_meta_tags %>
 </head>
 
@@ -61,6 +63,18 @@
 
         <li class='outputs'>
             <%= link_to 'Egreso Caja', "/outputs/new" %>
+        </li>
+
+        <li class='inputs has-sub'>
+            <%= link_to 'Facturación Mensual', "#" %>
+            <ul>
+                <li>
+                    <%= link_to 'Facturación Proveedores', "/billings/index" %>
+                </li>
+                <li>
+                    <%= link_to 'Facturación Propia', "/billings/own_facturation" %>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>

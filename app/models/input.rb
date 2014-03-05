@@ -91,6 +91,7 @@ class Input < ActiveRecord::Base
 		if self.article	
 			self.article.status    = ""		# El articulo ya no esta ni vendido ni alquilado
 		end
+		self.comission_cash = '-' + self.comission_cash
 		self.save
 		return cancel_input
 	end

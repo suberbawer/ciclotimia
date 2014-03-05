@@ -8,4 +8,10 @@ class UserMailer < ActionMailer::Base
     @url      = "localhost:3000/providers"
 	mail(to: @provider.email, subject: "Remito")
   end
+
+  def send_billing_monthly(provider)
+  	@provider = provider
+  	@url      = "localhost:3000/providers"
+  	mail(to: @provider.email, subject: "Factura Mensual")
+  end
 end
