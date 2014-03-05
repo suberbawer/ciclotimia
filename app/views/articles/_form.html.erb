@@ -88,10 +88,6 @@
                 }
             }
         });
-
-        if ($('.edit_article').attr('id') != undefined) {
-            $("select[id*='article_entry_date']").prop("disabled","disabled");
-        }
     }
 
     $(document).ready(function(){
@@ -124,10 +120,6 @@
   <div class="field">
     <%= f.label 'Precio Estimado' %><br>
     <%= f.text_field :estimated_price %>
-  </div>
-  <div class="field">
-    <%= f.label 'Fecha de Ingreso' %><br>
-    <%= f.date_select :entry_date %>
   </div>
   <div class="field">
     <%= f.label 'Porcetaje Comisión' %><br>
