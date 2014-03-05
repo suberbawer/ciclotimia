@@ -1,14 +1,64 @@
+<script>
+// Change message of required validation
+jQuery.extend(jQuery.validator.messages, {
+    required: "Este campo es requerido."
+});
+
+$.validator.addMethod('number',
+    function (value) { 
+        return  Number(value);
+    }, 'Por favor ingresa un número');
+
+$.validator.addMethod('positiveNumber',
+        function (value) { 
+            return Number(value) > 0;
+        }, 'Por favor ingresa un valor positivo');
+
+$(document).ready(function(){
+	$('.new_manual_input').validate({
+        errorClass:'test_error',
+        rules: {
+            'amount': {
+                required: true,
+                number: true,
+                positiveNumber: true
+            }
+        }
+    });
+});
+</script>
+
 <p id="notice"><%= notice %></p>
 <h1>Ingreso manual</h1>
 
-<%= form_tag({:action => 'new_manual_input'}) do%>
- 	<%= label_tag(:amount, "Monto") %>
-  	<%= text_field_tag(:amount) %>
-
-  	<%= label_tag(:concept, "Concepto") %>
-  	<%= text_field_tag(:concept) %>
-
-	<%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit' %>
+<%= form_tag({:action => 'new_manual_input'}, {:class => 'new_manual_input'}) do%>
+ 	<table id="manual_input">
+	 	<tbody>
+		 	<tr>
+			 	<td>
+			 	<%= label_tag(:amount, "Monto") %>
+			  	</td>
+			  	<td>
+			  	<%= text_field_tag(:amount) %>
+			  	</td>
+		  	</tr>
+		  	<tr>
+			 	<td>
+			  	<%= label_tag(:concept, "Concepto") %>
+			 	</td>
+			 	<td>
+			  	<%= text_field_tag(:concept) %>
+			 	</td>
+		 	</tr>
+		 	<tr>
+		 		<td>
+		 		</td>
+			 	<td>
+				<%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit' %>
+			 	</td>
+		 	</tr>
+	 	</tbody>
+	</table>
 <% end %>
 
 
