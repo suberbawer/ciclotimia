@@ -1,3 +1,4 @@
+# encoding: utf-8
 class ProvidersController < ApplicationController
   before_action :set_provider, only: [:show, :edit, :update, :destroy, :articles_not_sent, :send_articles_provider]
 
@@ -30,7 +31,7 @@ class ProvidersController < ApplicationController
 
     respond_to do |format|
       if @provider.save        
-        format.html { redirect_to @provider, notice: 'Provider was successfully created.' }
+        format.html { redirect_to @provider, notice: 'El proveedor fue creado con éxito.' }
         format.json { render action: 'show', status: :created, location: @provider }
       else
         format.html { render action: 'new' }
@@ -46,7 +47,7 @@ class ProvidersController < ApplicationController
       if @provider.update(provider_params)
          
         
-        format.html { redirect_to @provider, notice: 'Provider was successfully updated.' }
+        format.html { redirect_to @provider, notice: 'El proveedor fue editado con éxito.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

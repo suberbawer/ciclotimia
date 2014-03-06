@@ -290,7 +290,10 @@ $(document).ready(function(){
 							   		}
 							   		new Messi(response.message.message, {title: 'Información', modal: true});
 							   		var param = self.createParameterList(response.message.saved_inputs);
-							   		printInputs('/inputs/batch_receipt?' + param);
+							   		
+							   		if (response.message.result === 'ok') {
+							   			printInputs('/inputs/batch_receipt?' + param);
+							   		}
 							   },
 					error 	 : function(error)
 							   {

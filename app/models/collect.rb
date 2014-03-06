@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Collect < Caja
 	include ActiveModel::Validations
 

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class CollectsController < ApplicationController
     
     def today_collect

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class OutputsController < ApplicationController
 	before_action :set_output, only: [:show]
 

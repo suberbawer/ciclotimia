@@ -1,3 +1,4 @@
+# encoding: utf-8
 class InputsController < ApplicationController
 	before_action :set_input, only: [:show]
 

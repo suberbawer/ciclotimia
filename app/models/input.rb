@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Input < ActiveRecord::Base
 
 	has_one :caja_transaction, :as =>:transaction
