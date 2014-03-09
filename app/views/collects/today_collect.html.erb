@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 <h3>Ingresos</h3>
+
 <%= form_tag(controller: "inputs", action: "batch_receipt") do %>
-<div class="tableContainer">
+
+	<div class="tableContainer">
 		<table class="inputTable">
 			<thead>
 			        <tr>
@@ -57,7 +59,7 @@
 				<% end %>
 			</tbody>	
 		</table>
-		</div>
+	</div>
 	<%= submit_tag 'Reimprimir transacciones seleccionadas', :disable_with => 'Espere', :class => 'submit c-submit' %>
 <% end %>
 <strong>Total ingresos: $<%= @today_inputs_total %></strong>

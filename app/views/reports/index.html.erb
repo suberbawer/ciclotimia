@@ -39,13 +39,11 @@
     function printReports() {
         //Get the HTML of div
         var divElements = document.getElementById('table_container').innerHTML;
-
         newWin = window.open();
-        //Reset the page's HTML with div's HTML only
         newWin.document.write(divElements);
-
         //Print Page
         newWin.print();
+        newWin.close();
 
     }
 
@@ -111,7 +109,7 @@
                 	<td><%= transaction.article ? '$' + transaction.article.estimated_price : '-' %></td>
                 	<td><%= transaction.obtain_human_label %></td>
                     <td>$<%= transaction.amount %></td>
-                    <td><%= transaction.comission_per ? transaction.comission_per + '%' : '-'%></td>
+                    <td><%= transaction.comission_per ? transaction.comission_per + '% + iva' : '-'%></td>
                     <td>$<%= transaction.comission_cash %></td>
                     <td><%= l transaction.created_at %></td>
                 </tr>

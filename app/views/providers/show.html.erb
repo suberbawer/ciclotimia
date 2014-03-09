@@ -4,17 +4,22 @@
   }
 
   .disponible{
-    background-color: #9ACD32 !important;
+    background-color: #90EE90 !important;
   }
 
   .vendido{
     background-color: #F08080 !important;
   }
-  
+
   .articles_container{
     max-height: 280px;
     overflow-y: auto;
   }
+
+  a, a:visited {
+    color:#333;
+  }
+
 </style>
 
 <script>
@@ -92,10 +97,10 @@
           <% @article_list.each do |article| %>
           <tr>
             <td><%= article.id %></td>
-            <td><%= article.description %></td>
+            <td><%= link_to article.description, article %></td>
             <td><%= '$' + article.estimated_price %></td>
             <td><%= article.obtain_human_label ? article.obtain_human_label : 'Disponible' %></td>
-            <td><%= article.input ? (l article.input.created_at) : '-' %></td>
+            <td><%= article.input && article.obtain_human_label ? (l article.input.created_at) : '-' %></td>
             <td><img src="/assets/<%= (article.sent) ? 'tick' : 'cross' %>.png" width="15" height="15"/></td>
           </tr>
           <% end %>

@@ -37,10 +37,14 @@ function toggleActiveOption(url){
 		$('.sales').addClass('active');
 	} else if (url.toLowerCase().indexOf('collects') > -1) {
 		$('.collects').addClass('active');
-	} else if (url.toLowerCase().indexOf('inputs') > -1) {
-		$('.inputs').addClass('active');
+	} else if (url.toLowerCase().indexOf('reports') > -1) {
+		$('.collects').addClass('active');
 	} else if (url.toLowerCase().indexOf('outputs') > -1) {
 		$('.outputs').addClass('active');
+	} else if (url.toLowerCase().indexOf('billings') > -1) {
+		$('.billings').addClass('active');
+	} else if (url.toLowerCase().indexOf('inputs') > -1) {
+		$('.inputs').addClass('active');
 	}
 }
 
