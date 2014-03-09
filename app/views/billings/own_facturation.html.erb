@@ -17,6 +17,17 @@
  function printImg() {
     var divToPrint = document.getElementById('billing_table');
     newWin = window.open("");
+    // Css y salto de pagina cuando un div queda cortado en la impresion
+    newWin.document.write('<style>' + 
+    						'@media print{div.provider_container{page-break-inside: avoid;}} ' +
+    						'.provider_container{ ' +
+								'border-bottom: 1px black dotted;' +
+							'} ' +
+							'.right{ ' +
+									'text-align: right; ' +
+									'padding-right: 10px; ' +
+							'}' +
+    					'</style>');
 	newWin.document.write(divToPrint.outerHTML);
 	newWin.print();
 	newWin.close();
