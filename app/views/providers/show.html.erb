@@ -1,3 +1,48 @@
+<style>
+  .alquilado{
+    background-color: #F0E68C !important ;
+  }
+
+  .disponible{
+    background-color: #9ACD32 !important;
+  }
+
+  .vendido{
+    background-color: #F08080 !important;
+  }
+  
+  .articles_container{
+    max-height: 280px;
+    overflow-y: auto;
+  }
+</style>
+
+<script>
+  // Diferencia los articulos por estado, y colorea para distinguir.
+  function diffArticlesByStatus() {
+    $('tr').each(function(){
+      if ($(this).attr('class') != 'ignore') {
+        $(this).find('td').each(function(){
+          if ($(this).text() == 'Alquilado') {
+            // Add class to parent tr
+            $(this).parent().addClass('alquilado');
+          } else if ($(this).text() == 'Disponible'){
+            // Add class to parent tr
+            $(this).parent().addClass('disponible');
+          } else if ($(this).text() == 'Vendido') {
+            // Add class to parent tr
+            $(this).parent().addClass('vendido');
+          }
+        });
+      }
+    });
+  }
+
+  $(document).ready(function(){
+    diffArticlesByStatus();
+  });
+</script>
+
 <h3><%= @provider.name %> <%= @provider.lastname %></h3>
 
 <p id="notice"><%= notice %></p>
@@ -31,35 +76,48 @@
   <strong>C.I:</strong>
   <%= @provider.ci %>
 </p>
-
-<table id="reports">
-    <thead>
-        <tr>
-            <th>Descripcion de Articulo</th>
-            <th>Precio Estimado</th>
-            <th>Enviado</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @article_list.each do |article| %>
-        <tr>
-          <td><%= article.description %></td>
-          <td><%= '$' + article.estimated_price %></td>
-          <td><img src="/assets/<%= (article.sent) ? 'tick' : 'cross' %>.png" width="15" height="15"/></td>
-        </tr>
-        <% end %>
-       <tr>
-            <td></td>
-            <td></td>
-            <td>---------------------------</td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+<div class="articles_container">
+  <table id="reports">
+      <thead>
+          <tr class="ignore">
+              <th>Código</th>
+              <th>Descripción de Artículo</th>
+              <th>Precio Estimado</th>
+              <th>Estado</th>
+              <th>Fecha Venta/Alquiler</th>
+              <th>Enviado</th>
+          </tr>
+      </thead>
+      <tbody>
+          <% @article_list.each do |article| %>
+          <tr>
+            <td><%= article.id %></td>
+            <td><%= article.description %></td>
+            <td><%= '$' + article.estimated_price %></td>
+            <td><%= article.obtain_human_label ? article.obtain_human_label : 'Disponible' %></td>
+            <td><%= article.input ? (l article.input.created_at) : '-' %></td>
+            <td><img src="/assets/<%= (article.sent) ? 'tick' : 'cross' %>.png" width="15" height="15"/></td>
+          </tr>
+          <% end %>
+         <tr class="ignore">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>---------------------------</td>
+          </tr>
+          <tr class="ignore">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
 
 
 <%= button_to 'Enviar artículos a proveedor', art_not_sent_path(@provider), :method => "get", :class => 'edit_btn', :disabled => @not_sent_articles.empty? %> 

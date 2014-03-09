@@ -10,7 +10,7 @@ class ProvidersController < ApplicationController
   # GET /providers/1
   # GET /providers/1.json
   def show
-    @article_list = @provider.articles
+    @article_list = @provider.articles.order('status DESC')
     @not_sent_articles = @provider.get_articles_not_sent
   end
 

@@ -14,6 +14,8 @@
 .day{
 	padding-left: 10px;
 	float: left;
+	padding-right: 10px;
+	border-right: solid 2px #00378b;
 }
 
 #end_date{
@@ -40,5 +42,36 @@
     border-spacing: 2px;
     width: 100%;
     text-align: left;
+}
+
+.table_container{
+    height: 450px;
+    overflow-y: auto;
+}
+
+.print_reports{
+    width: 110px;
+	padding: 2px;
+	margin-top: 0px;
+	margin-left: 10px;
+}
+
+.submit_from_to{
+	width: 100px;
+	padding: 2px;
+	margin-top: 0px;
+	margin-left: 10px;
+}
+
+.submit_day{
+	width: 100px;
+	padding: 2px;
+	margin-top: 0px;
+}
+
+.submit_month{
+	width: 160px;
+	padding: 2px;
+	margin-top: 0px;
 }
 

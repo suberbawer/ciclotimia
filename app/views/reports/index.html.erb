@@ -35,21 +35,32 @@
         }
     }
 
+    // Imprimir reportes
+    function printReports() {
+        //Get the HTML of div
+        var divElements = document.getElementById('table_container').innerHTML;
+
+        newWin = window.open();
+        //Reset the page's HTML with div's HTML only
+        newWin.document.write(divElements);
+
+        //Print Page
+        newWin.print();
+
+    }
+
     $(document).ready(function (){
         $('.submit_from_to').bind('click', function(){
             validateDates();
+        });
+
+        $('.print_reports').bind('click', function(){
+            printReports();
         }); 
     });
 
 </script>
-
-<style>
-.table_container{
-    height: 450px;
-    overflow-y: auto;
-}
-</style>
-
+    
 <h3> Reportes </h3>
 
 <div class="report_options">
@@ -59,24 +70,25 @@
   		<%= text_field_tag(:start_date) %>
   		<%= label_tag(:end_date, "Fecha de fin") %>
   		<%= text_field_tag(:end_date) %>
-		<%= submit_tag 'Reporte', :disable_with => 'Please wait...', :class => 'submit_from_to' %>
+		<%= button_tag 'Reporte', :disable_with => 'Please wait...', :class => 'submit_from_to' %>
 	<% end %>    
 
 	<%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "month") do%>
 		<%= hidden_field_tag(:start_date, "mes") %>
 		<!-- Mes corriente -->
-		<%= submit_tag 'Reporte de mes corriente', :disable_with => 'Please wait...', :class => 'submit_month' %>
+		<%= button_tag 'Reporte de mes corriente', :disable_with => 'Please wait...', :class => 'submit_month' %>
 	<% end %>
 
 	<%= form_tag({controller: "reports", action: "index", method: "post"}, :class => "day") do%>
 		<%= hidden_field_tag(:start_date, "diario") %>
 		<!-- Mes corriente -->
-		<%= submit_tag 'Reporte de hoy', :disable_with => 'Please wait...', :class => 'submit_day' %>
+		<%= button_tag 'Reporte de hoy', :disable_with => 'Please wait...', :class => 'submit_day' %>
 	<% end %>
+    <button class='print_reports'>Imprimir Reporte</button>
 </div>
 
 <br/><br/><br/>
-<div class = "table_container">
+<div class = "table_container" id="table_container">
 
     <div id="input_transactions">
         <h3> Ingresos </h3>

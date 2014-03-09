@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.save
         Article.get_barcode(@article.id)
-        format.html { redirect_to @article, notice: 'Article was successfully created.' }
+        format.html { redirect_to action: 'new', notice: 'Article was successfully created.' }
         format.json { render action: 'show', status: :created, location: @article }
       else
         format.html { render action: 'new' }

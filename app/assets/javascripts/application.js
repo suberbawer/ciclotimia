@@ -73,7 +73,7 @@ function obtainTransactionType(transactionType){
 	    humanType = 'Egreso';
 	    break;
 	  case "cancel_input":
-	    humanType = 'Anulacion';
+	    humanType = 'Anulación';
 	    break;  
 	  default:
 	    humanType = 'Transaccion no reconocida';

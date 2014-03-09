@@ -24,7 +24,7 @@ class Rent < Input
 		when "Output"
 		  return "Egreso"
 		when "cancel_input"
-		  return "Anulacion"    
+		  return "Anulación"    
 		else
 		  puts "Tipo no reconocido"
 		end
