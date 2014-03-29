@@ -3,6 +3,7 @@ Ciclotimia::Application.routes.draw do
   get "articles/devolution"
   post "articles/devolution"
 
+  get "articles/debtors"
 
   get "reports/index"
   post "reports/index"
@@ -19,6 +20,7 @@ Ciclotimia::Application.routes.draw do
     post "articles/list"
     post "articles/filter"
     post "articles/fetch_data"
+    post "articles/filter_debtors"
 
     #get "providers/articles_not_sent"
 

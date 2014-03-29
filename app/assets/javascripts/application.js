@@ -31,6 +31,8 @@ function toggleActiveOption(url){
 		$('.providers').addClass('active');
 	} else if (url.toLowerCase().indexOf('home') > -1 ) {
 		$('.home').addClass('active');
+	}  else if (url.toLowerCase().indexOf('articles/debtors') > -1 || url.toLowerCase().indexOf('articles/filter_debtors') > -1) {
+		$('.debtors').addClass('active');
 	} else if (url.toLowerCase().indexOf('articles') > -1) {
 		$('.articles').addClass('active');
 	} else if (url.toLowerCase().indexOf('sales') > -1) {

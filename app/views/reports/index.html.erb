@@ -98,7 +98,7 @@
                     <th>Estado</th>
                     <th>Precio Final</th>
                     <th>Porcentaje Comisión</th>
-                    <th>Efectivo Comisión</th>
+                    <th>Ganancia Neta</th>
                     <th>Fecha de Venta</th>
                 </tr>
             </thead>
@@ -109,8 +109,17 @@
                 	<td><%= transaction.article ? '$' + transaction.article.estimated_price : '-' %></td>
                 	<td><%= transaction.obtain_human_label %></td>
                     <td>$<%= transaction.amount %></td>
-                    <td><%= transaction.comission_per ? transaction.comission_per + '% + iva' : '-'%></td>
-                    <td>$<%= transaction.comission_cash %></td>
+                    <td><% if transaction.comission_per %> 
+                            <% if transaction.comission_per != "100" %>
+                                <%= transaction.comission_per + "% + iva" %>
+                            <% else %>
+                                <%= transaction.comission_per + "%" %>
+                            <% end %>
+                        <% else %>
+                            <%= "-" %>
+                        <% end %>
+                    </td>
+                    <td>$<%= transaction.comission_cash ? transaction.comission_cash  : transaction.amount%></td>
                     <td><%= l transaction.created_at %></td>
                 </tr>
                 <% end %>

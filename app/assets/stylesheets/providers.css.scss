@@ -24,8 +24,13 @@
     background: #D9DADB;
 }
 
-.new_provider_btn, .back_btn, .edit_btn, .show_btn, .save{
+.new_provider_btn, .back_btn, .edit_btn, .show_btn{
     float: right;
     margin-top: 25px;
     cursor:pointer;
+}
+
+.save{
+    float:left;
+    margin-top:25px;
 }

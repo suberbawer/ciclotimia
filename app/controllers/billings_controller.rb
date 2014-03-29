@@ -22,7 +22,9 @@ class BillingsController < ApplicationController
 
 		# create set of provider ids related with the inputs to show
 		list_inputs_this_month.each do |input|
-			list_ids_of_providers.add(input.article.provider)
+			if (input.article)
+				list_ids_of_providers.add(input.article.provider)
+			end
 		end
 		
 		@providers_to_print    = Provider.where("id in (?)", list_ids_of_providers);

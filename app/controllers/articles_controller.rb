@@ -57,10 +57,15 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
-    @article.destroy
-    respond_to do |format|
-      format.html { redirect_to articles_url }
-      format.json { head :no_content }
+      respond_to do |format|
+        if @article.input
+          format.html { redirect_to articles_url, notice: 'No es posible eliminar un Artículo que ya ha sido vendido, o alquilado.'  }
+          format.json { render json: @article.errors, status: :unprocessable_entity }
+        else
+          @article.destroy
+          format.html { redirect_to articles_url }
+          format.json { head :no_content }
+      end
     end
   end
 
@@ -93,6 +98,16 @@ class ArticlesController < ApplicationController
   def filter
     @articles = Article.search_articles(params[:search_text])
     render :index
+  end
+
+  def filter_debtors
+    @articles = Article.search_articles_debtors(params[:search_text])
+    render :debtor
+  end
+
+  def debtors
+    @articles = Article.obtain_debtors
+    render :debtor
   end
   
   private

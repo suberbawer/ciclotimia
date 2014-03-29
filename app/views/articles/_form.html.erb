@@ -134,6 +134,6 @@
     <%= f.collection_select :provider_id, Provider.order(:lastname),:id,:lastname, include_blank: false %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Salvar Artículo", :class => 'save'%>
   </div>
 <% end %>

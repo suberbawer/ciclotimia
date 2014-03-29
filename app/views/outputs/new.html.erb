@@ -53,7 +53,7 @@ $(document).ready(function(){
 		 		<td>
 		 		</td>
 			 	<td>
-				<%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit' %>
+				<%= submit_tag 'Confirmar', :disable_with => 'Please wait...', :class => 'submit' %>
 			 	</td>
 		 	</tr>
 	 	</tbody>
@@ -61,7 +61,7 @@ $(document).ready(function(){
 <% end %>
 
 
-<%= link_to 'Back', inputs_path %>
+<%= button_to 'Atrás', "/inputs/input_article", :method => "get", :class => 'back_btn' %>
 
 
 <div id="update-amount-container">

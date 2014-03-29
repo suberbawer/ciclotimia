@@ -32,7 +32,7 @@ $(document).ready(function(){
 
 	<%= form_tag({controller: "articles", action: "devolution", method: "post"}, {:class => 'devolution_article'}) do%>
 		<h3>Ingrese artículo a devolver</h3>
-  		<%= submit_tag 'Devolver artículo', :disable_with => 'Please wait...', :class => 'submit', :confirm => "Desea devolver el artículo?" %>
+  		<%= submit_tag 'Devolver Artículo', :disable_with => 'Please wait...', :class => 'submit', :confirm => "Desea devolver el artículo?" %>
   		<%= text_field_tag(:article_id) %>
 		
 	<% end %>
