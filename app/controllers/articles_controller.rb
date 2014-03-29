@@ -57,14 +57,14 @@ class ArticlesController < ApplicationController
   # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
-      respond_to do |format|
-        if @article.input
-          format.html { redirect_to articles_url, notice: 'No es posible eliminar un Artículo que ya ha sido vendido, o alquilado.'  }
-          format.json { render json: @article.errors, status: :unprocessable_entity }
-        else
-          @article.destroy
-          format.html { redirect_to articles_url }
-          format.json { head :no_content }
+    respond_to do |format|
+      if @article.input
+        format.html { redirect_to articles_url, notice: 'No es posible eliminar un Artículo que ya ha sido vendido, o alquilado.'  }
+        format.json { render json: @article.errors, status: :unprocessable_entity }
+      else
+        @article.destroy
+        format.html { redirect_to articles_url }
+        format.json { head :no_content }
       end
     end
   end

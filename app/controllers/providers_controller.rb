@@ -58,10 +58,15 @@ class ProvidersController < ApplicationController
   # DELETE /providers/1
   # DELETE /providers/1.json
   def destroy
-    @provider.destroy
     respond_to do |format|
-      format.html { redirect_to providers_url }
+      if !@provider.articles.empty?
+        format.html { redirect_to providers_url, notice: 'No es posible eliminar un Proveedor que contenga Artículos relacionados'  }
+        format.json { render json: @provider.errors, status: :unprocessable_entity }
+      else
+        @provider.destroy
+        format.html { redirect_to providers_url }
       format.json { head :no_content }
+      end
     end
   end
   
