@@ -1,0 +1,3 @@
+Este archivo se encuentra solo para que la carpeta barcodes no se encuentre vacía en caso de no haber ningún artículo.
+
+Cumple la función de permitir el commiteo de la carpeta a git aunque se encuentre vacía.
