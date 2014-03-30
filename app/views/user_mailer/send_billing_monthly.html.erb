@@ -26,7 +26,7 @@
 							<td><%= input.article.description %></td>
 							<td><%= input.obtain_human_label %></td>
 							<td>$<%= input.amount %></td>
-							<td><%= input.comission_per %>%</td>
+							<td><%= input.comission_per %>% + iva</td>
 							<td>$<%= input.comission_cash %></td>
 						</tr>
 						<% sub_total = sub_total + input.amount %>
@@ -47,6 +47,14 @@
 						<td></td>
 						<td>Sub Total:</td>
 						<td>$<%= sub_total %></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>Comisión + iva:</td>
+						<td>$<%= sub_total - total %></td>
 					</tr>
 					<tr>
 						<td></td>

@@ -48,44 +48,53 @@
 </style>
 
 <div id="billing_table">
-	<h3> Facturas ganancia neta para imprimir del mes <%= Time.now.strftime("%m-%Y") %></h3>
+	<h3> Facturas de alquileres para imprimir del mes <%= Time.now.strftime("%m-%Y") %></h3>
 
-	<% @providers_to_print.each do |provider| %>
-     <div class="provider_container" id="provider_container_<%= provider.id%>">
-		<p>Sr/Sra. <%= provider.name %> <%= provider.lastname %></p>
+    <div class="provider_container" id="rent_container">
 		<table id="articles">
 			<thead>
 		        <tr>
-					<th>Detalle</th>
-					<th>Importe</th>
+					<th>Código Artículo</th>
+					<th>Descripción</th>
+					<th>Estado</th>
+					<th>Precio Estimado Venta</th>
+					<th>Porcentaje Comisión</th>
+					<th>Ganancia Neta</th>
 		        </tr>
 		      </thead>
 			<tbody>
-				<% total = 0 %>
-				<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
-					<% total = total + input.comission_cash.to_i %>
+				<% total     = 0 %>
+				<% @rents_to_print.each do |input| %>
+					<tr>
+						<td><%= input.article.id %></td>
+						<td><%= input.article.description %></td>
+						<td><%= input.obtain_human_label %></td>
+						<td>$<%= input.article.estimated_price %></td>
+						<td><%= input.comission_per %>% + iva</td>
+						<td>$<%= input.comission_cash %></td>
+					</tr>
+					<% total = total + input.amount %>
 				<% end %>
 				<tr>
-					<td>Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
-					<td>$<%= total - total * 0.22 %></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>-----------</td>
+					<td>-----------</td>
 				</tr>
 				<tr>
-					<td class="right">SUB TOTAL</td>
-					<td>$<%= total - total * 0.22 %></td>
-				</tr>
-				<tr>
-					<td class="right">IVA</td>
-					<td>$<%= total * 0.22 %></td>
-				</tr>
-				<tr>
-					<td class="right">TOTAL</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>Total Neto:</td>
 					<td>$<%= total %></td>
 				</tr>
 			</tbody>
 		</table>
 		<p> Montevideo, <%= Time.now.strftime("%d-%m-%Y") %></p>
 	</div>
-	<% end %>
 </div>
 <div>
 	<button class="print">Imprimir</button>

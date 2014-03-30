@@ -28,7 +28,7 @@ $(document).ready(function(){
 </script>
 
 <p id="notice"><%= notice %></p>
-<h1>Ingreso manual</h1>
+<h3>Ingreso Manual</h3>
 
 <%= form_tag({:action => 'new_manual_input'}, {:class => 'new_manual_input'}) do%>
  	<table id="manual_input">
@@ -53,7 +53,7 @@ $(document).ready(function(){
 		 		<td>
 		 		</td>
 			 	<td>
-				<%= submit_tag 'Confirmar', :disable_with => 'Please wait...', :class => 'submit' %>
+				<%= submit_tag 'Confirmar', :disable_with => 'Please wait...', :class => 'submit collect' %>
 			 	</td>
 		 	</tr>
 	 	</tbody>

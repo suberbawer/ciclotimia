@@ -8,6 +8,10 @@ class BillingsController < ApplicationController
 		@providers_to_print = set_list_to_print
 	end
 
+	def rent_facturation
+		@rents_to_print = set_list_of_rents_to_print
+	end
+
 	def send_billing_monthly
 		@providers_to_print = set_list_to_print
 		@providers_to_print.each do |provider|
@@ -30,6 +34,10 @@ class BillingsController < ApplicationController
 		@providers_to_print    = Provider.where("id in (?)", list_ids_of_providers);
 		Billing.print_providers(@providers_to_print, list_inputs_this_month)
 		return @providers_to_print
+	end
+
+	def set_list_of_rents_to_print
+		list_rents_this_month = Input.obtain_current_month_rents_inputs
 	end
 
 end

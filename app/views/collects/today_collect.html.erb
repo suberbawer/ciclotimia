@@ -49,7 +49,7 @@
                                 <% if transaction.status == "active" %> 
                                     <!--  Es un transaction normal (no es cancel transaction) -->   
                                     <td>        
-                                        <%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'input'}, :confirm => 'Seguro que desea anular la transacción?')%>
+                                        <%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'input'}, :class => 'collect', :confirm => 'Seguro que desea anular la transacción?')%>
                                     </td>
                                 <% elsif transaction.status == "cancelled" %>
                                     <td>Anulado</td>
@@ -70,7 +70,7 @@
             </tbody>    
         </table>
     </div>
-    <%= submit_tag 'Reimprimir transacciones seleccionadas', :disable_with => 'Espere', :class => 'submit c-submit' %>
+    <%= submit_tag 'Reimprimir transacciones seleccionadas', :disable_with => 'Espere', :class => 'submit c-submit collect' %>
 <% end %>
 <strong>Total ingresos: $<%= @today_inputs_total %></strong>
 

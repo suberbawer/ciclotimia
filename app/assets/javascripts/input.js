@@ -349,6 +349,8 @@ $(document).ready(function(){
 		// Usuario confirma ingresar el input.
 	    this._confirmButton.on('click', function(){
 	   		self.insertInput();
+	   		// Reseteando el input 
+	   		self._articleId.val('');
 	    });
 
 		// Usuario confirma el lote (levanto json y mando a la controller).

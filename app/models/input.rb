@@ -115,6 +115,10 @@ class Input < ActiveRecord::Base
 		return self.find(:all, :conditions => ["created_at between ? and ? and type != 'Rent'", Date.today.beginning_of_month.beginning_of_day, Date.today.end_of_month.end_of_day])
 	end
 
+	def self.obtain_current_month_rents_inputs
+		return self.find(:all, :conditions => ["created_at between ? and ? and type == 'Rent'", Date.today.beginning_of_month.beginning_of_day, Date.today.end_of_month.end_of_day])
+	end
+
 	# True si el cambio de status es no correcto, false de otra manera.
 	def invalid_status
 		invalid = false

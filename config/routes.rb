@@ -11,7 +11,8 @@ Ciclotimia::Application.routes.draw do
   get "billings/index"
   post "billings/send_billing_monthly"
   get "billings/own_facturation"
-  
+  get "billings/rent_facturation"
+
   post "search/index"
 
   resources :reports

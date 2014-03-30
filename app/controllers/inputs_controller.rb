@@ -55,11 +55,9 @@ class InputsController < ApplicationController
 	end
 
 	def batch_receipt
-		puts '--------------------------------'
 		puts params['inputs']
 		@new_inputs = Input.where(id: params['inputs'])
 		puts @new_inputs
-		puts '--------------------------------'
 	end
 
 	private
