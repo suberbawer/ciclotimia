@@ -2,7 +2,8 @@ class Rent < Input
 
 	def build_input (input_data)
 		self[:comission_per]  = '30'
-		self[:amount] 		  = Rent.obtain_cash(input_data[:amount].to_i, self[:comission_per].to_i)
+		self[:amount] 		  = '0'
+		self[:future_amount]  = Rent.obtain_cash(input_data[:amount].to_i, self[:comission_per].to_i)
 		self.article  		  = Article.find input_data[:article]
 		self[:comission_cash] = self[:amount]
 	end
@@ -29,4 +30,11 @@ class Rent < Input
 		  puts "Tipo no reconocido"
 		end
 	end
+
+	def set_final_rent_amount (rented_articles)
+		rented_articles.each do |article|
+			if 2.week.ago > article.input.created_at < Time.now.next_week.
+			article.input.amount = article.input.future_amount
+		end
+	end 
 end

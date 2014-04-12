@@ -86,7 +86,6 @@ class Article < ActiveRecord::Base
                 articles_debtors.push(article)
             end
         end
-        puts articles_debtors
         return articles_debtors
     end
 
