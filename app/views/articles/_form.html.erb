@@ -113,27 +113,27 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label 'Descripción' %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label 'Precio Estimado' %><br>
-    <%= f.text_field :estimated_price %>
-  </div>
-  <div class="field">
-    <%= f.label 'Porcetaje Comisión' %><br>
-    <%= f.text_field :commission_per %>
-  </div>
-  <div class="field">
-    <%= f.label 'Efectivo Comisión' %><br>
-    <%= f.text_field :commission_cash %>
-  </div>
-  <div class="field">
-    <%= f.label 'Proveedor' %><br>
-    <%= f.collection_select :provider_id, Provider.order(:lastname),:id,:lastname, include_blank: false %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Salvar Artículo", :class => 'save'%>
-  </div>
+    <div class="field">
+        <%= f.label 'Proveedor' %><br>
+        <%= f.collection_select :provider_id, Provider.order(:lastname),:id,:lastname, include_blank: false %>
+    </div>
+    <div class="field">
+        <%= f.label 'Descripción' %><br>
+        <%= f.text_field :description %>
+    </div>
+    <div class="field">
+        <%= f.label 'Precio Estimado' %><br>
+        <%= f.text_field :estimated_price %>
+    </div>
+    <div class="field">
+        <%= f.label 'Porcetaje Comisión' %><br>
+        <%= f.text_field :commission_per %>
+    </div>
+    <div class="field">
+        <%= f.label 'Efectivo Comisión' %><br>
+        <%= f.text_field :commission_cash %>
+    </div>
+    <div class="actions">
+        <%= f.submit "Salvar Artículo", :class => 'save'%>
+    </div>
 <% end %>

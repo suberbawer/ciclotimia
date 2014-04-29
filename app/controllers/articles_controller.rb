@@ -29,8 +29,9 @@ class ArticlesController < ApplicationController
     respond_to do |format|
       if @article.save
         Article.get_barcode(@article.id)
-        format.html { redirect_to action: 'new', notice: 'Article was successfully created.' }
+        format.html { redirect_to action: 'new' }
         format.json { render action: 'show', status: :created, location: @article }
+        flash[:notice] = "El Artículo fue creado con éxito."
       else
         format.html { render action: 'new' }
         format.json { render json: @article.errors, status: :unprocessable_entity }
@@ -45,7 +46,7 @@ class ArticlesController < ApplicationController
       if @article.update(article_params)
         @article.sent = false
         @article.save
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+        format.html { redirect_to @article, notice: 'El Artículo fue actualizado con éxito.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -76,9 +77,16 @@ class ArticlesController < ApplicationController
 
   def devolution
     if request.post?
-        begin    
+        begin
             article_to_return = Article.find(params['article_id'])
+            
+            # Se llama a la nueva funcionalidad que calcula el alquiler
+            #articles_to_return = Set.new
+            #articles_to_return.add(article_to_return)
+            #Rent.set_final_rent_amount(articles_to_return)
+            
             returned = article_to_return.return_article
+            
             if returned
                 flash[:notice] = "El artículo se devolvió correctamente"
             else
