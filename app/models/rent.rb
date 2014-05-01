@@ -80,7 +80,7 @@ class Rent < Input
         rented_articles = Article.find(:all, :conditions => ["id IN (?)", articlesId])
         
         rented_articles.each do |article|
-            set_final_rent_amount(article,false)
+            set_final_rent_amount(article, true)
         end
     end 
 end

@@ -1,0 +1,49 @@
+<% if @article.nil? %>
+  <p class="articleMessageContainer">
+    No hay articulo con ese id.
+  </p>
+<% elsif @article.status == "" || @article.status == "sold" %>  
+  <p class="articleMessageContainer">  
+    El artículo está <%= (@article.status == "") ? "sin usar" : "vendido" %>
+  </p>  
+<% else %>
+        <div class="articleData" data-description="<%= @article.description %>"
+                                 data-estimated-price="<%= @article.input.amount %>" 
+                                 data-entry-date="<%= @article.input.created_at %>"
+                                 data-comission="<%= @article.input.commission_per %>"
+                                 data-status="<%= @article.commission_cash %>">
+            <p>
+              <strong>Descripción:</strong>
+              <%= @article.description %> 
+            </p>
+
+            <p class="amountContainer">
+              <strong>Precio:</strong>
+              <input type="text" value="<%= @article.amount %>" id="selectedAmount"/>
+            </p>
+
+            <p>
+              <strong>Fecha Alquiler:</strong>
+              <%= l @article.input.created_at %>
+            </p>
+
+            <p>
+              <strong>Porcetaje Comisión:</strong>
+              <%= @article.input.commission_per %>
+            </p>
+
+            <p>
+              <strong>Efectivo Comisión:</strong>
+              <%= @article.input.commission_cash %>
+            </p>
+
+            <p>
+              <strong>Estado:</strong>
+              <%= @article.status %>
+            </p>
+        </div>
+
+        <div>
+          <input type="button" value="Agregar a lista para devolver" id="returnRentedArticle"/>
+        </div>
+<% end %>
