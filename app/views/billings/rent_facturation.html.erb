@@ -65,17 +65,15 @@
 			<tbody>
 				<% total = 0 %>
 				<% @rents_to_print.each do |input| %>
-					<% if input.article %>  
-						<tr>
-							<td><%= input.article.id %></td>
-							<td><%= input.article.description %></td>
-							<td><%= input.obtain_human_label %></td>
-							<td>$<%= input.article.estimated_price %></td>
-							<td><%= input.comission_per %>% + iva</td>
-							<td>$<%= input.comission_cash %></td>
-						</tr>
-						<% total = total + input.amount %>
-                    <% end %>
+					<tr>
+						<td><%= input.article_id %></td>
+						<td><%= input.article_desc %></td>
+						<td><%= input.obtain_human_label %></td>
+						<td>$<%= input.amount %></td>
+						<td><%= input.comission_per %>% + iva</td>
+						<td>$<%= input.comission_cash %></td>
+					</tr>
+					<% total = total + input.amount %>
 				<% end %>
 				<tr>
 					<td></td>

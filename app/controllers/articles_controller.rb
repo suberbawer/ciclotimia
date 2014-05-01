@@ -123,6 +123,12 @@ class ArticlesController < ApplicationController
     render :debtor
   end
 
+  def batch_receipt
+    puts params['inputs']
+    @new_inputs = Input.where(id: params['inputs'])
+    puts @new_inputs
+  end
+
   def debtors
     @articles = Article.obtain_debtors
     render :debtor

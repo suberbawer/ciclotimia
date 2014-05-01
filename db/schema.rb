@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140412060214) do
+ActiveRecord::Schema.define(version: 20140501214406) do
 
   create_table "articles", force: true do |t|
     t.string   "description"
@@ -60,6 +60,8 @@ ActiveRecord::Schema.define(version: 20140412060214) do
     t.string   "comission_per"
     t.string   "comission_cash"
     t.string   "future_amount"
+    t.string   "article_desc"
+    t.string   "article_id"
   end
 
   create_table "outputs", force: true do |t|

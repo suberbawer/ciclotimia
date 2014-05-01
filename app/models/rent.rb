@@ -6,6 +6,10 @@ class Rent < Input
         self[:future_amount]  = input_data[:amount].to_i
         self.article          = Article.find input_data[:article]
         self[:comission_cash] = self[:amount]
+        puts self.article.description
+        self[:article_desc]   = self.article.description
+        puts self.article.id
+        self[:article_id]     = self.article.id  
     end
 
     def self.obtain_cash(amount, percent)
@@ -32,7 +36,9 @@ class Rent < Input
     end
 
     def self.set_final_rent_amount(article, save)
-        new_input = Rent.new
+        new_input              = Rent.new
+        new_input.article_id   = article.id
+        new_input.article_desc = article.description
 
         if save    
             json_response = Collect.get_open_caja
@@ -65,6 +71,7 @@ class Rent < Input
             
                 # Cambio la relacion del articulo con el input
                 article.input_id = new_input.id
+                article.status   = ""
                 article.save
                 # Salvo
                 article.input.save

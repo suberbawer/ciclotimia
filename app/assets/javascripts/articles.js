@@ -115,6 +115,24 @@ $(document).ready(function(){
 	        return articleIdList;
 	    }
 
+	    var printInputs = function(path) {
+		    newWin = window.open(path);
+		    newWin.onload = function(){
+		    	var divToPrint = newWin.document.getElementById('receiptContainer');
+		    	newWin.document.write(divToPrint.outerHTML);
+				newWin.print();
+			}
+		}
+
+		var createParameterList = function(inputIds){
+			var paramString = "";
+			for(var i in inputIds){
+				var separator = (i > 0) ? "&" : "";
+				paramString += separator + "inputs[]=" + inputIds[i].toString()
+			}
+			return paramString;
+		}
+
 		_newReturnButton.on('click', function(){
 			var articleId = _articleId.val();
 			if (articleId) {
@@ -142,13 +160,14 @@ $(document).ready(function(){
 					dataType : 'html',
 					data     : { 'id_list' : articleIdList },
 					success:function(data){
-						// Obtengo el importe calculado (mejorar).
-						var articlePartial = $(data);
-						var realAmount = articlePartial.find('#articlePartial').val();
-						amount = realAmount;
-						_articleContainer.html(data); 	// Muestro detalle del articulo seleccionado...
-						showFormContainer($('.articleData'));
-						_modalBackground.show();
+						data = JSON.parse(data);
+						if (data.message && data.message.length > 0) {
+							var param = createParameterList(data.message);
+							printInputs('/inputs/batch_receipt?' + param);
+						}
+						else{
+							new Messi('No se ingresó ningún alquiler, verifique', {title: 'Información', modal: true});
+						}
 					}
 				});
 			}
