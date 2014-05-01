@@ -68,10 +68,10 @@ class Rent < Input
                 article.save
                 # Salvo
                 article.input.save
-            
-                return "Devolución finalizada con éxito"
+
+                return new_input.id
             rescue
-                 return "Hubo un error al devolver los artículos seleccionados, por favor reintentar"
+                return "Hubo un error al devolver los artículos seleccionados, por favor reintentar"
             end
         else
             new_input.created_at = article.input.created_at
@@ -86,9 +86,12 @@ class Rent < Input
 
     def self.save_new_rent(articlesId)
         rented_articles = Article.find(:all, :conditions => ["id IN (?)", articlesId])
-        
+        inputIds        = Set.new
+
         rented_articles.each do |article|
-            set_final_rent_amount(article, true)
+            inputIds.add(set_final_rent_amount(article, true))
         end
+
+        return inputIds
     end 
 end

@@ -3,8 +3,8 @@ $(document).ready(function(){
 	function Article(_id){
 	    
 	    var id = _id;							// Id (client side) del article.
-		var amount = 0 							// Monto (por defecto).
-		var description = 'Default change';
+		var amount; 							// Monto (por defecto).
+		var description = '';
 
 	    var _articleContainer  = $('#articleDetailContainer');	// Contenedor del detalle del articulo.
 	    var _modalBackground   = $('.modalBackground');
@@ -46,9 +46,11 @@ $(document).ready(function(){
 						data     : { 'id' : id },
 						success:function(data){
 							// Obtengo el importe calculado (mejorar).
-							var articlePartial = $(data);
-							var realAmount = articlePartial.find('#articlePartial').val();
-							amount = realAmount;
+							console.info(data)
+							var articlePartial = jQuery.parseHTML(data);
+							amount = $(articlePartial[1]).find('#selectedAmount').text(); //articlePartial.find('#articlePartial').val();
+							console.info(amount)
+							description = $(articlePartial[1]).find('#selectedDescription').text();
 							_articleContainer.html(data); 	// Muestro detalle del articulo seleccionado...
 							showFormContainer($('.articleData'));
 							_modalBackground.show();

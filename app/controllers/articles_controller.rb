@@ -109,7 +109,8 @@ class ArticlesController < ApplicationController
   end
 
   def return_list_articles
-    Rent.save_new_rent(params[:id_list])
+    created_new_rents = Rent.save_new_rent(params[:id_list])
+    render json: {message: created_new_rents}
   end
   
   def filter

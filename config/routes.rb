@@ -18,6 +18,7 @@ Ciclotimia::Application.routes.draw do
   resources :reports
 
     get "articles/fetch_rented_article"
+    post "articles/return_list_articles"
   resources :articles
     post "articles/list"
     post "articles/filter"

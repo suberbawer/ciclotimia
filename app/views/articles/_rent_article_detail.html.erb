@@ -14,14 +14,12 @@
                                  data-status="<%= @article.input.comission_cash %>">
             <p>
               <strong>Descripción:</strong>
-              <%= @article.description %> 
+              <span id="selectedDescription"><%= @article.description %></span>
             </p>
 
             <p class="amountContainer">
               <strong>Precio:</strong>
-              <span type="text" id="selectedAmount">
-                <%= @article.input.amount %>
-              </span>
+              <span type="text" id="selectedAmount"><%= @article.input.amount %></span>
             </p>
 
             <p>

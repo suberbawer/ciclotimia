@@ -82,7 +82,7 @@ $(document).ready(function(){
     
     <%% if (articles.length > 0) {
             _.each(articles, function(currentArticle){ 
-                console.info(currentArticle);
+                console.info(currentArticle.getDescription());
                 %>
                 <tr data-id="<%%- currentArticle.getId() %>">
                     <td> 
