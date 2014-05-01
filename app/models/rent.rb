@@ -68,8 +68,8 @@ class Rent < Input
                 article.save
                 # Salvo
                 article.input.save
-            end
-            return "Devolución finalizada con éxito"
+            
+                return "Devolución finalizada con éxito"
             rescue
                  return "Hubo un error al devolver los artículos seleccionados, por favor reintentar"
             end
