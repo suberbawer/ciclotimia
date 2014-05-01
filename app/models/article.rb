@@ -45,7 +45,7 @@ class Article < ActiveRecord::Base
             rescue Exception => exc
                 barcode = Barby::Code128B.new(articleId) # fall back to Code128 type B
             end
-         
+                        
             File.open(File.join("app/assets/images/barcodes", fname), 'w') do |f|
                 f.write Barby::PngOutputter.new(barcode).to_png
             end

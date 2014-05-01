@@ -11,10 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require turbolinks
 //= require jquery.validate
 //= require jquery-ui
-//= require_tree .
 
 /**
  * Function that toggle the selected option of the menu depending on the url
