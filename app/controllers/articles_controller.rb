@@ -100,8 +100,16 @@ class ArticlesController < ApplicationController
 
   def fetch_rented_article
     @article = Article.find_by_id(params[:id])
-    @article = Rent.calc_new_prices(@article)
-    render :partial => 'rent_article_detail', :content_type => 'text/html'
+    if (!@article.nil? && @article.is_rented)
+      @article = Rent.calc_new_prices(@article)
+      render :partial => 'rent_article_detail', :content_type => 'text/html'
+    else
+      flash[:notice] = "El artículo no esta siendo alquilado"
+    end   
+  end
+
+  def return_list_articles
+    Rent.save_new_rent(params[:id_list])
   end
   
   def filter

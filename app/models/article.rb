@@ -60,6 +60,10 @@ class Article < ActiveRecord::Base
         return false    
     end
 
+    def is_rented
+        return self.status == 'rented'
+    end
+
     def self.search_articles(search_text)
         if search_text != ''
             return Article.find(:all, :conditions => ["description like ? or id = ?", "%#{search_text}%", search_text])

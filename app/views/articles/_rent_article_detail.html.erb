@@ -19,7 +19,9 @@
 
             <p class="amountContainer">
               <strong>Precio:</strong>
-              <input type="text" value="<%= @article.input.amount %>" id="selectedAmount"/>
+              <span type="text" id="selectedAmount">
+                <%= @article.input.amount %>
+              </span>
             </p>
 
             <p>
