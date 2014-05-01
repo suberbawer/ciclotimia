@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 1.2'
 
 gem "barby", "~> 0.5.1"
 gem "chunky_png", "~> 1.3.0"
-gem 'rmagick'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
