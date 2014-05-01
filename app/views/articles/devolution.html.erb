@@ -27,15 +27,85 @@ $(document).ready(function(){
 });
 </script>
 
+
+
 <p id="notice"><%= notice %></p>
 
-<div>
+<div class="modalBackground">
+    <div id="newInputPopup" >
+        
+        <div id="articleDetailContainer">
 
-	<%= form_tag({controller: "articles", action: "devolution", method: "post"}, {:class => 'devolution_article'}) do%>
-		<h3>Ingrese artículo a devolver</h3>
-  		<%= submit_tag 'Devolver Artículo', :disable_with => 'Please wait...', :class => 'submit devolution', :confirm => "Desea devolver el artículo?" %>
-  		<%= text_field_tag(:article_id) %>
-		
-	<% end %>
+        </div>
+
+    </div>
 
 </div>
+
+<div id="devolutionContainer">
+
+    <input type="text" id="returnArticleId" />
+    <input type="button" value="Nueva devolucion" id="newReturnButton"/>
+
+
+    <table class="articleCollectionTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Articulo</th>
+                <th>Precio total</th>
+                <th>Detalle (?)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    No hay articulos en el lote
+                </td>
+                <td>
+                    
+                </td> 
+                <td>
+                    
+                </td>
+                <td>
+                    
+                </td>   
+            </tr>
+        </tbody>
+    </table>
+    <input type="button" value="Devolver lote" id="returnBatchButton"/>
+</div>
+
+<!-- Templates (ponerlos en algun lugar de assets)-->
+<script type="text/template" id="template-articleList">
+    
+    <%% if (articles.length > 0) {
+            _.each(articles, function(currentArticle){ 
+                console.info(currentArticle);
+                %>
+                <tr data-id="<%%- currentArticle.getId() %>">
+                    <td> 
+                        <%%- currentArticle.getId() %>
+                    </td>
+                    <td> 
+                        <a href="/articles/<%%- currentArticle.getId() %>" target="_blank">
+                            <%%- currentArticle.getDescription() %>
+                        </a>
+                    </td>
+                    <td> 
+                       
+                    </td>
+                    <td class="deleteButton"> 
+                        <img alt="Delete" height="16" src="/assets/delete.png" width="16" class="withPointer">
+                    </td>
+                </tr>
+        <%% }); 
+        } else { %>
+            <tr>
+                <td>
+                     No hay articulos en el lote
+                </td>
+            </tr>   
+    <%% } %>
+</script>

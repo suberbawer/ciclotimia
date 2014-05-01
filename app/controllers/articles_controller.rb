@@ -79,12 +79,7 @@ class ArticlesController < ApplicationController
     if request.post?
         begin
             article_to_return = Article.find(params['article_id'])
-            
-            # Se llama a la nueva funcionalidad que calcula el alquiler
-            #articles_to_return = Set.new
-            #articles_to_return.add(article_to_return)
-            #Rent.set_final_rent_amount(articles_to_return)
-            
+                        
             returned = article_to_return.return_article
             
             if returned

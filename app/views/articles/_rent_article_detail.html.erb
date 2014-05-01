@@ -10,8 +10,8 @@
         <div class="articleData" data-description="<%= @article.description %>"
                                  data-estimated-price="<%= @article.input.amount %>" 
                                  data-entry-date="<%= @article.input.created_at %>"
-                                 data-comission="<%= @article.input.commission_per %>"
-                                 data-status="<%= @article.commission_cash %>">
+                                 data-comission="<%= @article.input.comission_per %>"
+                                 data-status="<%= @article.input.comission_cash %>">
             <p>
               <strong>Descripción:</strong>
               <%= @article.description %> 
@@ -19,7 +19,7 @@
 
             <p class="amountContainer">
               <strong>Precio:</strong>
-              <input type="text" value="<%= @article.amount %>" id="selectedAmount"/>
+              <input type="text" value="<%= @article.input.amount %>" id="selectedAmount"/>
             </p>
 
             <p>
@@ -29,12 +29,12 @@
 
             <p>
               <strong>Porcetaje Comisión:</strong>
-              <%= @article.input.commission_per %>
+              <%= @article.input.comission_per %>
             </p>
 
             <p>
               <strong>Efectivo Comisión:</strong>
-              <%= @article.input.commission_cash %>
+              <%= @article.input.comission_cash %>
             </p>
 
             <p>

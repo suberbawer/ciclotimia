@@ -31,13 +31,14 @@ class Rent < Input
         end
     end
 
-    def set_final_rent_amount(article, save)
+    def self.set_final_rent_amount(article, save)
+        new_input = Rent.new
+
         if save    
             json_response = Collect.get_open_caja
             
             if json_response['result'] == 'ok'
                 current_open = json_response['record']
-                new_input = Rent.new
                 current_open.caja_transactions.create!(:transaction => new_input)
             end
         end
@@ -45,7 +46,7 @@ class Rent < Input
         # Si esta entre la semana 4 y  la 2 ( dos semanas de atraso maximo )
         if 2.week.ago > article.input.created_at &&  article.input.created_at >= 4.week.ago
             # Se le suma un 10% 
-            new_input.amount = Rent.obtain_cash(article.input.future_amount.to_i, 40)
+            new_input.amount        = Rent.obtain_cash(article.input.future_amount.to_i, 40)
             new_input.comission_per = 40
 
         # Si esta dentro de las 2 semanas o es despues de un mes
@@ -58,22 +59,29 @@ class Rent < Input
         new_input.comission_cash = new_input.amount
         
         if save
-            # Salvo el nuevo input
-            new_input.save
-        
-            # Cambio la relacion del articulo con el input
-            article.input_id = new_input.id
-            article.save
-            # Salvo
-            article.input.save
+            begin
+                # Salvo el nuevo input
+                new_input.save
+            
+                # Cambio la relacion del articulo con el input
+                article.input_id = new_input.id
+                article.save
+                # Salvo
+                article.input.save
+            end
+            return "Devolución finalizada con éxito"
+            rescue
+                 return "Hubo un error al devolver los artículos seleccionados, por favor reintentar"
+            end
         else
-            article.input = new_input
+            new_input.created_at = article.input.created_at
+            article.input        = new_input
             return article
         end
     end
 
     def self.calc_new_prices(article)
-        return set_final_rent_amount(article, false)
+        return Rent.set_final_rent_amount(article, false)
     end
 
     def self.save_new_rent(articlesId)
