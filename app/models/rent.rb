@@ -42,16 +42,16 @@ class Rent < Input
             end
         end
         
-        # Si esta dentro de las 2 semanas o es despues de un mes
-        if article.input.created_at >= 2.week.ago || article.input.created_at < 4.week.ago
-            new_input.amount         = Rent.obtain_cash(article.input.future_amount.to_i, article.input.comission_per.to_i)
-            new_input.comission_per  = article.input.comission_per
-        
         # Si esta entre la semana 4 y  la 2 ( dos semanas de atraso maximo )
-        elsif 2.week.ago > article.input.created_at &&  article.input.created_at >= 4.week.ago
+        if 2.week.ago > article.input.created_at &&  article.input.created_at >= 4.week.ago
             # Se le suma un 10% 
             new_input.amount = Rent.obtain_cash(article.input.future_amount.to_i, 40)
             new_input.comission_per = 40
+
+        # Si esta dentro de las 2 semanas o es despues de un mes
+        elsif article.input.created_at >= 2.week.ago || article.input.created_at < 4.week.ago
+            new_input.amount         = Rent.obtain_cash(article.input.future_amount.to_i, article.input.comission_per.to_i)
+            new_input.comission_per  = article.input.comission_per
         end
 
         # Actualizo la ganancia neta
