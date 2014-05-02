@@ -1,3 +1,25 @@
+<script>
+	$(document).ready(function(){
+		focusCursorOnInput();
+		makeEnterClick();
+	})
+
+	function makeEnterClick() {
+		$('#articleInputId').keypress(function (e) {
+		    var key = e.which;
+		    if(key == 13) {
+		        $('#newInputButton').click();
+		        return false;  
+		    }
+		});
+	}
+
+	function focusCursorOnInput() {
+    	$('#articleInputId').focus();
+	}
+
+</script>
+
 <p id="notice"><%= notice %></p>
 <h3>Venta / alquiler de artículos</h3>
 <div class="modalBackground">

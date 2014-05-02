@@ -1,0 +1,90 @@
+<style>	
+	.print{
+		width: 100px;
+		cursor: pointer;
+
+	}
+
+	.right{
+		text-align: right;
+		padding-right: 10px;
+	}
+
+	#billing_table{
+    	height: 200px;
+    	overflow-y: auto;
+	}
+
+	.rut{
+		float:right;
+	}
+</style>
+
+<script>
+ function printImg() {
+ 	$('.modalBackground').hide();
+ 	$('#rut').hide();
+ 	$('#rent_container').prepend('<div class="rut"><p>'+ $('#returnArticleId').val() +'</p></div>');
+    var divToPrint = document.getElementById('billing_table');
+    newWin = window.open("");
+    // Css y salto de pagina cuando un div queda cortado en la impresion
+    newWin.document.write('<style>' + 
+    						'@media print{div.provider_container{page-break-inside: avoid;}} ' +
+    						'.provider_container{ ' +
+								'border-bottom: 1px black dotted;' +
+							'} ' +
+							'.right{ ' +
+									'text-align: right; ' +
+									'padding-right: 10px; ' +
+							'}' +
+    					'</style>');
+	newWin.document.write(divToPrint.outerHTML);
+	newWin.print();
+	newWin.close();
+  }
+
+  $(document).ready(function(){
+    $('.print').click(function(){
+    	printImg();
+    });
+  });
+</script>
+
+<div id="billing_table">
+    <div class="provider_container" id="rent_container">
+		<div id="rut" class="rut"
+			<label for="returnArticleId">Ingrese RUT</label>
+			<input type="text" id="returnArticleId" />
+		</div>
+		<table id="articles">
+			<thead>
+		        <tr>
+					<th>Detalle</th>
+					<th>Importe</th>
+		        </tr>
+		    </thead>
+			<tbody>
+				<tr>
+					<td>Comisión por intermediación de Alquileres</td>
+					<td>$<%= @subtotal %></td>
+				</tr>
+				<tr>
+					<td class="right">SUB TOTAL</td>
+					<td>$<%= @subtotal %></td>
+				</tr>
+				<tr>
+					<td class="right">IVA</td>
+					<td>$<%= @iva %></td>
+				</tr>
+				<tr>
+					<td class="right">TOTAL</td>
+					<td>$<%= @total %></td>
+				</tr>
+			</tbody>
+		</table>
+		<p> Montevideo, <%= Time.now.strftime("%d-%m-%Y") %></p>
+	</div>
+</div>
+<div>
+	<button class="print">Imprimir</button>
+</div>

@@ -216,6 +216,7 @@ $(document).ready(function(){
 		    	var divToPrint = newWin.document.getElementById('receiptContainer');
 		    	newWin.document.write(divToPrint.outerHTML);
 				newWin.print();
+				newWin.close();
 			}
 		}
 
@@ -351,6 +352,7 @@ $(document).ready(function(){
 	   		self.insertInput();
 	   		// Reseteando el input 
 	   		self._articleId.val('');
+	   		focusCursorOnInput();
 	    });
 
 		// Usuario confirma el lote (levanto json y mando a la controller).

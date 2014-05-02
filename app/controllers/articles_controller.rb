@@ -100,12 +100,24 @@ class ArticlesController < ApplicationController
 
   def fetch_rented_article
     @article = Article.find_by_id(params[:id])
-    if (!@article.nil? && @article.is_rented)
-      @article = Rent.calc_new_prices(@article)
-      render :partial => 'rent_article_detail', :content_type => 'text/html'
-    else
-      flash[:notice] = "El artículo no esta siendo alquilado"
-    end   
+    puts @article
+    @article = Rent.calc_new_prices(@article)
+    render :partial => 'rent_article_detail', :content_type => 'text/html'
+  end
+
+  def actual_billing_rent
+    articles   = Article.where(id:params['id_list'])
+    inputs_ids = Set.new
+    
+    articles.each do |article| 
+      inputs_ids.add(article.input.id)
+    end
+    
+    new_inputs = Input.where("id IN (?)", inputs_ids)
+    @total     = Report.total_amount(new_inputs)
+    @iva       = @total * 0.22
+    @subtotal  = @total - @iva
+    render :partial => 'actual_billing_rent', :content_type => 'text/html'
   end
 
   def return_list_articles

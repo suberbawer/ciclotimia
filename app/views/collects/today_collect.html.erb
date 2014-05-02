@@ -38,12 +38,7 @@
                                 <td>$<%= transaction.comission_cash ? transaction.comission_cash  : transaction.amount%></td>
                                 <td><%= transaction.obtain_human_label %></td>
                                 <td>
-                                    <% if transaction.article.present? %>
-                                        <!--  El transaction tiene articulo, asi que mostramos su descripcion -->
-                                        <%= transaction.article.description %>
-                                    <% elsif transaction.concept? %>
-                                        <%= transaction.concept %>  
-                                    <% end %>
+                                    <%= transaction. article_desc %>
                                 </td>
                                 <td><%= l transaction.created_at %></td>
                                 <% if transaction.status == "active" %> 

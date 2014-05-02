@@ -15,6 +15,8 @@ $.validator.addMethod('positiveNumber',
         }, 'Por favor ingresa un valor positivo');
 
 $(document).ready(function(){
+    makeEnterClick();
+    focusCursorOnInput();
 	$('.devolution_article').validate({
         rules: {
             'article_id': {
@@ -24,10 +26,50 @@ $(document).ready(function(){
             }
         }
     });
+    disableBillingButton();
 });
+
+function makeEnterClick() {
+    $('#returnArticleId').keypress(function (e) {
+        var key = e.which;
+        if(key == 13) {
+            $('#newReturnButton').click();
+            return false;  
+        }
+    });
+}
+
+function focusCursorOnInput() {
+    $('#returnArticleId').focus();
+}
+
+function disableBillingButton() {
+    $(returnBatchButtonBilling).attr('disabled','disabled');
+    $(returnBatchButtonBilling).addClass('disabled');
+}
 </script>
 
+<style>
+    #newReturnButton {
+        width:100px;
+    }
 
+    .returnBatchButton{
+        width:120px !important;
+    }
+
+    #billingDetailContainer {
+        max-height: 750px;
+    }
+
+    .articleCollectionTable{
+        max-height: 600px;
+    }
+
+    .disabled{
+        background-color: gray !important;
+    }
+</style>
 
 <p id="notice"><%= notice %></p>
 
@@ -45,15 +87,16 @@ $(document).ready(function(){
 <div id="devolutionContainer">
 
     <input type="text" id="returnArticleId" />
-    <input type="button" value="Nueva devolucion" id="newReturnButton"/>
+    <input type="button" value="Devolver" id="newReturnButton"/>
 
 
-    <table class="articleCollectionTable">
+    <table class="articleCollectionTable" id="articles">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Articulo</th>
                 <th>Precio</th>
+                <th>Tipo</th>
                 <th></th>
             </tr>
         </thead>
@@ -70,11 +113,15 @@ $(document).ready(function(){
                 </td>
                 <td>
                     
-                </td>   
+                </td>
+                <td>
+                    
+                </td>
             </tr>
         </tbody>
     </table>
-    <input type="button" value="Devolver lote" id="returnBatchButton"/>
+    <input type="button" value="Imprimir Ticket" id="returnBatchButton" class="returnBatchButton"/>
+    <input type="button" value="Imprimir Factura" id="returnBatchButtonBilling" class="returnBatchButton"/>
 </div>
 
 <!-- Templates (ponerlos en algun lugar de assets)-->
@@ -95,6 +142,9 @@ $(document).ready(function(){
                     </td>
                     <td> 
                         <%%- currentArticle.getAmount() %>
+                    </td>
+                    <td>
+                        <%%- currentArticle.getType() %>
                     </td>
                     <td class="deleteButton"> 
                         <img alt="Delete" height="16" src="/assets/delete.png" width="16" class="withPointer">

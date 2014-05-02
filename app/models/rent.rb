@@ -36,55 +36,60 @@ class Rent < Input
     end
 
     def self.set_final_rent_amount(article, save)
+
+        if !article.nil? && !article.input.nil?
         new_input              = Rent.new
         new_input.article_id   = article.id
         new_input.article_desc = article.description
 
-        if save    
-            json_response = Collect.get_open_caja
-            
-            if json_response['result'] == 'ok'
-                current_open = json_response['record']
-                current_open.caja_transactions.create!(:transaction => new_input)
+            if save    
+                json_response = Collect.get_open_caja
+                
+                if json_response['result'] == 'ok'
+                    current_open = json_response['record']
+                    current_open.caja_transactions.create!(:transaction => new_input)
+                end
             end
-        end
-        
-        # Si esta entre la semana 4 y  la 2 ( dos semanas de atraso maximo )
-        if 2.week.ago > article.input.created_at &&  article.input.created_at >= 4.week.ago
-            # Se le suma un 10% 
-            new_input.amount        = Rent.obtain_cash(article.input.future_amount.to_i, 40)
-            new_input.comission_per = 40
-
-        # Si esta dentro de las 2 semanas o es despues de un mes
-        elsif article.input.created_at >= 2.week.ago || article.input.created_at < 4.week.ago
-            new_input.amount         = Rent.obtain_cash(article.input.future_amount.to_i, article.input.comission_per.to_i)
-            new_input.comission_per  = article.input.comission_per
-        end
-
-        # Actualizo la ganancia neta
-        new_input.comission_cash = new_input.amount
-        
-        if save
-            begin
-                # Salvo el nuevo input
-                new_input.save
             
-                # Cambio la relacion del articulo con el input
-                article.input_id = new_input.id
-                article.status   = ""
-                article.save
-                # Salvo
-                article.input.save
+            # Si esta entre la semana 4 y  la 2 ( dos semanas de atraso maximo )
+            if 2.week.ago > article.input.created_at &&  article.input.created_at >= 4.week.ago
+                # Se le suma un 10% 
+                new_input.amount        = Rent.obtain_cash(article.input.future_amount.to_i, 40)
+                new_input.comission_per = 40
 
-                return new_input.id
-            rescue
-                return "Hubo un error al devolver los artículos seleccionados, por favor reintentar"
+            # Si esta dentro de las 2 semanas o es despues de un mes
+            elsif article.input.created_at >= 2.week.ago || article.input.created_at < 4.week.ago
+                new_input.amount         = Rent.obtain_cash(article.input.future_amount.to_i, article.input.comission_per.to_i)
+                new_input.comission_per  = article.input.comission_per
+            end
+
+            # Actualizo la ganancia neta
+            new_input.comission_cash = new_input.amount
+            
+            if save
+                begin
+                    # Salvo el nuevo input
+                    new_input.save
+                
+                    # Cambio la relacion del articulo con el input
+                    article.input_id = new_input.id
+                article.status   = ""
+                    article.save
+                    # Salvo
+                    article.input.save
+
+                    return new_input.id
+                rescue
+                    return "Hubo un error al devolver los artículos seleccionados, por favor reintentar"
+                end
+            else
+                new_input.created_at = article.input.created_at
+                article.input        = new_input
+                return article
             end
         else
-            new_input.created_at = article.input.created_at
-            article.input        = new_input
             return article
-        end
+        end    
     end
 
     def self.calc_new_prices(article)
@@ -98,7 +103,7 @@ class Rent < Input
         rented_articles.each do |article|
             inputIds.add(set_final_rent_amount(article, true))
         end
-
+        puts inputIds
         return inputIds
     end 
 end

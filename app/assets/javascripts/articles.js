@@ -9,7 +9,8 @@ $(document).ready(function(){
 	    var _articleContainer  = $('#articleDetailContainer');	// Contenedor del detalle del articulo.
 	    var _modalBackground   = $('.modalBackground');
 	    var _formContainer     = $('#returnFormContainer');			// Container of the form.
-
+		var _articleId         = $('#returnArticleId');
+	    
 	    /**
 	     *	Metodo encargado de mostrar o esconder el form container.
 	     *	(depende de el estado del articulo).
@@ -24,42 +25,28 @@ $(document).ready(function(){
 	    	
 	    }
 
-
-	    // Usuario cambia articulo a referenciar.
-		// this._articleId.on('blur', function(e){
-	 //        var articleId = $(e.currentTarget).val();
-	 //        self.setArticleId(articleId);
-	 //    });
-
-
 	    return {
 	    	/**
 		     *	Traigo los detalles del articulo de {this}.
 		     */
 	    	retrieveArticleData: function(){
-				var currentLotArticle = _.find(inputCollection.inputList, function(cInput){ return cInput.article == self.getArticleId(); });
-				if (isUndefined(currentLotArticle)) {
-					$.ajax({
-						url      : '/articles/fetch_rented_article',
-	 					type     : "GET",
-						dataType : 'html',
-						data     : { 'id' : id },
-						success:function(data){
-							// Obtengo el importe calculado (mejorar).
-							console.info(data)
-							var articlePartial = jQuery.parseHTML(data);
-							amount = $(articlePartial[1]).find('#selectedAmount').text(); //articlePartial.find('#articlePartial').val();
-							console.info(amount)
-							description = $(articlePartial[1]).find('#selectedDescription').text();
-							_articleContainer.html(data); 	// Muestro detalle del articulo seleccionado...
-							showFormContainer($('.articleData'));
-							_modalBackground.show();
-						}
-					});
-				}
-				else{
-					new Messi('El artículo esta ingresado en el lote actual', {title: 'Información', modal: true});
-				}
+				$.ajax({
+					url      : '/articles/fetch_rented_article',
+ 					type     : "GET",
+					dataType : 'html',
+					data     : { 'id' : id },
+					success:function(data){
+						// Obtengo el importe calculado (mejorar).
+						var articlePartial = jQuery.parseHTML(data);
+						amount 			   = $(articlePartial[1]).find('#selectedAmount').text(); //articlePartial.find('#articlePartial').val();
+						description  	   = $(articlePartial[1]).find('#selectedDescription').text();
+						type 			   = $(articlePartial[1]).find('#selectedType').text();
+						_articleId.val('');
+						_articleContainer.html(data); 	// Muestro detalle del articulo seleccionado...
+						showFormContainer($('.articleData'));
+						_modalBackground.show();
+					}
+				});
 		    },
 
 		    getId: function(){
@@ -72,11 +59,13 @@ $(document).ready(function(){
 
 		    getDescription: function(){
 		    	return description; 
+		    },
+
+		    getType: function(){
+		    	return type;
 		    }
 	    }
 	}
-
-
 
 	/**
 	 *	Coleccion de articulos. 
@@ -92,7 +81,8 @@ $(document).ready(function(){
 		var _modalBackground        = $('.modalBackground');
 		var _devolutionContainer    = $('#devolutionContainer');
 		var _returnBatchButton      = $('#returnBatchButton');
-
+		var _returnBatchButtonBill  = $('#returnBatchButtonBilling');
+		var _deleteButton			= $('.deleteButton');
 		var article;
 		var articles = [];
 
@@ -105,6 +95,13 @@ $(document).ready(function(){
 
 	    var getTotal = function(){
 
+	    }
+
+	    var deleteArticle = function(articleId){
+	    	articles = _.reject(articles, function(article){ 
+	    							return article.getId() == articleId;
+							  });
+	    	refreshArticleList();
 	    }
 
 	    var obtainArticlesId = function(){
@@ -121,7 +118,17 @@ $(document).ready(function(){
 		    	var divToPrint = newWin.document.getElementById('receiptContainer');
 		    	newWin.document.write(divToPrint.outerHTML);
 				newWin.print();
+				newWin.close();
 			}
+		}
+
+		var checkAlreadyAdded = function(articleId) {
+			for (var i in articles) {
+				if (articleId == articles[i].getId()) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		var createParameterList = function(inputIds){
@@ -133,9 +140,18 @@ $(document).ready(function(){
 			return paramString;
 		}
 
+		var enableButton = function(button) {
+			console.info(button);
+			button.attr('disabled', false);
+			button.removeClass('disabled');
+		}
+
 		_newReturnButton.on('click', function(){
 			var articleId = _articleId.val();
-			if (articleId) {
+			if (checkAlreadyAdded(articleId)) {
+				_articleId.val('');
+				new Messi('El artículo esta ingresado en el lote actual', {title: 'Información', modal: true});
+			} else if (articleId) {
 				article = new Article(articleId);
 				article.retrieveArticleData();
 			}
@@ -145,13 +161,48 @@ $(document).ready(function(){
 			if (article) {
 				articles.push(article);
 				_modalBackground.hide();
+				focusCursorOnInput();
 	        	refreshArticleList();
 			}
 		});
 
+		_devolutionContainer.on('click', '#returnBatchButtonBilling', function(e){
+			var articleIdList = obtainArticlesId()
+
+			if (articleIdList.length > 0) {
+				$.ajax({
+					url      : '/articles/actual_billing_rent',
+ 					type     : "GET",
+					dataType : 'html',
+					data     : { 'id_list' : articleIdList },
+					success:function(data){
+						_articleDetailContainer.html(data);
+						_modalBackground.show();
+					}
+				});
+			}
+			else{
+				new Messi('No hay articulos a devolver', {title: 'Información', modal: true});
+			}
+
+		});
+
+		_devolutionContainer.on('click', '.deleteButton', function(e){
+	    	new Messi('Desea borrar el artículo del lote?', 
+						  {title: '',
+						   	buttons: [{id: 0, label: 'Yes', val: 'Y'}, 
+						   		     {id: 1, label: 'No', val: 'N'}], 
+						   	callback: function(val) { 
+						   		if (val === 'Yes') {
+							   		var articleId = $(e.currentTarget).parent().data('id');
+		    						deleteArticle(articleId);
+		    					}
+						   	}
+						  });
+	    });
+
 		_devolutionContainer.on('click', '#returnBatchButton', function(e){
 			var articleIdList = obtainArticlesId()
-			console.info(articleIdList);
 
 			if (articleIdList.length > 0) {
 				$.ajax({
@@ -163,6 +214,7 @@ $(document).ready(function(){
 						data = JSON.parse(data);
 						if (data.message && data.message.length > 0) {
 							var param = createParameterList(data.message);
+							enableButton(_returnBatchButtonBill);
 							printInputs('/inputs/batch_receipt?' + param);
 						}
 						else{

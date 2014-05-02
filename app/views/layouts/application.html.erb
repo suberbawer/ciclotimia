@@ -34,14 +34,11 @@
                 <li>
                     <%= link_to 'Nuevo Articulo', new_article_path, :method => "get" %>
                 </li>
-                <li>
-                    <%= link_to 'Devolución de Alquiler', '/articles/devolution', :method => "get" %>
-                </li>
             </ul>
         </li>
 
         <li class='collects has-sub'>
-            <a href="/collects/today_collect">Caja</a>
+            <%= link_to 'Caja', '/collects/today_collect', :method => "get" %>
             <ul>
                 <li>
                     <a href="/collects/index">Gestionar Caja Actual</a>
@@ -53,7 +50,7 @@
         </li>
         
         <li class='inputs has-sub'>
-            <%= link_to 'Ingreso Caja', "/inputs/input_article" %>
+            <%= link_to 'Nuevo Ingreso', '/inputs/input_article', :method => "get" %>
             <ul>
                 <li>
                     <%= link_to 'Nuevo Ingreso Manual', new_input_path %>
@@ -61,12 +58,24 @@
             </ul>
         </li>
 
+        <li class='rents has-sub'>
+            <%= link_to 'Alquiler', "" %>
+            <ul>
+                <li>
+                    <%= link_to 'Devolución de Alquiler', '/articles/devolution', :method => "get" %>
+                </li>
+                <li>
+                    <%= link_to 'Morosos', "/articles/debtors", :method => "get" %>
+                </li>
+            </ul>
+        </li>
+        
         <li class='outputs'>
             <%= link_to 'Egreso Caja', "/outputs/new" %>
         </li>
 
         <li class='billings has-sub'>
-            <%= link_to 'Facturación Mensual', "#" %>
+            <%= link_to 'Facturación Mensual', "" %>
             <ul>
                 <li>
                     <%= link_to 'Facturación Proveedores', "/billings/index" %>
@@ -78,9 +87,6 @@
                     <%= link_to 'Facturación Alquileres', "/billings/rent_facturation" %>
                 </li>
             </ul>
-        </li>
-        <li class='debtors'>
-            <%= link_to 'Morosos', "/articles/debtors", :method => "get" %>
         </li>
     </ul>
 </div>

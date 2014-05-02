@@ -19,6 +19,7 @@ Ciclotimia::Application.routes.draw do
 
     get "articles/fetch_rented_article"
     post "articles/return_list_articles"
+    get "articles/actual_billing_rent"
   resources :articles
     post "articles/list"
     post "articles/filter"
