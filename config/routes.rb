@@ -59,7 +59,7 @@ Ciclotimia::Application.routes.draw do
   resources :other_inputs
 
     get "collects/today_collect"
-
+    get "reports/index"
     get "collects/index"
 
     post "collects/close_today_caja"

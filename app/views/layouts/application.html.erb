@@ -16,11 +16,11 @@
 <div id='appmenu'>
     <ul>
         <li class='home'>
-            <%= link_to 'Home', providers_path %> 
+            <%= link_to 'Home', "" %> 
         </li>
         
         <li class='providers has-sub'>
-            <%= link_to 'Proveedores', providers_path %> 
+            <%= link_to 'Proveedores', providers_path, :method => "get" %> 
             <ul>
                 <li>
                     <%= link_to 'Nuevo Proveedor', new_provider_path, :method => "get" %>
@@ -29,7 +29,7 @@
         </li>
         
         <li class='articles has-sub'>
-            <%= link_to 'Articulos', articles_path %>
+            <%= link_to 'Articulos', articles_path, :method => "get" %>
             <ul>
                 <li>
                     <%= link_to 'Nuevo Articulo', new_article_path, :method => "get" %>
@@ -41,10 +41,10 @@
             <%= link_to 'Caja', '/collects/today_collect', :method => "get" %>
             <ul>
                 <li>
-                    <a href="/collects/index">Gestionar Caja Actual</a>
+                    <%= link_to 'Gestionar Caja Actual', '/collects/index', :method => "get" %>
                 </li>
                 <li>
-                    <%= link_to 'Reportes', "/reports/index" %>
+                    <%= link_to 'Reportes', "/reports/index", :method => "get"%>
                 </li>
             </ul>
         </li>
@@ -53,7 +53,7 @@
             <%= link_to 'Nuevo Ingreso', '/inputs/input_article', :method => "get" %>
             <ul>
                 <li>
-                    <%= link_to 'Nuevo Ingreso Manual', new_input_path %>
+                    <%= link_to 'Nuevo Ingreso Manual', new_input_path, :method => "get" %>
                 </li>
             </ul>
         </li>
@@ -71,20 +71,20 @@
         </li>
         
         <li class='outputs'>
-            <%= link_to 'Egreso Caja', "/outputs/new" %>
+            <%= link_to 'Egreso Caja', "/outputs/new", :method => "get" %>
         </li>
 
         <li class='billings has-sub'>
             <%= link_to 'Facturación Mensual', "" %>
             <ul>
                 <li>
-                    <%= link_to 'Facturación Proveedores', "/billings/index" %>
+                    <%= link_to 'Facturación Proveedores', "/billings/index", :method => "get" %>
                 </li>
                 <li>
-                    <%= link_to 'Facturación Propia', "/billings/own_facturation" %>
+                    <%= link_to 'Facturación Propia', "/billings/own_facturation", :method => "get" %>
                 </li>
                 <li>
-                    <%= link_to 'Facturación Alquileres', "/billings/rent_facturation" %>
+                    <%= link_to 'Facturación Alquileres', "/billings/rent_facturation", :method => "get" %>
                 </li>
             </ul>
         </li>
