@@ -90,6 +90,10 @@
 	font-weight: bold;
 }
 
+#table_container{
+	max-height: 700px;
+    overflow-y: auto; 
+}
 /* Botones */
 body input[type="button"], button{
     width: 100%;

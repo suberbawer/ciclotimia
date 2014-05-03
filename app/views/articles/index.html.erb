@@ -58,7 +58,7 @@
 		    <td><%= article.description %></td>
 		    <td><%= '$' + article.estimated_price %></td>
 		    <td><%= l article.created_at %></td>
-		    <td><%= article.commission_per + '%'%></td>
+		    <td><%= article.commission_per + '%' + ' + iva'%></td>
 		    <td><%= '$' + article.commission_cash %></td>
 		    <td><%= article.obtain_human_label ? article.obtain_human_label : 'Disponible' %></td>
 		    <td><%= article.provider.name + ' ' + article.provider.lastname %></td>

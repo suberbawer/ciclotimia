@@ -58,8 +58,9 @@ function disableBillingButton() {
         width:120px !important;
     }
 
-    #billingDetailContainer {
+    #table_container {
         max-height: 750px;
+        overflow-y: auto;
     }
 
     .articleCollectionTable{
@@ -68,6 +69,11 @@ function disableBillingButton() {
 
     .disabled{
         background-color: gray !important;
+    }
+
+    #returnArticleId{
+        height: 23px;
+        width: 10%;
     }
 </style>
 
@@ -89,37 +95,38 @@ function disableBillingButton() {
     <input type="text" id="returnArticleId" />
     <input type="button" value="Devolver" id="newReturnButton"/>
 
-
-    <table class="articleCollectionTable" id="articles">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Articulo</th>
-                <th>Precio</th>
-                <th>Tipo</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    No hay articulos en el lote
-                </td>
-                <td>
-                    
-                </td> 
-                <td>
-                    
-                </td>
-                <td>
-                    
-                </td>
-                <td>
-                    
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="table_container">
+        <table class="articleCollectionTable" id="articles">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Articulo</th>
+                    <th>Precio</th>
+                    <th>Tipo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        No hay articulos en el lote
+                    </td>
+                    <td>
+                        
+                    </td> 
+                    <td>
+                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <input type="button" value="Imprimir Ticket" id="returnBatchButton" class="returnBatchButton"/>
     <input type="button" value="Imprimir Factura" id="returnBatchButtonBilling" class="returnBatchButton"/>
 </div>

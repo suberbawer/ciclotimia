@@ -18,13 +18,16 @@
 	.rut{
 		float:right;
 	}
+	#rut_input{
+		width: 120px;
+	}
 </style>
 
 <script>
  function printImg() {
  	$('.modalBackground').hide();
  	$('#rut').hide();
- 	$('#rent_container').prepend('<div class="rut"><p>'+ $('#returnArticleId').val() +'</p></div>');
+ 	$('#rent_container').prepend('<div class="rut"><p>'+ $('#rut_input').val() +'</p></div>');
     var divToPrint = document.getElementById('billing_table');
     newWin = window.open("");
     // Css y salto de pagina cuando un div queda cortado en la impresion
@@ -52,9 +55,9 @@
 
 <div id="billing_table">
     <div class="provider_container" id="rent_container">
-		<div id="rut" class="rut"
-			<label for="returnArticleId">Ingrese RUT</label>
-			<input type="text" id="returnArticleId" />
+		<div id="rut" class="rut">
+			<label for="rut_input">Ingrese RUT</label>
+			<input type="text" id="rut_input" />
 		</div>
 		<table id="articles">
 			<thead>

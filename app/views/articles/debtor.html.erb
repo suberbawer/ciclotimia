@@ -1,3 +1,10 @@
+<style>
+  .articles_container{
+    height:700px;
+    overflow-y: auto;
+  }
+</style>
+
 <h3>Artículos no devueltos</h3>
 
 <div class="search">  
@@ -16,9 +23,8 @@
           <th>Código</th>
           <th>Descripción</th>
           <th>Precio Estimado</th>
-          <th>Fecha de Ingreso</th>
+          <th>Fecha de Alquiler</th>
           <th>Porcentaje Comisión</th>
-          <th>Efectivo Comisión</th>
           <th>Estado</th>
           <th>Proveedor</th>
           <th>Código</th>
@@ -32,8 +38,7 @@
             <td><%= article.description %></td>
             <td><%= '$' + article.estimated_price %></td>
             <td><%= l article.created_at %></td>
-            <td><%= article.commission_per + '%'%></td>
-            <td><%= '$' + article.commission_cash %></td>
+            <td><%= article.input.comission_per + '%' + ' + iva'%></td>
             <td><%= article.obtain_human_label %></td>
             <td><%= article.provider.name + ' ' + article.provider.lastname %></td>
             <td><%= image_tag('barcodes/'+article.id.to_s+'.png', size: "60x30", :class => 'barcode_image', :id => "barcode_" + article.id.to_s) %></td>

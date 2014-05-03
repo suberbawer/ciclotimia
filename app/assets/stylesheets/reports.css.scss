@@ -80,3 +80,18 @@
 	cursor: pointer;
 }
 
+#input_transactions{
+	height:300px;
+	overflow-y: auto; 
+}
+
+#output_transactions{
+	height:225px;
+	overflow-y: auto; 
+}
+
+#totals{
+	height: 50px;
+	overflow-y: auto; 
+}
+
