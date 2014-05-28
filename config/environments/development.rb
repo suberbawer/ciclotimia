@@ -43,7 +43,7 @@ Ciclotimia::Application.configure do
     authentication: "plain",
     enable_starttls_auto: true,
     user_name: "ciclotimia.moda@gmail.com",
-    password: "ciclotimia1234"
+    password: "ciclotimia12345"
   }
 
 end
