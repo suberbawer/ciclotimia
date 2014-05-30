@@ -38,7 +38,7 @@
                                 <td>$<%= transaction.comission_cash ? transaction.comission_cash  : transaction.amount%></td>
                                 <td><%= transaction.obtain_human_label %></td>
                                 <td>
-                                    <%= transaction. article_desc %>
+                                    <%= transaction.article_desc %>
                                 </td>
                                 <td><%= l transaction.created_at %></td>
                                 <% if transaction.status == "active" %> 
@@ -53,7 +53,7 @@
                                     <td>Anula: <a href="/inputs/<%= transaction.cancel_id %>" target="_blank"> transacción <%= transaction.cancel_id %></a></td>
                                 <% end %>
                                 <td>
-                                <% if transaction.status == "active" %>
+                                <% if transaction.status == "active" && %>
                                     <%= check_box_tag 'inputs[]', transaction.id %>
                                 <% end %>
                                 </td>

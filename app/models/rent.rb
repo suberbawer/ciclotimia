@@ -6,14 +6,12 @@ class Rent < Input
         self[:future_amount]  = input_data[:amount].to_i
         self.article          = Article.find input_data[:article]
         self[:comission_cash] = self[:amount]
-        puts self.article.description
         self[:article_desc]   = self.article.description
-        puts self.article.id
         self[:article_id]     = self.article.id  
     end
 
     def self.obtain_cash(amount, percent)
-        return ((amount * percent/100) + (amount * percent/100 * 0.22)).round 
+        return ((amount * percent.to_f/100) + (amount * percent.to_f/100 * 0.22)).round
     end
 
     def obtain_human_label
@@ -73,7 +71,7 @@ class Rent < Input
                 
                     # Cambio la relacion del articulo con el input
                     article.input_id = new_input.id
-                article.status   = ""
+                    article.status   = ""
                     article.save
                     # Salvo
                     article.input.save

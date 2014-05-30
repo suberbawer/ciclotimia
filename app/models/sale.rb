@@ -10,7 +10,7 @@ class Sale < Input
 	end
 
 	def self.obtain_cash(amount, percent)
-		return ((amount * percent/100) + (amount * percent/100 * 0.22)).round 
+		return ((amount * percent.to_f/100) + (amount * percent.to_f/100 * 0.22)).round 
 	end
 
 	def obtain_human_label

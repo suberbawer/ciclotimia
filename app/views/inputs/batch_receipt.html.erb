@@ -1,34 +1,83 @@
-<div id="receiptContainer">
-	<h3>***** Bienvenido a Ciclotimia *****</h3>
-    <br/>
+<style>
+    .center{
+        text-align: center;
+    }
+    .left{
+        text-align: left;
+    }
+    .right {
+        text-align: right;
+    }
+    .size {
+        width:275px;
+    }
+    table {
+        margin: 0 auto;
+        width:275px;
+    }
+</style>
 
-	<%= Date.today.strftime("%d/%m/%Y") %> 
-	<table>
+<script>
+ function printImg() {
+    var divToPrint = document.getElementById('receiptContainer');
+    newWin = window.open("");
+    // Css y salto de pagina cuando un div queda cortado en la impresion
+    newWin.document.write('<style>' + 
+                            '@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} .size {width:275px;} table {margin: 0 auto;width:275px;}} ' +
+                        '</style>');
+    newWin.document.write(divToPrint.outerHTML);
+    newWin.print();
+    newWin.close();
+  }
+
+  $(document).ready(function(){
+    $('#print').click(function(){
+        printImg();
+    });
+  });
+
+</script>
+
+<div id="receiptContainer" class="center size">
+	<h3>*** Bienvenido a Ciclotimia ***</h3>
+    <p>Simón Bolibar 1262</p>
+    <p>Montevideo - Uruguay</p>
+    <p>Teléfono: 2705 6231</p>
+
+
+    <br/>
+    <table>
+    <tr>
+        <td class="left"><%= Date.today.strftime("%d/%m/%Y") %></td>
+    </tr>
+    </table>
+	<table> 
         <thead>
             <tr>
-                <td><Strong>Descripción</Strong></td>
-                <td><Strong>Precio</Strong></td>
+                <td class="left"><Strong>Descripción</Strong></td>
+                <td class="right"><Strong>Precio</Strong></td>
             </tr>
         </thead>
         <tbody>
             <% total = 0 %>
             <% @new_inputs.each do |input| %>
-            <tr>
-            	<td><%= input.article.description %></td>
-            	<td>$<%= input.amount %></td>
-            </tr>
-            <% total = total + input.amount %>
+                <% future = ((input.future_amount.to_i * 0.3) + (input.future_amount.to_i * 0.3 * 0.22)) %>
+                <tr>
+                	<td class="left"><%= input.article ? input.article.description : input.article_desc%></td>
+                	<td class="right">$<%= input.amount = 0 ? future : input.amount %></td>
+                </tr>
+                <% total = total + ( input.amount = 0 ? future : input.amount) %>
             <% end %>
             <tr>
-                <td>Total:</td>
-                <td>$<%= total %></td>
+                <td class="left">Total:</td>
+                <td class="right">$<%= total %></td>
             </tr>
             <tr>
-                <td>Total Excento:</td>
-                <td>$<%= total %></td>
+                <td class="left">Total Excento:</td>
+                <td class="right">$<%= total %></td>
             </tr>
         </tbody>
     </table>
-    <h3>***** Gracias por su Visita *****</h3>
+    <h3>*** Gracias por su Visita ***</h3>
 </div>
-<input class="small-button" type="button" value="Imprimir" onclick="document.write(document.getElementById('receiptContainer').outerHTML);print();" />
+<input class="small-button" id="print" type="button" value="Imprimir"/>

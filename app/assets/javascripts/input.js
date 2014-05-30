@@ -214,6 +214,10 @@ $(document).ready(function(){
 		    newWin = window.open(path);
 		    newWin.onload = function(){
 		    	var divToPrint = newWin.document.getElementById('receiptContainer');
+		    	newWin.document.write('<style>' + 
+	                            		'@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} .size {width:275px;} table {margin: 0 auto;width:275px;}} ' +
+	                        		  '</style>');
+		    	console.log(divToPrint);
 		    	newWin.document.write(divToPrint.outerHTML);
 				newWin.print();
 				newWin.close();
