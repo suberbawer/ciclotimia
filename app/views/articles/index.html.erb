@@ -1,7 +1,14 @@
 <script>
   function printImg(id) {
-    pwin = window.open(document.getElementById(id).src,"_blank");
-    pwin.print();
+	var printWindow = window.open('');
+	printWindow.document.write('<style>' + 
+    						'@media print{.barcode_image{height: 120px; float:left}} ' +
+    					'</style>');
+    printWindow.document.write('<html><img class="barcode_image" src=\'');
+    printWindow.document.write(document.getElementById(id).src);
+    printWindow.document.write('\' /></html>');
+    printWindow.document.close();
+    printWindow.print();
   }
 
   $(document).ready(function(){
