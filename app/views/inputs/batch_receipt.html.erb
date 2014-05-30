@@ -61,7 +61,7 @@
         <tbody>
             <% total = 0 %>
             <% @new_inputs.each do |input| %>
-                <% future = ((input.future_amount.to_i * 0.3) + (input.future_amount.to_i * 0.3 * 0.22)) %>
+                <% future = ((input.future_amount.to_i * 0.3) + (input.future_amount.to_i * 0.3 * 0.22)).round %>
                 <tr>
                 	<td class="left"><%= input.article ? input.article.description : input.article_desc%></td>
                 	<td class="right">$<%= input.amount = 0 ? future : input.amount %></td>
