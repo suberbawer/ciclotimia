@@ -32,17 +32,18 @@
  function printImg() {
  	$('.modalBackground').hide();
  	$('#rut').hide();
- 	alert($('#rut_input').val());
- 	$('#billing_table').prepend('<div><p>'+ $('#rut_input').val() +'</div></p>');
+ 	$('#mainDiv #rutTable .rut').prepend('<p>'+ $('#rut_input').val() +'</p>');
     var divToPrint = document.getElementById('mainDiv');
     newWin = window.open("");
     // Css y salto de pagina cuando un div queda cortado en la impresion
     newWin.document.write('<style>' + 
-    						'@media print{div.mainDiv{page-break-inside: avoid;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} .headerContainer{padding-top:120px;} #bodyTable{height: 200px;overflow-y: auto;}.headerContainer > div, .footerContainer > div {display: inline-block;text-align: right;}tr {width:100%;}td {text-align: right;padding-right: 60px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
+    						'@media print{div.billing_table{page-break-inside: avoid; padding-top:120px;} .rut{text-align:left; padding-left: 60px;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 200px;overflow-y: auto;}.headerContainer > div, .footerContainer > div {display: inline-block;text-align: right;}tr {width:100%;}td {text-align: right;padding-right: 60px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
     					'</style>');
+    console.log(divToPrint.outerHTML);
 	newWin.document.write(divToPrint.outerHTML);
 	newWin.print();
 	newWin.close();
+	window.location.reload();
   }
 
   $(document).ready(function(){
@@ -97,7 +98,7 @@
 			<table id="rutTable" class="tableClass">
 				<tr>
 					<td class="rut">
-						<p>s</p>
+						
 					</td>
 					<td class="">
 						<p></p>

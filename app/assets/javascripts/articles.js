@@ -213,9 +213,7 @@ $(document).ready(function(){
 					success:function(data){
 						data = JSON.parse(data);
 						if (data.message && data.message.length > 0) {
-							var param = createParameterList(data.message);
 							enableButton(_returnBatchButtonBill);
-							printInputs('/inputs/batch_receipt?' + param);
 						}
 						else{
 							new Messi('No se ingresó ningún alquiler, verifique', {title: 'Información', modal: true});
