@@ -4,7 +4,7 @@ class ProvidersController < ApplicationController
   # GET /providers
   # GET /providers.json
   def index
-    @providers = Provider.all
+    @providers = Provider.all.sort_by{|provider| provider.name}
   end
 
   # GET /providers/1
@@ -70,7 +70,7 @@ class ProvidersController < ApplicationController
   end
   
   def filter
-    @providers = Provider.filter_providers(params[:search_text])
+    @providers = Provider.filter_providers(params[:search_text]).sort_by{|provider| provider.name}
     render :index    
   end
   

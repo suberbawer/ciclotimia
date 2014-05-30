@@ -1,5 +1,8 @@
 class Provider < ActiveRecord::Base
 	has_many :articles
+	def firstname
+  		"#{self.name} #{self.lastname}"
+	end
 
 	def get_articles_not_sent
 		articles_not_sent = self.articles.where(sent: false)
