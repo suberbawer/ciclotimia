@@ -23,6 +23,10 @@
   height: 700px;
   overflow-y: auto;
 }
+
+.status{
+	padding-right: 10px;
+}
 </style>
 
 <h3>Artículos</h3>
@@ -67,7 +71,7 @@
 		    <td><%= l article.created_at %></td>
 		    <td><%= article.commission_per + '%' + ' + iva'%></td>
 		    <td><%= '$' + article.commission_cash %></td>
-		    <td><%= article.obtain_human_label ? article.obtain_human_label : 'Disponible' %></td>
+		    <td class="status"><%= article.obtain_human_label ? article.obtain_human_label : 'Disponible' %></td>
 		    <td><%= article.provider.name + ' ' + article.provider.lastname %></td>
 		    <td><%= image_tag('barcodes/'+article.id.to_s+'.png', size: "60x30", :class => 'barcode_image', :id => "barcode_" + article.id.to_s) %></td>
 		    <td><%= link_to image_tag('show.png', size: "16x16"), article %></td>
