@@ -20,4 +20,12 @@ class Provider < ActiveRecord::Base
 			return Provider.all
 		end
 	end
+
+	def self.filter_provider_articles(search_text, providerId)
+		if search_text != ''
+			return Article.find(:all, :conditions => ["provider_id = ? and (description like ? or id = ?)", providerId, "%#{search_text}%", search_text])
+		else
+			return Article.find(:all, :conditions => ["provider_id = ?", providerId])
+		end
+	end
 end

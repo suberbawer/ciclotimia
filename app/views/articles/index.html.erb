@@ -2,11 +2,11 @@
   function printImg(id) {
 	var printWindow = window.open('');
 	printWindow.document.write('<style>' + 
-    						'@media print{.barcode_image{height: 120px; float:left}} ' +
-    					'</style>');
-    printWindow.document.write('<html><img class="barcode_image" src=\'');
+    							'.barcode_with_code{display: inline-block; text-align:center;} .barcode_image {height: 80px; float: left; margin-bottom:-7px} .code{font-size: 12px; margin-top: -10px;}  ' +
+    							'</style>');
+    printWindow.document.write('<html><div class="barcode_with_code"><img class="barcode_image" src=\'');
     printWindow.document.write(document.getElementById(id).src);
-    printWindow.document.write('\' /></html>');
+    printWindow.document.write('\' /><p class="code">'+id.substring(8)+'</p></div></html>');
     printWindow.document.close();
     printWindow.print();
   }

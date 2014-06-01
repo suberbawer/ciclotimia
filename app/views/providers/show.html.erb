@@ -81,6 +81,15 @@
   <strong>C.I:</strong>
   <%= @provider.ci %>
 </p>
+
+<!-- <div class="search">  
+  <%= form_tag({controller: "providers", action: "filter_articles_provider"}, :class => "search_form") do%>
+    <%= text_field_tag(:search_text) %>
+    <%= submit_tag 'Buscar', :disable_with => 'Please wait...', :class => 'submit_search' %>
+  <% end %>
+</div>
+<br/><br/> -->
+
 <div class="articles_container">
   <table id="reports">
       <thead>

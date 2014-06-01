@@ -37,13 +37,13 @@
     newWin = window.open("");
     // Css y salto de pagina cuando un div queda cortado en la impresion
     newWin.document.write('<style>' + 
-    						'@media print{#billing_table{font-size: 10px; page-break-inside: avoid; padding-top:115px;} .rut{text-align:left; padding-left: 60px;} .nameContainer{width: 40%; text-align: center;} .dateContainer{width: 25%;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 170px;overflow-y: auto;}.headerContainer > div, .footerContainer > div {display: inline-block;text-align: right;} .footerContainer{margin-bottom: 90px;} tr {width:100%;}td {text-align: right;padding-right: 40px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
+    						'@media print{#billing_table{font-size: 10px; page-break-inside: avoid; padding-top:115px;} .rut{text-align:left; padding-left: 60px;} .nameContainer{width: 40%; text-align: center;} .dateContainer{width: 25%;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 170px;overflow-y: auto;}.headerContainer > div, .footerContainer .footerContainerCopy > div {display: inline-block;text-align: right;} .footerContainer{margin-bottom: 82px;} tr {width:100%;}td {text-align: right;padding-right: 40px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
     					'</style>');
     console.log(divToPrint.outerHTML);
 	newWin.document.write(divToPrint.outerHTML);
 	newWin.print();
 	newWin.close();
-	window.location.reload();
+	//window.location.reload();
   }
 
 
@@ -139,6 +139,71 @@
 			</table>
 		</div>
 		<div class="footerContainer">
+			<table id="footerTable" class="tableClass">
+				<tr>
+					<td class="subTotalContainer">
+					</td>
+					<td class="subTotalContainer">
+					</td>
+					<td class="subTotalContainer">
+					</td>
+					<td class="subTotalContainer">
+						$<%= @subtotal %>
+					</td>
+					<td class="subTotalContainer">
+						$<%= @iva %>
+					</td>
+					<td class="subTotalContainer">
+						$<%= @total %>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div id="billing_table">
+		<div class="rutContainer">
+			<table id="rutTable" class="tableClass">
+				<tr>
+					<td class="rut">
+						
+					</td>
+					<td class="">
+						<p></p>
+					</td>
+					<td>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="headerContainer" class="headerContainer">
+			<table id="headerTable" class="tableClass">
+				<tr>
+					<td class="nameContainer">
+						<p></p>
+					</td>
+					<td class="nameContainer">
+						<p></p>
+					</td>
+					<td class="dateContainer">
+						<p><%= Time.now.strftime("%d-%m-%Y") %></p>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="tableContainer">
+			<table id="bodyTable" class="tableClass">
+				<thead>
+			    </thead>
+				<tbody>
+					<tr class="tableTrData">
+						<td class="tableData">Comisión por intermediación de Alquileres</td>
+						<td>$<%= @subtotal %></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="footerContainerCopy">
 			<table id="footerTable" class="tableClass">
 				<tr>
 					<td class="subTotalContainer">

@@ -23,7 +23,7 @@
     newWin = window.open("");
     // Css y salto de pagina cuando un div queda cortado en la impresion
     newWin.document.write('<style>' + 
-    						'@media print{#billing_table{font-size: 10px; page-break-inside: avoid; padding-top:160px;} .nameContainer{width: 40%; text-align: center;} .dateContainer{width: 25%;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 170px;overflow-y: auto;}.headerContainer > div, .footerContainer > div {display: inline-block;text-align: right;} .footerContainer{margin-bottom: 90px;} tr {width:100%;}td {text-align: right;padding-right: 40px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
+    						'@media print{#billing_table{font-size: 10px; page-break-inside: avoid; padding-top:155px;} .nameContainer{width: 40%; text-align: center;} .dateContainer{width: 25%;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 170px;overflow-y: auto;}.headerContainer > div, .footerContainer .footerContainerCopy > div {display: inline-block;text-align: right;} .footerContainer{margin-bottom: 76px;} tr {width:100%;}td {text-align: right;padding-right: 40px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
     					'</style>');
 	newWin.document.write(divToPrint.outerHTML);
 	newWin.print();
@@ -125,6 +125,62 @@
 				</table>
 			</div>
 			<div class="footerContainer">
+				<table id="footerTable" class="tableClass">
+					<tr>
+						<td class="subTotalContainer">
+						</td>
+						<td class="subTotalContainer">
+						</td>
+						<td class="subTotalContainer">
+						</td>
+						<td class="subTotalContainer">
+							$<%= total - total * 0.22 %>
+						</td>
+						<td class="subTotalContainer">
+							$<%= total * 0.22 %>
+						</td>
+						<td class="subTotalContainer">
+							$<%= total %>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div id="billing_table">
+			<% total = 0 %>
+
+			<div id="headerContainer" class="headerContainer">
+				<table id="headerTable" class="tableClass">
+					<tr>
+						<td class="nameContainer">
+							<p>Sr/Sra. <%= provider.name %> <%= provider.lastname %></p>
+						</td>
+						<td class="nameContainer">
+							<p><%= provider.address %></p>
+						</td>
+						<td class="dateContainer">
+							<p><%= Time.now.strftime("%d-%m-%Y") %></p>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<div class="tableContainer">
+				<table id="bodyTable" class="tableClass">
+					<thead>
+				    </thead>
+					<tbody>
+						<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
+							<% total = total + input.comission_cash.to_i %>
+						<% end %>
+						<tr class="tableTrData">
+							<td class="tableData">Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
+							<td>$<%= total - total * 0.22 %></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="footerContainerCopy">
 				<table id="footerTable" class="tableClass">
 					<tr>
 						<td class="subTotalContainer">

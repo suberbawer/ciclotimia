@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.find(:all, :order => "created_at DESC" )
+    @articles = Article.find(:all, :order => "created_at DESC" ).sort_by{|article| - article.id}
   end
 
   # GET /articles/1
@@ -126,12 +126,12 @@ class ArticlesController < ApplicationController
   end
   
   def filter
-    @articles = Article.search_articles(params[:search_text])
+    @articles = Article.search_articles(params[:search_text]).sort_by{|article| - article.id}
     render :index
   end
 
   def filter_debtors
-    @articles = Article.search_articles_debtors(params[:search_text])
+    @articles = Article.search_articles_debtors(params[:search_text]).sort_by{|article| - article.id}
     render :debtor
   end
 

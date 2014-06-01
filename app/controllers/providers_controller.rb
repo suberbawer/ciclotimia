@@ -73,7 +73,12 @@ class ProvidersController < ApplicationController
     @providers = Provider.filter_providers(params[:search_text]).sort_by{|provider| provider.name}
     render :index    
   end
-  
+
+  def filter_articles_provider
+    @article_list = Provider.filter_provider_articles(params[:search_text], params[:id])
+    render :show
+  end
+      
   def articles_not_sent
     @article_not_sent_list = @provider.get_articles_not_sent
   end
