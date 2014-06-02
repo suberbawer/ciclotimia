@@ -8,7 +8,7 @@
         <table class="inputTable">
             <thead>
                     <tr>
-                        <th>Id</th>
+                        <th>Código</th>
                         <th>Monto</th>
                         <th>Porcentaje</th>
                         <th>Ganancia Neta</th>
@@ -23,7 +23,7 @@
                 <% if @today_inputs.length > 0 %>
                         <% @today_inputs.each do |transaction|  %>
                             <tr>
-                                <td><%= transaction.id %></td>
+                                <td><%= transaction.article.id %></td>
                                 <td>$<%= transaction.amount %></td>
                                 <td><% if transaction.comission_per %> 
                                         <% if transaction.comission_per != "100" %>
