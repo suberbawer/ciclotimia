@@ -66,9 +66,9 @@
                 <tr>
                     <td class="left"><%= input.id %></td>
                 	<td class="left"><%= input.article ? input.article.description : input.article_desc%></td>
-                	<td class="right">$<%= input.amount = 0 ? future : input.amount %></td>
+                	<td class="right">$<%= input.type = "rent" ? future : input.amount %></td>
                 </tr>
-                <% total = total + ( input.amount = 0 ? future : input.amount) %>
+                <% total = total + ( input.type = "rent" ? future : input.amount) %>
             <% end %>
             <tr>
                 <td class="left"></td>
