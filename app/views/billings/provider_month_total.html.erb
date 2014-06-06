@@ -1,0 +1,75 @@
+<style>
+	.provider_container{
+		border-bottom: 1px black dotted;
+	}
+	.print{
+		width: 100px;
+		cursor: pointer;
+	}
+
+</style>
+
+<script>
+ 
+ function printImg() {
+    var divToPrint = document.getElementById('billing_table');
+    newWin = window.open("");
+    // Hace un salto de pagina cuando el div queda cortado en la impresion
+    newWin.document.write('<style>@media print{div.provider_container{page-break-inside: avoid;}} </style>');
+	newWin.document.write(divToPrint.outerHTML);
+	newWin.print();
+	newWin.close();
+  }
+
+  $(document).ready(function(){
+
+    $('.print').click(function(){
+    	printImg();
+    });
+  });
+</script>
+
+<style>
+#billing_table{
+    height: 800px;
+    overflow-y: auto;
+}
+</style>
+
+<div id="billing_table">
+	<h3> Facturas para imprimir del mes <%= Time.now.strftime("%m-%Y") %></h3>
+
+	<% @providers_to_print.each do |provider| %>
+     <div class="provider_container" id="provider_container_<%= provider.id%>">
+		<table id="articles">
+			<thead>
+		        <tr>
+					<th>Código Proveedor</th>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>A Pagar</th>
+		        </tr>
+		      </thead>
+			<tbody>
+				<% sub_total = 0 %>
+				<% total     = 0 %>
+				<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
+					<% sub_total = sub_total + input.amount %>
+					<% total     = total + (input.amount - input.comission_cash.to_i) %>
+				<% end %>
+				<tr>
+					<td><%= provider.id %></td>
+					<td><%= provider.name %></td>
+					<td><%= provider.lastname %></td>
+					<td>$<%= total %></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<% end %>
+</div>
+<div>
+	<button class="print">Imprimir</button>
+	<%= button_to("Enviar via Email", :action => "send_billing_monthly", :method => "post") %>
+</div>
+
