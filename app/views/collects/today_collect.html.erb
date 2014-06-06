@@ -135,4 +135,5 @@
     </table>
 </div>
 <strong>Total egresos: $<%= @today_outputs_total %> </br></strong>
-<h3>Total: $ <%= @today_inputs_total + (@isclosed ? 0 : @last_caja_total) + @today_outputs_total %></h3>
+
+<h3>Total: $ <%= @today_inputs_total + @last_caja_total + @today_outputs_total %></h3>
