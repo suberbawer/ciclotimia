@@ -36,7 +36,7 @@
                 <% if @today_inputs.length > 0 %>
                         <% @today_inputs.each do |transaction|  %>
                             <tr>
-                                <td><%= transaction.article.id %></td>
+                                <td><%= transaction.article ? transaction.article.id : '' %></td>
                                 <td>$<%= transaction.amount %></td>
                                 <td><% if transaction.comission_per %> 
                                         <% if transaction.comission_per != "100" %>

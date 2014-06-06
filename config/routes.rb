@@ -12,6 +12,7 @@ Ciclotimia::Application.routes.draw do
   post "billings/send_billing_monthly"
   get "billings/own_facturation"
   get "billings/rent_facturation"
+  get "billings/provider_month_total"
 
   post "search/index"
 
@@ -20,6 +21,7 @@ Ciclotimia::Application.routes.draw do
     get "articles/fetch_rented_article"
     post "articles/return_list_articles"
     get "articles/actual_billing_rent"
+    
   resources :articles
     post "articles/list"
     post "articles/filter"
