@@ -116,7 +116,7 @@
     <div class="field">
         <%= f.label 'Proveedor' %><br>
         <%= f.select :provider_id, 
-            options_from_collection_for_select(Provider.all.sort_by{|provider| provider.name}, 'id', 'firstname', Article.order("created_at").last ? Article.order("created_at").last.provider_id : Provider.last ? Provider.last.id : '') %>
+            options_from_collection_for_select(Provider.all.sort_by{|provider| provider.name}, 'id', 'firstname', @article.id ? @article.provider_id : Article.order("created_at").last ? Article.order("created_at").last.provider_id : Provider.last ? Provider.last.id : '') %>
     </div>
     <div class="field">
         <%= f.label 'Descripción' %><br>

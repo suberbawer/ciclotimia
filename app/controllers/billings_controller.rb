@@ -8,6 +8,10 @@ class BillingsController < ApplicationController
 		@providers_to_print = set_list_to_print
 	end
 
+	def provider_month_total
+		@providers_to_print = set_list_to_print
+	end
+
 	def rent_facturation
 		@rents_to_print = set_list_of_rents_to_print
 	end
