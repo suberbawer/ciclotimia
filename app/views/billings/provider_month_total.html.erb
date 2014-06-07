@@ -1,10 +1,18 @@
-<style>
-	.provider_container{
-		border-bottom: 1px black dotted;
-	}
+<style> 	
 	.print{
 		width: 100px;
 		cursor: pointer;
+	}
+	.codigo{
+		width:10%;
+	}
+	.name{
+		width:80%;
+		text-align: left;
+	}
+	.toPay{
+		width:10%;
+		text-align: right;
 	}
 
 </style>
@@ -15,7 +23,8 @@
     var divToPrint = document.getElementById('billing_table');
     newWin = window.open("");
     // Hace un salto de pagina cuando el div queda cortado en la impresion
-    newWin.document.write('<style>@media print{div.provider_container{page-break-inside: avoid;}} </style>');
+    newWin.document.write('<style>@media print{.codigo{width:10%;} .name{ width:80%; text-align: left;} .toPay{ width:10%; text-align: right;} .border_bottom{border-bottom: 1px black dotted;}} </style>');
+
 	newWin.document.write(divToPrint.outerHTML);
 	newWin.print();
 	newWin.close();
@@ -37,36 +46,34 @@
 </style>
 
 <div id="billing_table">
-	<h3> Facturas para imprimir del mes <%= Time.now.strftime("%m-%Y") %></h3>
+	<h3> Liquidación Proveedores del mes <%= Time.now.strftime("%m-%Y") %></h3>
 
-	<% @providers_to_print.each do |provider| %>
-     <div class="provider_container" id="provider_container_<%= provider.id%>">
+     <div class="provider_container" id="provider_container">
 		<table id="articles">
-			<thead>
-		        <tr>
-					<th>Código Proveedor</th>
-					<th>Nombre</th>
-					<th>Apellido</th>
-					<th>A Pagar</th>
-		        </tr>
-		      </thead>
-			<tbody>
-				<% sub_total = 0 %>
-				<% total     = 0 %>
-				<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
-					<% sub_total = sub_total + input.amount %>
-					<% total     = total + (input.amount - input.comission_cash.to_i) %>
-				<% end %>
-				<tr>
-					<td><%= provider.id %></td>
-					<td><%= provider.name %></td>
-					<td><%= provider.lastname %></td>
-					<td>$<%= total %></td>
-				</tr>
-			</tbody>
+			<% @providers_to_print.each do |provider| %>
+				<thead>
+			        <tr>
+						<th class="codigo">Código</th>
+						<th class="name">Nombre</th>
+						<th class="toPay">A Pagar</th>
+			        </tr>
+			      </thead>
+				<tbody>
+					<% sub_total = 0 %>
+					<% total     = 0 %>
+					<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
+						<% sub_total = sub_total + input.amount %>
+						<% total     = total + (input.amount - input.comission_cash.to_i) %>
+					<% end %>
+					<tr class="border_bottom">
+						<td class="codigo"><%= provider.id %></td>
+						<td class="name"><%= provider.name %> <%= provider.lastname %></td>
+						<td class="toPay">$<%= total %></td>
+					</tr>
+				</tbody>
+			<% end %>
 		</table>
 	</div>
-	<% end %>
 </div>
 <div>
 	<button class="print">Imprimir</button>
