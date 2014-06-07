@@ -15,10 +15,11 @@ class Output < ActiveRecord::Base
 	end
 
 	def self.build_output (output_data)
-    	output = Output.new
-    	output[:type] = 'Output'
-    	output[:amount] = output_data[:amount].to_i * -1
-    	output[:concept] = output_data[:concept]
+    	output 			 	= Output.new
+    	output[:type] 	 	= 'Output'
+    	output[:amount]  	= output_data[:amount].to_i * -1
+    	output[:concept] 	= output_data[:concept]
+    	output[:fuera_caja] = output_data[:fuera_caja] 
 		return output
 	end
 
@@ -29,7 +30,7 @@ class Output < ActiveRecord::Base
 		cancel_output.cancel_id = self.id
 		cancel_output.status    = "cancel_input"
 
-		self.status            = "cancelled"
+		self.status            	= "cancelled"
 		self.save
 		return cancel_output
 	end

@@ -13,7 +13,7 @@ class Collect < Caja
 	# Abre una caja y la devuelve, o nil si ya hay una caja abierta.
 	def self.open_caja
 		begin
-		  	Collect.create!(:status => 'open', :start_Date => DateTime.now, :end_date => DateTime.now)
+		  	Collect.create!(:status => 'open', :start_Date => DateTime.now, :end_date => DateTime.now, :last_total_caja => get_last_closed_caja_total)
 			current_message = 'La caja se abrió correctamente'
 		rescue ActiveRecord::RecordInvalid => e
 		  	current_message = e.message
@@ -61,6 +61,22 @@ class Collect < Caja
 		else
 			json_response = {'result' => self.error_not_open,'message' => self.reason_not_current_open}
 		end
+	end
+	
+	def self.get_last_closed_caja_total
+		last_caja    	= Collect.where(:status => 'closed').last
+		last_inputs  	= []
+		last_outputs    = []
+		last_caja_total = 0
+
+		# No es la primera caja
+		if !last_caja.nil?
+			last_inputs.concat( last_caja.inputs )
+			last_outputs.concat( last_caja.outputs )
+			 
+			last_caja_total = last_inputs.inject(0){|sum,e| sum += e.amount } + last_outputs.inject(0){|sum,e| sum += ( !e.fuera_caja ? e.amount : 0)} + (last_caja.last_total_caja ? last_caja.last_total_caja : 0)
+		end
+		return last_caja_total
 	end
 
 	def	self.get_today_cajas

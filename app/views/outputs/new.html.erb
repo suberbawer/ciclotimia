@@ -35,34 +35,39 @@ $(document).ready(function(){
 	 	<tbody>
 		 	<tr>
 			 	<td>
-			 	<%= label_tag(:amount, "Monto") %>
+			 		<%= label_tag(:amount, "Monto") %>
 			  	</td>
 			  	<td>
-			  	<%= text_field_tag(:amount) %>
+			  		<%= text_field_tag(:amount) %>
 			  	</td>
 		  	</tr>
 		  	<tr>
 			 	<td>
-			  	<%= label_tag(:concept, "Concepto") %>
+			  		<%= label_tag(:concept, "Concepto") %>
 			 	</td>
 			 	<td>
-			  	<%= text_field_tag(:concept) %>
+			  		<%= text_field_tag(:concept) %>
 			 	</td>
+		 	</tr>
+		 	<tr>
+		 		<td>
+		 			<%= label_tag(:fuera_caja, "Fuera de Caja") %>
+		 		</td>
+		 		<td>
+    				<%= check_box_tag :fuera_caja, true %>
+    			</td>
 		 	</tr>
 		 	<tr>
 		 		<td>
 		 		</td>
 			 	<td>
+			 	</br>
 				<%= submit_tag 'Confirmar', :disable_with => 'Please wait...', :class => 'submit collect' %>
 			 	</td>
 		 	</tr>
 	 	</tbody>
 	</table>
 <% end %>
-
-
-<%= button_to 'Atrás', "/inputs/input_article", :method => "get", :class => 'back_btn' %>
-
 
 <div id="update-amount-container">
 

@@ -1,10 +1,17 @@
 class CollectsController < ApplicationController
     
     def today_collect
-        @today_inputs = Collect.get_today_inputs
-        @today_inputs_total = @today_inputs.inject(0){|sum,e| sum += e.amount }
-        @today_outputs = Collect.get_today_outputs
-        @today_outputs_total = @today_outputs.inject(0){|sum,e| sum += e.amount }
+        json_response = Collect.get_open_caja
+        @isclosed     = false
+        if json_response['result'] != 'ok'
+            @isclosed = true
+            flash[:notice]   = json_response['message']
+        end
+        @last_caja_total = Collect.last ? Collect.last.last_total_caja : 0
+        @today_inputs        = Collect.get_today_inputs
+        @today_inputs_total  = @today_inputs.inject(0){|sum,e| sum += e.amount }
+        @today_outputs       = Collect.get_today_outputs
+        @today_outputs_total = @today_outputs.inject(0){|sum,e| sum += ( !e.fuera_caja ? e.amount : 0 )}
     end
 
     def cancel_transaction

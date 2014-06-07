@@ -1,9 +1,22 @@
+<style type="text/css">
+    .last_td{
+        text-align: right;
+        padding-right: 30px;
+    }
+</style>
+
+<h3>Caja Anterior</h3>
+    <% if !@isclosed %>
+        <p>$ <%= @last_caja_total %></p>
+    <% else %>
+        <p id="notice"><%= notice %></p>
+    <% end %>
+
 <h3>Ingresos</h3>
 
 <%= form_tag(controller: "inputs", action: "batch_receipt") do %>
 
     <div class="tableContainer">
-        <p id="notice"><%= notice %></p>
 
         <table class="inputTable">
             <thead>
@@ -15,8 +28,8 @@
                         <th>Tipo</th>
                         <th>Descripción</th>
                         <th>Creado</th>
-                        <th>Anular</th>
                         <th>Reimprimir</th>
+                        <th></th>
                     </tr>
             </thead>
             <tbody>
@@ -41,22 +54,22 @@
                                     <%= transaction.article_desc %>
                                 </td>
                                 <td><%= l transaction.created_at %></td>
-                                <% if transaction.status == "active" %> 
-                                    <!--  Es un transaction normal (no es cancel transaction) -->   
-                                    <td>        
-                                        <%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'input'}, :class => 'collect', :confirm => 'Seguro que desea anular la transacción?')%>
-                                    </td>
-                                <% elsif transaction.status == "cancelled" %>
-                                    <td>Anulado</td>
-                                <% elsif transaction.status == "cancel_input" %>
-                                    <!-- click aca, que agregue clase para animacion de transaction anulado -->
-                                    <td>Anula: <a href="/inputs/<%= transaction.cancel_id %>" target="_blank"> transacción <%= transaction.cancel_id %></a></td>
-                                <% end %>
                                 <td>
                                 <% if transaction.status == "active" && %>
                                     <%= check_box_tag 'inputs[]', transaction.id %>
                                 <% end %>
                                 </td>
+                                <% if transaction.status == "active" %> 
+                                    <!--  Es un transaction normal (no es cancel transaction) -->   
+                                    <td class="last_td">        
+                                        <%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'input'}, :class => 'collect', :confirm => 'Seguro que desea anular la transacción?')%>
+                                    </td>
+                                <% elsif transaction.status == "cancelled" %>
+                                    <td class="last_td">Anulado</td>
+                                <% elsif transaction.status == "cancel_input" %>
+                                    <!-- click aca, que agregue clase para animacion de transaction anulado -->
+                                    <td class="last_td">Anula: <a href="/inputs/<%= transaction.cancel_id %>" target="_blank"> transacción <%= transaction.cancel_id %></a></td>
+                                <% end %>
                             </tr>       
                         <% end %>   
                 <% else %>
@@ -79,6 +92,7 @@
                     <th>Tipo</th>
                     <th>Descripción</th>
                     <th>Creado</th>
+                    <th>Fuera de Caja</th>
                     <th></th>
                 </tr>
         </thead>
@@ -100,16 +114,17 @@
                                 <% end %>
                             </td>
                             <td><%= l transaction.created_at %></td>
+                            <td><%= transaction.fuera_caja ? 'Fuera de caja' : ''%></td>
                             <% if transaction.status == "active" %> 
                                 <!--  Es un transaction normal (no es cancel transaction) -->   
-                                <td>        
+                                <td class="last_td">        
                                     <%= button_to("Anular", {:action => "cancel_transaction", :transaction_to_cancel => transaction.id, :cancel_type => 'output'}, :confirm => 'Seguro que desea anular la transacción?')%>
                                 </td>
                             <% elsif transaction.status == "cancelled" %>
-                                <td>Anulado</td>
+                                <td class="last_td">Anulado</td>
                             <% elsif transaction.status == "cancel_input" %>
                                 <!-- click aca, que agregue clase para animacion de transaction anulado -->
-                                <td>Anula: <a href="/outputs/<%= transaction.cancel_id %>" target="_blank"> transacción <%= transaction.cancel_id %></a></td>
+                                <td class="last_td">Anula: <a href="/outputs/<%= transaction.cancel_id %>" target="_blank"> transacción <%= transaction.cancel_id %></a></td>
                             <% end %>
                     </tr>   
                 <% end %>
@@ -120,4 +135,4 @@
     </table>
 </div>
 <strong>Total egresos: $<%= @today_outputs_total %> </br></strong>
-<h3>Total: $ <%= @today_inputs_total + @today_outputs_total %></h3>
+<h3>Total: $ <%= @today_inputs_total + (@isclosed ? 0 : @last_caja_total) + @today_outputs_total %></h3>
