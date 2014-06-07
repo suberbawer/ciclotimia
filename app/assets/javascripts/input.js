@@ -97,6 +97,18 @@ $(document).ready(function(){
 	    	return this.getArticleId() != undefined && this.getArticleId() !== '';
 	    }
 
+	    this.makeConfirmClick = function(inputId, buttonIdToClick) {
+	    	$(inputId).focus();
+	    	
+			$(inputId).keypress(function (e) {
+			    var key = e.which;
+			    if(key == 13) {
+			        $(buttonIdToClick).click();
+			        return false;  
+			    }
+			});
+		}
+
 	    /**
 	     *	Inserta {this} (no se esta usando, pero mantener para ingreso other_input).
 	     */
@@ -137,7 +149,7 @@ $(document).ready(function(){
 							self._articleContainer.html(data); 	// Muestro detalle del articulo seleccionado...
 							self.showFormContainer($('.articleData'));
 							self._modalBackground.show();		// ... y muestro popup de la venta.
-
+							self.makeConfirmClick('#selectedAmount', '#confirmInput');
 							var currentAmount = $('#selectedAmount').val();
 							self.setAmount(currentAmount);
 						}
