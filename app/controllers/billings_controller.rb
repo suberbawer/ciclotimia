@@ -44,4 +44,11 @@ class BillingsController < ApplicationController
 		list_rents_this_month = Input.obtain_current_month_rents_inputs
 	end
 
+	def return_change_monthly
+		list_inputs_this_month = Input.obtain_current_month_inputs
+		list_inputs_this_month.each do |input|
+			
+		end
+	end
+
 end

@@ -59,7 +59,8 @@
 		<table class="inputCollectionTable">
 			<thead>
 		        <tr>
-		            <th>Articulo</th>
+		        	<th>Código</th>
+		            <th>Artículo</th>
 		            <th>Precio</th>
 		            <th>Tipo</th>
 		            <th></th>
@@ -89,16 +90,25 @@
 <!-- Templates (ponerlos en algun lugar de assets)-->
 <script type="text/template" id="template-inputList">
 	
-  	<%% if (inputs.length > 0) {
-	  	  	_.each(inputs, function(currentInput){ %>
+  	<%% if (inputs.length > 0) { %>
+	  	  	<%%- total = 0 %>
+	  	  	<%%- iva = 0 %>
+	  	  	<%% _.each(inputs, function(currentInput){ %>
+	  	  		<%%- price = currentInput.type == 'rent' ? Math.round(((currentInput.amount * 0.3) + (currentInput.amount * 0.3 * 0.22))) : currentInput.amount %>
+	  	  		<%%- iva   = iva + ( currentInput.type == 'rent' ? Math.round(currentInput.amount * 0.3 * 0.22) : 0 ) %>
+	  	  		<%%- total = total + parseInt(price) %>
+		  	  	
 		  	  	<tr data-id="<%%- currentInput.id %>">
+		  		 	<td>
+		  		 		<%%- currentInput.getArticleId() %>
+		  		 	</td>
 		  		 	<td> 
 		  		 		<a href="/articles/<%%- currentInput.article %>" target="_blank">
 		  		 			<%%- currentInput.articleData.description %>
 		  		 		</a>
 		  		 	</td>
 		  		 	<td> 
-		  		 		$<%%- currentInput.amount %>
+		  		 		$<%%- price %>
 		  		 	</td>
 		  		 	<td> 
 		  		 		<%%- obtainTransactionType(currentInput.type) %>
@@ -107,8 +117,50 @@
 		  		 		<img alt="Delete" height="16" src="/assets/delete.png" width="16" class="withPointer">
 		  		 	</td>
 		  		</tr>
-	  	<%% }); 
-	  	} else { %>
+	  	<%% }); %>
+	  			<tr>
+		  			<td>
+		  			</td>
+		  			<td>
+		  			</td>
+		  			<td>
+		  				Total: 
+		  			</td>
+		  			<td>
+		  				$<%%- total %>
+		  			</td>
+		  			<td>
+		  			</td>
+		  		</tr>
+		  		<tr>
+		  			<td>
+		  			</td>
+		  			<td>
+		  			</td>
+		  			<td>
+		  				IVA: 
+		  			</td>
+		  			<td>
+		  				$<%%- iva %>
+		  			</td>
+		  			<td>
+		  			</td>
+		  		</tr>
+ 				<tr>
+		  			<td>
+		  			</td>
+		  			<td>
+		  			</td>
+		  			<td>
+		  				Total Excento: 
+		  			</td>
+		  			<td>
+		  				$<%%- total - iva %>
+		  			</td>
+		  			<td>
+		  			</td>
+		  		</tr>
+	  	<%% } else { %>
 	  		<tr>
 	  			<td>
 	  				 No hay articulos en el lote

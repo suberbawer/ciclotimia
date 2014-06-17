@@ -101,7 +101,6 @@ class Rent < Input
         rented_articles.each do |article|
             inputIds.add(set_final_rent_amount(article, true))
         end
-        puts inputIds
         return inputIds
     end 
 end

@@ -25,8 +25,8 @@
                         <th>Monto</th>
                         <th>Porcentaje</th>
                         <th>Ganancia Neta</th>
-                        <th>Tipo</th>
                         <th>Descripción</th>
+                        <th>Tipo</th>
                         <th>Creado</th>
                         <th>Reimprimir</th>
                         <th></th>
@@ -36,7 +36,7 @@
                 <% if @today_inputs.length > 0 %>
                         <% @today_inputs.each do |transaction|  %>
                             <tr>
-                                <td><%= transaction.article ? transaction.article.id : '' %></td>
+                                <td><%= transaction.article ? transaction.article.id : transaction.article_id %></td>
                                 <td>$<%= transaction.amount %></td>
                                 <td><% if transaction.comission_per %> 
                                         <% if transaction.comission_per != "100" %>
@@ -49,10 +49,10 @@
                                     <% end %>
                                 </td>
                                 <td>$<%= transaction.comission_cash ? transaction.comission_cash  : transaction.amount%></td>
-                                <td><%= transaction.obtain_human_label %></td>
                                 <td>
                                     <%= transaction.article_desc %>
                                 </td>
+                                <td><%= transaction.obtain_human_label %></td>
                                 <td><%= l transaction.created_at %></td>
                                 <td>
                                 <% if transaction.status == "active" && %>
@@ -87,10 +87,10 @@
     <table class="outputTable">
         <thead>
                 <tr>
-                    <th>Id</th>
+                    <th>Código</th>
                     <th>Monto</th>
-                    <th>Tipo</th>
                     <th>Descripción</th>
+                    <th>Tipo</th>
                     <th>Creado</th>
                     <th>Fuera de Caja</th>
                     <th></th>
@@ -100,9 +100,8 @@
             <% if @today_outputs.length > 0 %>
                 <% @today_outputs.each do |transaction|  %>
                     <tr>
-                            <td><%= transaction.id %></td>
+                            <td><%= transaction.article ? transaction.article.id : transaction.article_id %></td>
                             <td>$<%= transaction.amount %></td>
-                            <td><%= transaction.obtain_human_label %></td>
                             <td>
                                 <% if transaction.article.present? %>
                                     <!--  El transaction tiene articulo, asi que mostramos su descripcion -->
@@ -113,6 +112,7 @@
                                     <%= transaction.concept %>  
                                 <% end %>
                             </td>
+                            <td><%= transaction.obtain_human_label %></td>
                             <td><%= l transaction.created_at %></td>
                             <td><%= transaction.fuera_caja ? 'Fuera de caja' : ''%></td>
                             <% if transaction.status == "active" %> 

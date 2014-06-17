@@ -99,8 +99,8 @@ function disableBillingButton() {
         <table class="articleCollectionTable" id="articles">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Articulo</th>
+                    <th>Código</th>
+                    <th>Artículo</th>
                     <th>Precio</th>
                     <th>Tipo</th>
                     <th></th>
@@ -136,7 +136,6 @@ function disableBillingButton() {
     
     <%% if (articles.length > 0) {
             _.each(articles, function(currentArticle){ 
-                console.info(currentArticle.getDescription());
                 %>
                 <tr data-id="<%%- currentArticle.getId() %>">
                     <td> 
