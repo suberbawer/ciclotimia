@@ -100,7 +100,7 @@
             <% if @today_outputs.length > 0 %>
                 <% @today_outputs.each do |transaction|  %>
                     <tr>
-                            <td><%= transaction.article ? transaction.article.id : transaction.article_id %></td>
+                            <td><%= transaction.id %></td>
                             <td>$<%= transaction.amount %></td>
                             <td>
                                 <% if transaction.article.present? %>
