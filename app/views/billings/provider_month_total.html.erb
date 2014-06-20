@@ -1,19 +1,43 @@
-<style> 	
-	.print{
-		width: 100px;
-		cursor: pointer;
-	}
-	.codigo{
-		width:10%;
-	}
-	.name{
-		width:80%;
-		text-align: left;
-	}
-	.toPay{
-		width:10%;
-		text-align: right;
-	}
+<style>     
+    .print{
+        width: 100px;
+        cursor: pointer;
+    }
+    .codigo{
+        width:10%;
+    }
+    .name{
+        width:80%;
+        text-align: left;
+    }
+    .toPay{
+        width:10%;
+        text-align: right;
+    }
+
+    #change tr:nth-child(even){
+        background: #C5C6C8;
+    }
+      
+    #change tr:nth-child(odd) {
+        background: #D9DADB;
+    }
+    
+    #change th {
+        background: #C5C6C8;
+    }
+     
+    #change {
+        float:right;
+        border-collapse: collapse;
+        border-spacing: 2px;
+        border: solid 1px black;
+        margin-top: 50px;
+    }
+
+    .right{
+        text-align: right;
+    }      
 
 </style>
 
@@ -23,17 +47,17 @@
     var divToPrint = document.getElementById('billing_table');
     newWin = window.open("");
     // Hace un salto de pagina cuando el div queda cortado en la impresion
-    newWin.document.write('<style>@media print{.codigo{width:10%;} .name{ width:80%; text-align: left;} .toPay{ width:10%; text-align: right;} .border_bottom{border-bottom: 1px black dotted;}} </style>');
+    newWin.document.write('<style>@media print{.codigo{width:10%;} .name{ width:80%; text-align: left;} .toPay{ width:10%; text-align: right;} .border_bottom{border-bottom: 1px black dotted;} #change {float:right; border-collapse: collapse; border-spacing: 2px; border: solid 1px black; margin-top: 50px;} .right{text-align: right;}} </style>');
 
-	newWin.document.write(divToPrint.outerHTML);
-	newWin.print();
-	newWin.close();
+    newWin.document.write(divToPrint.outerHTML);
+    newWin.print();
+    newWin.close();
   }
 
   $(document).ready(function(){
 
     $('.print').click(function(){
-    	printImg();
+        printImg();
     });
   });
 </script>
@@ -46,37 +70,55 @@
 </style>
 
 <div id="billing_table">
-	<h3> Liquidación Proveedores del mes <%= Time.now.strftime("%m-%Y") %></h3>
+    <h3> Liquidación Proveedores del mes <%= Time.now.strftime("%m-%Y") %></h3>
 
      <div class="provider_container" id="provider_container">
-		<table id="articles">
-			<% @providers_to_print.each do |provider| %>
-				<thead>
-			        <tr>
-						<th class="codigo">Código</th>
-						<th class="name">Nombre</th>
-						<th class="toPay">A Pagar</th>
-			        </tr>
-			      </thead>
-				<tbody>
-					<% sub_total = 0 %>
-					<% total     = 0 %>
-					<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
-						<% sub_total = sub_total + input.amount %>
-						<% total     = total + (input.amount - input.comission_cash.to_i) %>
-					<% end %>
-					<tr class="border_bottom">
-						<td class="codigo"><%= provider.id %></td>
-						<td class="name"><%= provider.name %> <%= provider.lastname %></td>
-						<td class="toPay">$<%= total %></td>
-					</tr>
-				</tbody>
-			<% end %>
-		</table>
-	</div>
+        <table id="articles">
+            <thead>
+                <tr>
+                    <th class="codigo">Código</th>
+                    <th class="name">Nombre</th>
+                    <th class="toPay">A Pagar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @providers_to_print.each do |provider| %>
+                    <% sub_total = 0 %>
+                    <% total     = 0 %>
+                    <% (provider.instance_variable_get "@custom_input_list").each do |input| %>
+                        <% sub_total = sub_total + input.amount %>
+                        <% total     = total + (input.amount - input.comission_cash.to_i) %>
+                    <% end %>
+                    <tr class="border_bottom">
+                        <td class="codigo"><%= provider.id %></td>
+                        <td class="name"><%= provider.name %> <%= provider.lastname %></td>
+                        <td class="toPay">$<%= total %></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+
+    <table id="change">
+        <thead>
+                <tr><th> Cambio de moneda a pedir al Banco</th><th></th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Mil: </td><td class="right"><%= @mil %></td></tr>
+            <tr><td>Quinientos: </td><td class="right"><%= @qui %></td></tr>
+            <tr><td>Doscientos: </td><td class="right"><%= @doscien %></td></tr>
+            <tr><td>Cien: </td><td class="right"><%= @cien %></td></tr>
+            <tr><td>Cincuenta: </td><td class="right"><%= @cincue %></td></tr>
+            <tr><td>Veinte: </td><td class="right"><%= @veinte %></td></tr>
+            <tr><td>Diez: </td><td class="right"><%= @diez %></td></tr>
+            <tr><td>Cinco: </td><td class="right"><%= @cinco %></td></tr>
+            <tr><td>Dos: </td><td class="right"><%= @dos %></td></tr>
+            <tr><td>Uno: </td><td class="right"><%= @uno %></td></tr>
+            <tr><td>Total: </td><td class="right">$<%= @total %></td></tr>
+        </tbody>
+    </table>
 </div>
 <div>
-	<button class="print">Imprimir</button>
-	<%= button_to("Enviar via Email", :action => "send_billing_monthly", :method => "post") %>
+    <button class="print">Imprimir</button>
+    <%= button_to("Enviar via Email", :action => "send_billing_monthly", :method => "post") %>
 </div>
-

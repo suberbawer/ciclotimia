@@ -120,6 +120,15 @@ class ArticlesController < ApplicationController
     render :partial => 'actual_billing_rent', :content_type => 'text/html'
   end
 
+  def test
+    new_inputs = Input.where(id:params[:inputs])
+    puts new_inputs
+    @total     = Report.total_amount(new_inputs)
+    @iva       = @total * 0.22
+    @subtotal  = @total - @iva
+    render :partial => 'actual_billing_rent', :content_type => 'text/html'
+  end
+
   def return_list_articles
     created_new_rents = Rent.save_new_rent(params[:id_list])
     render json: {message: created_new_rents}
@@ -136,7 +145,6 @@ class ArticlesController < ApplicationController
   end
 
   def batch_receipt
-    puts params['inputs']
     @new_inputs = Input.where(id: params['inputs'])
     puts @new_inputs
   end
