@@ -15,6 +15,7 @@
     $('.barcode_image').click(function(){
       printImg($(this).attr('id'));
     });
+    $('table#articles').sieve();
   });
 </script>
 
@@ -30,16 +31,6 @@
 </style>
 
 <h3>Artículos</h3>
-
-<div class="search">  
-  <%= form_tag({controller: "articles", action: "filter"}, :class => "search_form") do%>
-    <%= text_field_tag(:search_text) %>
-    <%= submit_tag 'Buscar', :disable_with => 'Please wait...', :class => 'submit_search' %>
-  <% end %>
-</div>
-
-<br/><br/>
-
 <div class="articles_container">
 	
 	<p id="notice"><%= notice %></p>
