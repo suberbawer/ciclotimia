@@ -86,9 +86,7 @@ class ProvidersController < ApplicationController
   def send_articles_provider
     begin
       provider = Provider.find(params[:id])
-
       UserMailer.new_articles_provider(provider).deliver
-      
       provider.get_articles_not_sent.each do |article|
         article.sent = true
         article.save

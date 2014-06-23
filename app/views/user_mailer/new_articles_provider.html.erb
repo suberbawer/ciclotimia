@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <%= image_tag attachments['logo.png'].url, alt: 'Our Photo', class: 'photo', size: "223x90" %>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
@@ -17,7 +18,6 @@
           <th>Fecha de Ingreso</th>
           <th>Porcentaje Comisión</th>
           <th>Efectivo Comisión</th>
-          <th>Estado</th>
         </tr>
       </thead>
 
@@ -30,7 +30,6 @@
             <td><%= l article.created_at %></td>
             <td><%= article.commission_per %>%</td>
             <td>$<%= article.commission_cash %></td>
-            <td><%= article.status %></td>
           </tr>
         <% end %>
       </tbody>
