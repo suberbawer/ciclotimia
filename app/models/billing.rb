@@ -6,5 +6,5 @@ class Billing < ActiveRecord::Base
 		list_providers.each do |provider|
 			provider.set_inputs(list_inputs)
 		end
-	end
+	end	
 end
