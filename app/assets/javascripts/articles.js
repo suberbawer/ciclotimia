@@ -112,16 +112,6 @@ $(document).ready(function(){
 	        return articleIdList;
 	    }
 
-	    var printInputs = function(path) {
-		    newWin = window.open(path);
-		    newWin.onload = function(){
-		    	var divToPrint = newWin.document.getElementById('receiptContainer');
-		    	newWin.document.write(divToPrint.outerHTML);
-				newWin.print();
-				newWin.close();
-			}
-		}
-
 		var checkAlreadyAdded = function(articleId) {
 			for (var i in articles) {
 				if (articleId == articles[i].getId()) {
@@ -141,9 +131,14 @@ $(document).ready(function(){
 		}
 
 		var enableButton = function(button) {
-			console.info(button);
 			button.attr('disabled', false);
 			button.removeClass('disabled');
+		}
+
+		var disableButton = function(button) {
+			    button.attr('disabled','disabled');
+    			button.addClass('disabled');
+
 		}
 
 		_newReturnButton.on('click', function(){
@@ -214,6 +209,7 @@ $(document).ready(function(){
 						data = JSON.parse(data);
 						if (data.message && data.message.length > 0) {
 							enableButton(_returnBatchButtonBill);
+							disableButton(_returnBatchButton);
 						}
 						else{
 							new Messi('No se ingresó ningún alquiler, verifique', {title: 'Información', modal: true});
