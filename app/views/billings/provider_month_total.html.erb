@@ -50,15 +50,15 @@
 
      <div class="provider_container" id="provider_container">
 		<table id="articles">
-			<% @providers_to_print.each do |provider| %>
-				<thead>
-			        <tr>
-						<th class="codigo">Código</th>
-						<th class="name">Nombre</th>
-						<th class="toPay">A Pagar</th>
-			        </tr>
-			      </thead>
-				<tbody>
+			<thead>
+		        <tr>
+					<th class="codigo">Código</th>
+					<th class="name">Nombre</th>
+					<th class="toPay">A Pagar</th>
+		        </tr>
+		    </thead>
+			<tbody>
+				<% @providers_to_print.each do |provider| %>
 					<% sub_total = 0 %>
 					<% total     = 0 %>
 					<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
@@ -70,8 +70,8 @@
 						<td class="name"><%= provider.name %> <%= provider.lastname %></td>
 						<td class="toPay">$<%= total %></td>
 					</tr>
-				</tbody>
-			<% end %>
+				<% end %>
+			</tbody>
 		</table>
 	</div>
 </div>
