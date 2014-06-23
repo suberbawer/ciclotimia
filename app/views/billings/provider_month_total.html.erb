@@ -47,7 +47,7 @@
     var divToPrint = document.getElementById('billing_table');
     newWin = window.open("");
     // Hace un salto de pagina cuando el div queda cortado en la impresion
-    newWin.document.write('<style>@media print{.codigo{width:10%;} .name{ width:80%; text-align: left;} .toPay{ width:10%; text-align: right;} .border_bottom{border-bottom: 1px black dotted;}} </style>');
+    newWin.document.write('<style>@media print{#change{page-break-inside: avoid;} .codigo{width:10%;} .name{ width:80%; text-align: left;} .toPay{ width:10%; text-align: right;} .border_bottom{border-bottom: 1px black dotted;}} </style>');
 
 	newWin.document.write(divToPrint.outerHTML);
 	newWin.print();
