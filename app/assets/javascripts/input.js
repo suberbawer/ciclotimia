@@ -227,7 +227,7 @@ $(document).ready(function(){
 		    newWin.onload = function(){
 		    	var divToPrint = newWin.document.getElementById('receiptContainer');
 		    	newWin.document.write('<style>' + 
-	                            		'@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} .size {width:275px;} table {margin: 0 auto;width:275px;}} ' +
+	                            		'@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} .size {width:200px; font-size:10px;} table {margin: 5px auto;width:180px; font-size:10px;}} ' +
 	                        		  '</style>');
 		    	console.log(divToPrint);
 		    	newWin.document.write(divToPrint.outerHTML);
