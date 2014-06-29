@@ -1,0 +1,52 @@
+<style>
+.productoras_container{
+    height: 700px;
+    overflow-y: auto;
+}
+.submit_search {
+    cursor: pointer;
+}
+
+.im_col{
+  width: 40px;
+}
+</style>
+<script>
+  $(document).ready(function(){
+    $('table#providers').sieve();
+  });
+</script>
+<h3> Productoras </h3>
+
+<div class="productoras_container">
+    
+    <p id="notice"><%= notice %></p>
+
+    <table id="providers">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Rut</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% @productoras.each do |productora| %>
+            <tr>
+                <td><%= productora.name %></td>
+                <td><%= productora.address %></td>
+                <td><%= productora.rut %></td>
+                <td class="im_col"><%= link_to image_tag('show.png', size: "16x16"), productora %></td>
+                <td class="im_col"><%= link_to image_tag('edit.png', size: "16x16"), edit_productora_path(productora) %></td>
+                <td class="im_col"><%= link_to image_tag('delete.png', size: "16x16"), productora,  method: :delete, data: { confirm: 'Esta seguro/a?' } %></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<%= button_to 'Nueva Productora', new_productora_path, :method => "get", :class => 'new_productora_btn' %>
+

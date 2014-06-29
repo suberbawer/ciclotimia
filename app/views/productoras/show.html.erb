@@ -1,0 +1,21 @@
+<h3><%= @productora.name %></h3>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @productora.name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @productora.address %>
+</p>
+
+<p>
+  <strong>Rut:</strong>
+  <%= @productora.rut %>
+</p>
+
+<%= button_to 'Editar', edit_productora_path(@productora), :method => "get", :class => 'edit_btn' %> 
+<%= button_to 'Atrás', productoras_path, :method => "get", :class => 'back_btn' %>

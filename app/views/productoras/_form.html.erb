@@ -1,0 +1,78 @@
+<script>
+  // Change message of required validation
+  jQuery.extend(jQuery.validator.messages, {
+    required: "Este campo es requerido.",
+  });
+  
+  $.validator.addMethod('number',
+        function (value) { 
+            return Number(value) || value == '';
+        }, 'Por favor ingresa un número');
+
+$.validator.addMethod('noDecimal',
+        function(value){
+          return /^\d+$/.test(value) || value == '';
+        }, 'Por favor ingresa un numero entero');
+
+
+  function set_required_data() {
+    $('#productora_name').addClass('required');
+    $('#productora_address').addClass('required');
+
+    $('.new_productora').validate({
+      rules: {
+          'productora[rut]': {
+              required: false,
+              number:true,
+              noDecimal:true
+          }
+      }
+    });
+  }
+
+  $(document).ready(function(){
+    set_required_data();
+  });
+</script>
+
+<%= form_for(@productora) do |f| %>
+  <% if @productora.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@productora.errors.count, "error") %> prohibited this productora from being saved:</h2>
+
+      <ul>
+      <% @productora.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+      <tr class="name">
+        <td>
+          <%= f.label 'Nombre' %>
+        </td>
+        <td>
+          <%= f.text_field :name %>
+        </td>
+      </tr>
+      <tr class="address">
+        <td>
+          <%= f.label 'Dirección' %>
+        </td>
+        <td>
+          <%= f.text_field :address %>
+        </td>
+      </tr>
+      <tr class="rut">
+        <td>
+          <%= f.label 'Rut' %>
+        </td>
+        <td>
+          <%= f.text_field :rut %>
+        </td>
+      </tr>
+  </table>
+  <%= f.submit "Salvar Productora", :class => 'save'%>
+<% end %>
