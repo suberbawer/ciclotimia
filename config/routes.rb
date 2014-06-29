@@ -1,5 +1,7 @@
 Ciclotimia::Application.routes.draw do 
   
+  resources :productoras
+
   get "articles/devolution"
   post "articles/devolution"
 

@@ -27,6 +27,15 @@
                 </li>
             </ul>
         </li>
+
+        <li class='productoras has-sub'>
+            <%= link_to 'Productoras', productoras_path, :method => "get" %> 
+            <ul>
+                <li>
+                    <%= link_to 'Nueva Productora', new_productora_path, :method => "get" %>
+                </li>
+            </ul>
+        </li>
         
         <li class='articles has-sub'>
             <%= link_to 'Articulos', articles_path, :method => "get" %>
