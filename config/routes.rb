@@ -1,5 +1,7 @@
 Ciclotimia::Application.routes.draw do 
   
+  resources :staffs
+
   resources :productoras
 
   get "articles/devolution"

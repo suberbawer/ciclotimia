@@ -12,9 +12,6 @@ class InputsController < ApplicationController
 		end
 	end
 
-	def list
-	end
-
 	def create
 		@input = Input.new(input_params)
 

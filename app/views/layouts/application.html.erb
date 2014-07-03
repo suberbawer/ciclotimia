@@ -28,6 +28,16 @@
             </ul>
         </li>
 
+
+        <li class='articles has-sub'>
+            <%= link_to 'Articulos', articles_path, :method => "get" %>
+            <ul>
+                <li>
+                    <%= link_to 'Nuevo Articulo', new_article_path, :method => "get" %>
+                </li>
+            </ul>
+        </li>
+        
         <li class='productoras has-sub'>
             <%= link_to 'Productoras', productoras_path, :method => "get" %> 
             <ul>
@@ -36,12 +46,12 @@
                 </li>
             </ul>
         </li>
-        
-        <li class='articles has-sub'>
-            <%= link_to 'Articulos', articles_path, :method => "get" %>
+
+        <li class='productoras has-sub'>
+            <%= link_to 'Vestuaristas', staffs_path, :method => "get" %> 
             <ul>
                 <li>
-                    <%= link_to 'Nuevo Articulo', new_article_path, :method => "get" %>
+                    <%= link_to 'Nuevo Vestuarista', new_staff_path, :method => "get" %>
                 </li>
             </ul>
         </li>

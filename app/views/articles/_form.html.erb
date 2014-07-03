@@ -113,28 +113,47 @@
     </div>
   <% end %>
 
-    <div class="field">
-        <%= f.label 'Proveedor' %><br>
-        <%= f.select :provider_id, 
-            options_from_collection_for_select(Provider.all.sort_by{|provider| provider.name}, 'id', 'firstname', @article.id ? @article.provider_id : Article.order("created_at").last ? Article.order("created_at").last.provider_id : Provider.last ? Provider.last.id : '') %>
-    </div>
-    <div class="field">
-        <%= f.label 'Descripción' %><br>
-        <%= f.text_field :description %>
-    </div>
-    <div class="field">
-        <%= f.label 'Precio Estimado' %><br>
-        <%= f.text_field :estimated_price %>
-    </div>
-    <div class="field">
-        <%= f.label 'Porcetaje Comisión' %><br>
-        <%= f.text_field :commission_per %>
-    </div>
-    <div class="field">
-        <%= f.label 'Efectivo Comisión' %><br>
-        <%= f.text_field :commission_cash %>
-    </div>
-    <div class="actions">
-        <%= f.submit "Salvar Artículo", :class => 'save'%>
-    </div>
+    <table>
+        <tr class="productora">
+            <td>
+                <%= f.label 'Proveedor' %>
+            </td>
+            <td>
+                <%= f.select :provider_id, options_from_collection_for_select(Provider.all.sort_by{|provider| provider.name}, 'id', 'firstname', @article.id ? @article.provider_id : Article.order("created_at").last ? Article.order("created_at").last.provider_id : Provider.last ? Provider.last.id : '') %>
+            </td>
+        </tr>
+        <tr class="description">
+            <td>
+                <%= f.label 'Descripción' %>
+            </td>
+            <td>
+                <%= f.text_field :description %>
+            </td>
+        </tr>
+        <tr class="estimated_price">
+            <td>
+                <%= f.label 'Precio Estimado' %>
+            </td>
+            <td>
+                <%= f.text_field :estimated_price %>
+            </td>
+        </tr>
+        <tr class="commission_per">
+            <td>
+                <%= f.label 'Porcetaje Comisión' %>
+            </td>
+            <td>
+                <%= f.text_field :commission_per %>
+            </td>
+        </tr>
+        <tr class="commission_cash">
+            <td>
+                <%= f.label 'Efectivo Comisión' %>
+            </td>
+            <td>
+                <%= f.text_field :commission_cash %>
+            </td>
+        </tr>
+    </table>
+    <%= f.submit "Salvar Artículo", :class => 'save'%>
 <% end %>

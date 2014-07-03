@@ -28,8 +28,9 @@ class ProductorasController < ApplicationController
 
     respond_to do |format|
       if @productora.save
-        format.html { redirect_to @productora, notice: 'Productora was successfully created.' }
+        format.html { redirect_to action: 'new' }
         format.json { render action: 'show', status: :created, location: @productora }
+        flash[:notice] = "La Productora fue creada con éxito."        
       else
         format.html { render action: 'new' }
         format.json { render json: @productora.errors, status: :unprocessable_entity }
@@ -42,7 +43,7 @@ class ProductorasController < ApplicationController
   def update
     respond_to do |format|
       if @productora.update(productora_params)
-        format.html { redirect_to @productora, notice: 'Productora was successfully updated.' }
+        format.html { redirect_to @productora, notice: 'La Productora fue actualizada con éxito.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -54,10 +55,15 @@ class ProductorasController < ApplicationController
   # DELETE /productoras/1
   # DELETE /productoras/1.json
   def destroy
-    @productora.destroy
     respond_to do |format|
-      format.html { redirect_to productoras_url }
-      format.json { head :no_content }
+      if !@productora.staffs.empty?
+        format.html { redirect_to productoras_url, notice: 'No es posible eliminar una Productora que contenga Vestuaristas relacionados'  }
+        format.json { render json: @productora.errors, status: :unprocessable_entity }
+      else
+        @productora.destroy
+        format.html { redirect_to productoras_url }
+        format.json { head :no_content }
+      end
     end
   end
 

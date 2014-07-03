@@ -64,7 +64,7 @@ class ProvidersController < ApplicationController
       else
         @provider.destroy
         format.html { redirect_to providers_url }
-      format.json { head :no_content }
+        format.json { head :no_content }
       end
     end
   end
