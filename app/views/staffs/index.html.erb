@@ -1,0 +1,65 @@
+<style>
+.staffs_container{
+    height: 700px;
+    overflow-y: auto;
+}
+
+.im_col{
+  width: 40px;
+}
+</style>
+
+<script>
+  $(document).ready(function(){
+    $('table#providers').sieve();
+  });
+</script>
+
+<h3> Vestuaristas </h3>
+
+<div class="staffs_container">
+    
+    <p id="notice"><%= notice %></p>
+
+    <table id="providers">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Productora</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% aux = "" %>
+            <% @staffs.each do |staff| %>
+                <% if staff.productora.name != aux %>
+                    <tr>
+                        <td><strong>Producotra: <%= staff.productora.name %></strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <% aux = staff.productora.name %>
+                <% end %>
+                <tr>
+                    <td><%= staff.name %></td>
+                    <td><%= staff.lastname %></td>
+                    <td><%= staff.phone %></td>
+                    <td><%= staff.productora.name %></td>
+                    <td class="im_col"><%= link_to image_tag('show.png', size: "16x16"), staff %></td>
+                    <td class="im_col"><%= link_to image_tag('edit.png', size: "16x16"), edit_staff_path(staff) %></td>
+                    <td class="im_col"><%= link_to image_tag('delete.png', size: "16x16"), staff,  method: :delete, data: { confirm: 'Esta seguro/a?' } %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
+<%= button_to 'Nuevo Vestuarista', new_staff_path, :method => "get", :class => 'new_staff_btn' %>

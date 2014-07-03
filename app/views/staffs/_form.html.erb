@@ -1,0 +1,71 @@
+<script type="text/javascript">
+  // Change message of required validation
+  jQuery.extend(jQuery.validator.messages, {
+    required: "Este campo es requerido."
+  });
+
+  function set_required_data() {
+    $('#staff_productora_id').addClass('required');
+    $('#staff_name').addClass('required');
+    $('#staff_lastname').addClass('required');
+    $('#staff_phone').addClass('required');
+
+    $('.new_staff').validate();
+
+    $('.edit_staff').validate();
+  }
+
+  $(document).ready(function(){
+    set_required_data();
+  });
+
+</script>
+<%= form_for(@staff) do |f| %>
+  <% if @staff.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@staff.errors.count, "error") %> prohibited this staff from being saved:</h2>
+
+      <ul>
+      <% @staff.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table>
+    <tr class="productora">
+      <td>
+        <%= f.label 'Productora' %>
+      </td>
+      <td>
+        <%= f.select :productora_id, 
+          options_from_collection_for_select(Productora.all.sort_by{|productora| productora.name}, 'id', 'name', @staff.id ? @staff.productora_id : Staff.order("created_at").last ? Staff.order("created_at").last.productora_id : Productora.last ? Productora.last.id : '') %>
+      </td>
+    </tr>
+    <tr class="name">
+      <td>
+        <%= f.label 'Nombre' %>
+      </td>
+      <td>
+        <%= f.text_field :name %>
+      </td>
+    </tr>
+    <tr class="lastname">
+      <td>
+        <%= f.label 'Apellido' %>
+      </td>
+      <td>
+        <%= f.text_field :lastname %>
+      </td>
+    </tr>
+    <tr class="phone">
+      <td>
+        <%= f.label 'Teléfono' %>
+      </td>
+      <td>
+        <%= f.text_field :phone %>
+      </td>
+    </tr>
+  </table>
+  <%= f.submit "Salvar Vestuarista", :class => 'save'%>
+<% end %>

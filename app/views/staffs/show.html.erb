@@ -1,0 +1,26 @@
+<h3><%= @staff.name %> <%= @staff.lastname %></h3>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @staff.name %>
+</p>
+
+<p>
+  <strong>Lastname:</strong>
+  <%= @staff.lastname %>
+</p>
+
+<p>
+  <strong>Productora:</strong>
+  <%= @staff.productora_id %>
+</p>
+
+<p>
+  <strong>Phone:</strong>
+  <%= @staff.phone %>
+</p>
+
+<%= button_to 'Editar', edit_staff_path(@staff), :method => "get", :class => 'edit_btn' %> 
+<%= button_to 'Atrás', staffs_path, :method => "get", :class => 'back_btn' %>
