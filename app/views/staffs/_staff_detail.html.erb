@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('table#staffs').sieve();
+    });
+</script>
+<style type="text/css">
+    th {
+        text-align: left;
+    }
+</style>
+<table id="staffs">
+    <thead>
+        <th>Vestuaristas</th>
+    </thead>
+    <tbody>
+        <% @staff_by_prod.each do |staff| %>
+            <tr id="staff">
+                <td id="staffId" style="display:none;"><%= staff.id %></td>
+                <td><%= staff.name %> <%= staff.lastname %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
