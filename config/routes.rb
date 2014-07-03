@@ -1,6 +1,7 @@
 Ciclotimia::Application.routes.draw do 
   
   resources :staffs
+    post "staffs/fetch_staff_by_productora"
 
   resources :productoras
 

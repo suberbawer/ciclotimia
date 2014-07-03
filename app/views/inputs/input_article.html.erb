@@ -2,6 +2,7 @@
 	$(document).ready(function(){
 		focusCursorOnInput();
 		makeEnterClick();
+		$('table#productoras').sieve();
 	})
 
 	function makeEnterClick() {
@@ -19,8 +20,37 @@
 	}
 
 </script>
+<style type="text/css">
+	#articleDetailContainer{
+		float:left;
+		width:60%;
+		height:220px;
+	}
+
+	#productorasContainer, #staffContainer{
+		float:right;
+		width: 40%;
+		height:220px;
+	}
+
+	#productoras tbody tr :hover, #staffs tbody tr :hover{
+		color: #2222aa;
+		cursor:pointer;
+	}
+
+	.search{
+		float:left;
+		margin-top: 11px;
+	}
+
+	.radios{
+		width:100%;
+		display: flex;
+	}
+</style>
 
 <p id="notice"><%= notice %></p>
+
 <h3>Venta / alquiler de artículos</h3>
 <div class="modalBackground">
 	<div id="newInputPopup" >
@@ -29,8 +59,28 @@
 
 		</div>
 
+		<div id="productorasContainer" style="display:none;">
+			<table id="productoras">
+				<thead>
+					<th>Productoras</th>
+				</thead>
+				<tbody>
+					<% @productoras.each do |productora|%>
+						<tr id="prod">
+							<td id="prodId" style="display:none;"><%= productora.id %></td>
+							<td><%= productora.name %></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+
+		<div id="staffContainer" style="display:none;">
+
+		</div>
+
 		<div id="formContainer">
-			<%= form_tag({:action => 'new_manual_input'}, :remote => true, :'data-update-target' => 'inputSuccessMessage') do %>
+			<%= form_tag({:action => 'new_manual_input'}, :class => 'radios', :remote => true, :'data-update-target' => 'inputSuccessMessage') do %>
 
 				<%= radio_button_tag(:type, "sale", :checked => 'checked') %>
 				<%= label_tag(:sale, "Venta") %>
@@ -38,7 +88,6 @@
 				<%= label_tag(:rent, "Alquiler") %> 
 
 			<% end %>
-			
 
 			<input type="button" value="Confirmar transaccion" id="confirmInput"/>
 		</div>

@@ -62,6 +62,13 @@ class StaffsController < ApplicationController
     end
   end
 
+  def fetch_staff_by_productora
+    puts params
+    @staff_by_prod = Staff.where(productora_id:params['productora_id'])
+    puts @staff_by_prod
+    render :partial => 'staff_detail', :content_type => 'text/html'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_staff

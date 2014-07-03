@@ -100,7 +100,6 @@ class ArticlesController < ApplicationController
 
   def fetch_rented_article
     @article = Article.find_by_id(params[:id])
-    puts @article
     @article = Rent.calc_new_prices(@article)
     render :partial => 'rent_article_detail', :content_type => 'text/html'
   end

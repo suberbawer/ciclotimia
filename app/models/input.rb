@@ -3,7 +3,9 @@ class Input < ActiveRecord::Base
 	has_one :caja_transaction, :as =>:transaction
 	has_one :caja, :through => :caja_transactions
 	has_one :article
+	belongs_to :staff
 	accepts_nested_attributes_for :article
+
 	after_destroy :free_article
 
 	validate :correctly_update_status , on: :update

@@ -41,6 +41,7 @@ class InputsController < ApplicationController
 		if c_response['result'] != 'ok'
 			flash[:notice] = c_response['message']
 		end
+		@productoras = Productora.all.sort_by{|productora| productora.name}
 	end
 
 	def new_manual_input

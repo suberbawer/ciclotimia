@@ -8,7 +8,8 @@ class Rent < Input
         self[:comission_cash] = self[:amount]
         self[:article_desc]   = self.article.description
         self[:article_id]     = self.article.id
-        self.staff            = self.  
+        self.staff            = Staff.find input_data[:staff]
+        self[:staff_id]       = self.staff.id  
     end
 
     def self.obtain_cash(amount, percent)

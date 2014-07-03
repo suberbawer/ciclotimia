@@ -8,6 +8,8 @@ $(document).ready(function(){
 	function Input()
 	{
 		this._articleContainer  = $('#articleDetailContainer');	// Contenedor del detalle del articulo.
+		this._prodContainer     = $('#productorasContainer');
+		this._staffContainer	= $('#staffContainer');
 		this._modalBackground   = $('.modalBackground');
 		this._newInputContainer = $('#newInputPopup'); 			// Contenedor del nuevo input. 	    
 		this._articleId         = $('#articleInputId');			// Articulo relacionado.
@@ -15,10 +17,13 @@ $(document).ready(function(){
 		this._amountContainer   = $('.amountContainer');        // Amount container.
 		this._amountInput       = $('#selectedAmount');         // Amount input.
 		this._formContainer     = $('#formContainer');			// Container of the form.
+		this._selectedTrProd	= $('tr[id="prod"]');
 
 		this.type  	 		    = $(_.find(this._typeRadio, function(type){ return $(type).prop('checked'); })).val();
 	    this.amount 		    = 0 							// Monto (por defecto).
 	    this.article;											// Articulo relacionado.
+	    this.staff;
+	    this.productora;
 	    this.id;												// Id (client side) del input.
 
 		var self 			    = this;
@@ -62,6 +67,31 @@ $(document).ready(function(){
 
 	    this.getArticleId = function() {
 	        return this.article;
+	    }
+
+	    this.getStaffId = function() {
+	    	return this.staff;
+	    }
+
+	    this.setStaffId = function(staffId) {
+	    	this.staff = staffId;
+	    }
+
+	    this.getProductoraId = function() {
+	    	return this.productora;
+	    }
+		
+		this.setProductoraId = function(prodId) {
+	        this.productora = prodId;
+	    }
+
+	    this.showProductoras = function() {
+	    	this._prodContainer.show();
+	    }
+
+	    this.showStaffContainer = function() {
+	    	this._prodContainer.hide();
+	    	this._staffContainer.show();
 	    }
 
 	    /**
@@ -152,6 +182,14 @@ $(document).ready(function(){
 							self.makeConfirmClick('#selectedAmount', '#confirmInput');
 							var currentAmount = $('#selectedAmount').val();
 							self.setAmount(currentAmount);
+							
+							if ($('#type_rent').attr('selected') != undefined) {
+								self.showProductoras();
+							} else {
+								$('#type_rent').on('click', function() {
+									self.showProductoras();
+								});
+							}
 						}
 					});
 				}
@@ -165,6 +203,39 @@ $(document).ready(function(){
 	    }
 
 	    /**
+	     *	Traigo los vestuaristas dependiendo de la productora
+	     */
+	    this.retrieveStaffroductoras = function(){
+	    	var productora_id = self.getProductoraId();
+	    	if (productora_id != undefined) {
+				$.ajax({
+					url      : '/staffs/fetch_staff_by_productora',
+					type     : "POST",
+					dataType : 'html',
+					data     : { 'productora_id' : productora_id},
+					success:function(data){
+						self._staffContainer.html(data);
+						self.showStaffContainer();
+
+						self._selectedTrStaff	= $('tr[id="staff"]');
+
+						self._selectedTrStaff.on('click', function() {
+					    	var staffId = $(this).find('td[id="staffId"]').text();
+					    	self.setStaffId(staffId);
+					    	$(this).css('color','#2222aa');
+					    });
+					}
+				});
+			}
+		}
+
+		this._selectedTrProd.on('click', function() {
+	    	var productoraId = $(this).find('td[id="prodId"]').text();
+	        self.setProductoraId(productoraId);
+			self.retrieveStaffroductoras();
+	    });
+
+	    /**
 	     *  Devuelve un objeto con los datos mas relevantes de {this}.
 		 *
 		 *  @return Objeto con los datos mas importantes de this.
@@ -176,6 +247,7 @@ $(document).ready(function(){
 	    	obj.amount  = this.amount;
 	    	obj.cash    = this.cash;
 	    	obj.percent = this.percent;
+	    	obj.staff   = this.staff;
 	    	return obj;
 	    }
 
@@ -198,7 +270,6 @@ $(document).ready(function(){
 	    	var amount = amountInput.val();
 		    self.setAmount(amount);
 	    });
-
 	}
 
 	/**
@@ -229,7 +300,6 @@ $(document).ready(function(){
 		    	newWin.document.write('<style>' + 
 	                            		'@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} .size {width:200px; font-size:10px;} table {margin: 5px auto;width:180px; font-size:10px;}} ' +
 	                        		  '</style>');
-		    	console.log(divToPrint);
 		    	newWin.document.write(divToPrint.outerHTML);
 				newWin.print();
 				newWin.close();
