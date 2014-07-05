@@ -12,14 +12,15 @@ $(document).ready(function(){
         this._prodContainer     = $('#productorasContainer');
         this._staffContainer    = $('#staffContainer');
         this._modalBackground   = $('.modalBackground');
-        this._newInputContainer = $('#newInputPopup');          // Contenedor del nuevo input.      
+        this._newInputContainer = $('#newInputPopup');          // Contenedor del nuevo input.
+        this._confirmButton      = $('#confirmInput');        // Boton para confirmar insertar el input.
         this._articleId         = $('#articleInputId');         // Articulo relacionado.
         this._typeRadio         = $('input:radio[name=type]');  // Selector de tipo (venta, alquiler).
         this._amountContainer   = $('.amountContainer');        // Amount container.
         this._amountInput       = $('#selectedAmount');         // Amount input.
         this._formContainer     = $('#formContainer');          // Container of the form.
         this._selectedTrProd    = $('tr[id="prod"]');
-
+        this._message           = $('')
         this.type               = $(_.find(this._typeRadio, function(type){ return $(type).prop('checked'); })).val();
         this.amount             = 0                             // Monto (por defecto).
         this.article;                                           // Articulo relacionado.
@@ -88,6 +89,7 @@ $(document).ready(function(){
 
         this.showProductoras = function() {
             this._prodContainer.show();
+            this.disableConfirmButton();
         }
 
         this.hideProductoras = function() {
@@ -101,6 +103,15 @@ $(document).ready(function(){
 
         this.hideStaffContainer = function() {
             this._staffContainer.hide();
+        }
+
+        this.disableConfirmButton = function() {
+            this._confirmButton.attr('disabled','disabled');
+            this._confirmButton.addClass('disBtn');
+        }
+
+        this.enableConfirmButton = function() {
+            this._confirmButton.attr('disabled', false);
         }
 
         /**
@@ -192,8 +203,11 @@ $(document).ready(function(){
                             var currentAmount = $('#selectedAmount').val();
                             self.setAmount(currentAmount);
                             
-                            if ($('#type_rent').prop('checked') && inputCollection.inputList.length == 0) {
+                            if ($('#type_rent').prop('checked') && inputCollection.inputList.length == 0 &&
+                                $('.articleData').attr('class') != undefined) {
+                                
                                 self.showProductoras();
+                                self.hideStaffContainer();
                             } else {
                                 // Si no es el primer articulo entonces le seteo a todos el mismo vestuarista
                                 if (inputCollection.inputList.length != 0) {
@@ -226,7 +240,8 @@ $(document).ready(function(){
                     dataType : 'html',
                     data     : { 'productora_id' : productora_id},
                     success:function(data){
-                        self._staffContainer.html(data + '<button class="backBtn" type="btn" style="width: 20px; font-size: 12px; padding: 0px; cursor:pointer; top: 238px; position:fixed;"><<</button>');
+                        self._staffContainer.html(data);
+                        $('.search').after('<button class="backBtn" type="btn" style="width: 20px; font-size: 12px; padding: 0px; cursor:pointer;"><<</button>');
                         self.showStaffContainer();
 
                         self._backBtn           = $('.backBtn');
@@ -235,6 +250,7 @@ $(document).ready(function(){
                         self._selectedTrStaff.on('click', function() {
                             staffId = $(this).find('td[id="staffId"]').text();
                             self.setStaffId(staffId);
+                            self.enableConfirmButton();
                             $('tr').css('color', 'black');
                             $(this).css('color','#2222aa');
                         });
@@ -289,6 +305,7 @@ $(document).ready(function(){
                 if (inputCollection.inputList.length != 0) {
                     self.setStaffId(staffId);
                 }
+                self.enableConfirmButton();
                 self.hideProductoras();
                 self.hideStaffContainer();
             }           
