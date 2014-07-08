@@ -19,6 +19,14 @@
 		float:right;
 	}
 
+	.productora{
+		float: left;
+	}
+
+	#prod_input{
+		width: 120px;
+	}
+
 	#rut_input{
 		width: 120px;
 	}
@@ -58,8 +66,12 @@
 <div id="billing_table">
     <div class="provider_container" id="rent_container">
 		<div id="rut" class="rut">
-			<label for="rut_input">Ingrese RUT</label>
-			<input type="text" id="rut_input" />
+			<label for="rut_input">RUT</label>
+			<input type="text" id="rut_input" value= <%= @rut %> />
+		</div>
+		<div id="rut" class="productora">
+			<label for="prod_input">Productora</label>
+			<input type="text" id="prod_input" value= <%= @prod %> />
 		</div>
 		<table id="articles">
 			<thead>

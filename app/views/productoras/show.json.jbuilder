@@ -1,1 +1,1 @@
-json.extract! @productora, :id, :name, :rut, :address, :created_at, :updated_at
+json.extract! @productora, :id, :name, :rut, :billing_name, :created_at, :updated_at

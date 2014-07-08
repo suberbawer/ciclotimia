@@ -38,9 +38,10 @@ class Rent < Input
     def self.set_final_rent_amount(article, save)
 
         if !article.nil? && !article.input.nil?
-        new_input              = Rent.new
-        new_input.article_id   = article.id
-        new_input.article_desc = article.description
+            new_input              = Rent.new
+            new_input.article_id   = article.id
+            new_input.article_desc = article.description
+            new_input.staff_id     = article.input.staff_id
 
             if save    
                 json_response = Collect.get_open_caja

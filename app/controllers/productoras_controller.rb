@@ -75,6 +75,6 @@ class ProductorasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def productora_params
-      params.require(:productora).permit(:name, :rut, :address)
+      params.require(:productora).permit(:name, :rut, :billing_name)
     end
 end

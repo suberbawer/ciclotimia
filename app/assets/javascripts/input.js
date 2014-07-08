@@ -209,7 +209,7 @@ $(document).ready(function(){
                             if (inputCollection.inputList.length == 0 &&
                                 $('.articleData').attr('class') != undefined) {
                                 
-                                inType = $('input[name="type"]').val();
+                                inType = $('#type_rent').prop('checked') ? 'rent' : 'sale';
                             }
 
                             if ($('#type_rent').prop('checked') && inputCollection.inputList.length == 0 &&
@@ -308,7 +308,7 @@ $(document).ready(function(){
         this._typeRadio.on('change', function(e){
             var type = $(this).val();
             self.setType(type);
-            
+
             // Seteo el tipo para la impresion
             if (inputCollection.inputList.length == 0) {
                 inType = type;
