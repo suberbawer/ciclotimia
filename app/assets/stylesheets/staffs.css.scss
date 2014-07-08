@@ -1,3 +1,31 @@
 // Place all the styles related to the staffs controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.pseudo-link{
+	color: #15c;
+	cursor: pointer;
+}
+
+.inputCollectionTable{
+	border-collapse: collapse;
+	border-spacing: 2px;
+	width: 100%;
+	text-align: left;
+}
+	.inputCollectionTable th{
+	  background: #a5a6a8; 
+	}
+
+	.inputCollectionTable tr:nth-child(even){
+  		background: #C5C6C8; 
+  	}
+
+	.inputCollectionTable tr:nth-child(odd) {
+	  background: #D9DADB; 
+	}
+
+.inputCollectionTable li > div{
+	width: 19%;
+	display: inline-block;
+}
