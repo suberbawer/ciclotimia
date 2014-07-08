@@ -28,7 +28,7 @@
       settings = $.extend({
         searchInput: null,
         searchTemplate: "<div class='search'><input placeholder='Buscar' type='text'></div><br/><br/>",
-        itemSelector: "tbody tr",
+        itemSelector: "tbody tr:not(.not_searchable)",
         textSelector: null,
         toggle: function(item, match) {
           return item.toggle(match);

@@ -38,7 +38,7 @@
             <% aux = "" %>
             <% @staffs.each do |staff| %>
                 <% if staff.productora.name != aux %>
-                    <tr>
+                    <tr class="not_searchable">
                         <td><strong>Producotra: <%= staff.productora.name %></strong></td>
                         <td></td>
                         <td></td>

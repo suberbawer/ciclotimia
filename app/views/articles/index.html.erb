@@ -29,6 +29,10 @@
 .status{
 	padding-right: 10px;
 }
+
+a, a:visited {
+	color:#333;
+}
 </style>
 
 <h3>Artículos</h3>
@@ -46,6 +50,7 @@
 		  <th>Porcentaje Comisión</th>
 		  <th>Efectivo Comisión</th>
 		  <th>Estado</th>
+		  <th>Vestuarista</th>
 		  <th>Proveedor</th>
 		  <th>Código</th>
 		  <th></th>
@@ -58,13 +63,14 @@
 		<% @articles.each do |article| %>
 		  <tr>
 		    <td><%= article.id %></td>
-		    <td><%= article.description %></td>
+		    <td><%= link_to article.description, article %></td>
 		    <td><%= '$' + article.estimated_price %></td>
 		    <td><%= l article.created_at %></td>
 		    <td><%= article.commission_per + '%' + ' + iva'%></td>
 		    <td><%= '$' + article.commission_cash %></td>
 		    <td class="status"><%= article.obtain_human_label ? article.obtain_human_label : 'Disponible' %></td>
-		    <td><%= article.provider.name + ' ' + article.provider.lastname %></td>
+		    <td><%= article.input && article.input.staff ? (link_to article.input.staff.name + ' ' + article.input.staff.lastname, article.input.staff) : '-' %></td>
+		    <td><%= link_to article.provider.name + ' ' + article.provider.lastname, article.provider %></td>
 		    <td><%= image_tag('barcodes/'+article.id.to_s+'.png', size: "60x30", :class => 'barcode_image', :id => "barcode_" + article.id.to_s) %></td>
 		    <td><%= link_to image_tag('show.png', size: "16x16"), article %></td>
 		    <td><%= link_to image_tag('edit.png', size: "16x16"), edit_article_path(article) %></td>

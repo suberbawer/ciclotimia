@@ -48,7 +48,7 @@ $.validator.addMethod('noDecimal',
     </div>
   <% end %>
 
-  <table>
+  <table> 
       <tr class="name">
         <td>
           <%= f.label 'Nombre' %>
@@ -59,10 +59,10 @@ $.validator.addMethod('noDecimal',
       </tr>
       <tr class="address">
         <td>
-          <%= f.label 'Nombre Facturación' %>
+          <%= f.label 'Nombre Factura' %>
         </td>
         <td>
-          <%= f.text_field :address %>
+          <%= f.text_field :billing_name %>
         </td>
       </tr>
       <tr class="rut">

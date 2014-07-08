@@ -1,14 +1,32 @@
+<script type="text/javascript">  
+
+	$(document).ready(function(){
+	    $('table#reports').sieve();
+	 });
+</script>
+
+<style type="text/css">
+	.articles_container{
+	    max-height: 280px;
+	    overflow-y: auto;
+  	}
+
+  	a, a:visited {
+    	color:#333;
+  	}
+</style>
+
 <h3><%= @staff.name %> <%= @staff.lastname %></h3>
 
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Nombre:</strong>
   <%= @staff.name %>
 </p>
 
 <p>
-  <strong>Lastname:</strong>
+  <strong>Apellido:</strong>
   <%= @staff.lastname %>
 </p>
 
@@ -18,9 +36,49 @@
 </p>
 
 <p>
-  <strong>Phone:</strong>
+  <strong>Teléfono:</strong>
   <%= @staff.phone %>
 </p>
+
+<div class="articles_container">
+  <h3> Artículos alquilados por este vestuarista</h3>
+  <table id="reports">
+      <thead>
+          <tr class="ignore">
+              <th>Código</th>
+              <th>Descripción de Artículo</th>
+              <th>Precio Estimado</th>
+              <th>Estado</th>
+              <th>Fecha Venta/Alquiler</th>
+          </tr>
+      </thead>
+      <tbody>
+          <% @article_list.each do |article| %>
+          <tr>
+            <td><%= article.id %></td>
+            <td><%= link_to article.description, article %></td>
+            <td><%= '$' + article.estimated_price %></td>
+            <td><%= article.obtain_human_label %></td>
+            <td><%= article.input && article.obtain_human_label ? (l article.input.created_at) : '-' %></td>
+          </tr>
+          <% end %>
+         <tr class="ignore">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>---------------------------</td>
+          </tr>
+          <tr class="ignore">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
 
 <%= button_to 'Editar', edit_staff_path(@staff), :method => "get", :class => 'edit_btn' %> 
 <%= button_to 'Atrás', staffs_path, :method => "get", :class => 'back_btn' %>

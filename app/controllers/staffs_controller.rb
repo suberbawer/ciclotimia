@@ -10,6 +10,7 @@ class StaffsController < ApplicationController
   # GET /staffs/1
   # GET /staffs/1.json
   def show
+    @article_list = @staff.get_staff_articles
   end
 
   # GET /staffs/new
