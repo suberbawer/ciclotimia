@@ -1,7 +1,8 @@
 <script type="text/javascript">
   // Change message of required validation
   jQuery.extend(jQuery.validator.messages, {
-    required: "Este campo es requerido."
+    required: "Este campo es requerido.",
+    email: "Por favor ingresa un correo válido."
   });
 
   function set_required_data() {
@@ -10,9 +11,21 @@
     $('#staff_lastname').addClass('required');
     $('#staff_phone').addClass('required');
 
-    $('.new_staff').validate();
+    $('.new_staff').validate({
+      rules: {
+          'staff[email]': {
+              email: true
+          }
+      }
+    });
 
-    $('.edit_staff').validate();
+    $('.edit_staff').validate({
+      rules: {
+          'staff[email]': {
+              email: true
+          }
+      }
+    });
   }
 
   $(document).ready(function(){
@@ -56,6 +69,14 @@
       </td>
       <td>
         <%= f.text_field :lastname %>
+      </td>
+    </tr>
+    <tr class="email">
+      <td>
+        <%= f.label 'Correo' %>
+      </td>
+      <td>
+        <%= f.text_field :email %>
       </td>
     </tr>
     <tr class="phone">

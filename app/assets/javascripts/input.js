@@ -359,7 +359,9 @@ $(document).ready(function(){
         var printInputs = function(path) {
             newWin = window.open(path);
             newWin.onload = function(){
-                var divToPrint = newWin.document.getElementById('receiptContainer');
+                var divToPrint      = newWin.document.getElementById('receiptContainer');
+                var rent_disclaimer = '';
+
                 if (inType == 'sale') {
                     newWin.document.write('<style>' + 
                                             '@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} .size {width:200px; font-size:10px;} table {margin: 5px auto; width:180px; font-size:10px;}} ' +
@@ -368,8 +370,10 @@ $(document).ready(function(){
                     newWin.document.write('<style>' + 
                                             '@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} table {margin: 5px auto; width:100%;}} ' +
                                           '</style>');
+                    // Disclaimer
+                    rent_disclaimer = ('<p style="font-size:10px; text-align: justify;">Condiciones de alquiler:<br/>Para realizar el alquiler, el interesado deberá dejar en garantía cheque o efectivo por el monto total.<br/>Los artículos se darán en alquiler por un plazo de 15 días, cobrando por el mismo, un 30% más iva, sobre el precio de venta de los artículos.<br/>Vencido dicho plazo, la empresa se reserva el derecho de aumentar el porcentaje de cobro por concepto de alquiler.<br/>Los artículos deberán ser devueltos en las mismas condiciones que fueron entregados, de lo contrario deberán ser abonados en su totalidad</p>');
                 }
-                newWin.document.write(divToPrint.outerHTML);
+                newWin.document.write(divToPrint.outerHTML + rent_disclaimer);
                 newWin.print();
                 newWin.close();
             }

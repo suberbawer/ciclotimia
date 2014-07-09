@@ -60,8 +60,12 @@
             </tr>
         </thead>
         <tbody>
-            <% rent = false %>
-            <% total = 0 %>
+            <% rent           = false %>
+            <% total          = 0 %>
+            <% total_alquiler = 0 %>
+            <% iva            = 0 %>
+            <% excent         = 0 %>
+            
             <% @new_inputs.each do |input| %>
                 <% future = ((input.future_amount.to_i * 0.3) + (input.future_amount.to_i * 0.3 * 0.22)).round %>
                 <tr>
@@ -78,25 +82,48 @@
                         </script>
                     <% end %>
                 </tr>
-                <% total = total + ( input.type == "Rent" ? future : input.amount) %>
+                <% if rent %>
+                    <% total_alquiler += future %>
+                    <% iva            += (input.future_amount.to_i * 0.3 * 0.22).round %>
+                    <% excent         += (input.future_amount.to_i * 0.3).round %>
+                <% end %>
+                <% total += input.type == 'Rent' ? input.future_amount.to_i : input.amount %>
             <% end %>
             <tr id="total">
+                <td class="left"></td>
                 <% if rent %>
                     <td class="left"></td>
+                    <td class="right">Total Venta:</td>
+                <% else %>
+                    <td class="right">Total:</td>
                 <% end %>
-
-                <td class="left"></td>
-                <td class="right">Total:</td>
                 <td class="right">$<%= total %></td>
             </tr>
+            <% if rent %>
+                <tr id='iva'>
+                    <td class="left"></td>
+                    <td class="left"></td>
+                    <td class="right">IVA:</td>
+                    <td class="right">$<%= iva %></td>
+                </tr>
+                <tr id='excent'>
+                    <td class="left"></td>
+                    <td class="left"></td>
+                    <td class="right">Total Excento:</td>
+                    <td class="right">$<%= excent %></td>
+                </tr>
+            <% end %>
             <tr id="total_ex">
+                <td class="left"></td>
+
                 <% if rent %>
                     <td class="left"></td>
+                    <td class="right">Total Alquiler:</td>
+                    <td class="right">$<%= total_alquiler %></td>
+                <% else %>
+                    <td class="right">Total Excento:</td>
+                    <td class="right">$<%= total %></td>
                 <% end %>
-
-                <td class="left"></td>
-                <td class="right">Total Excento:</td>
-                <td class="right">$<%= total %></td>
             </tr>
         </tbody>
     </table>
