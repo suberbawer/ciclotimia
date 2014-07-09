@@ -6,7 +6,7 @@ class Staff < ActiveRecord::Base
 	def get_staff_articles
 		staff_articles = Array.new
 		self.input.each do |input|
-			if !input.article.nil?
+			if !input.article.nil? && input.article.status == 'rented'
 				staff_articles.push(input.article)
 			end
 		end
