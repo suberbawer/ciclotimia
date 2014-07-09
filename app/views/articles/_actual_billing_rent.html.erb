@@ -24,7 +24,7 @@
 	}
 
 	#prod_input{
-		width: 120px;
+		width: 220px;
 	}
 
 	#rut_input{
@@ -41,11 +41,13 @@
  	$('.modalBackground').hide();
  	$('#rut').hide();
  	$('#mainDiv #rutTable .rut').prepend('<p>'+ $('#rut_input').val() +'</p>');
+ 	$('#mainDiv #headerTable #billingName').prepend('<p>'+ $('#prod_input').val() +'</p>');
+
     var divToPrint = document.getElementById('mainDiv');
     newWin = window.open("");
     // Css y salto de pagina cuando un div queda cortado en la impresion
     newWin.document.write('<style>' + 
-    						'@media print{#billing_table{font-size: 10px; page-break-inside: avoid; padding-top:115px;} .rut{text-align:left; padding-left: 60px;} .nameContainer{width: 40%; text-align: center;} .dateContainer{width: 25%;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 170px;overflow-y: auto;}.headerContainer > div, .footerContainer .footerContainerCopy > div {display: inline-block;text-align: right;} .footerContainer{margin-bottom: 82px;} tr {width:100%;}td {text-align: right;padding-right: 40px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
+    						'@media print{#billing_table{font-size: 10px; page-break-inside: avoid; padding-top:115px;} .rut{text-align:left; padding-left: 60px;} .nameContainer{width: 40%; text-align: left; padding-left: 60px;} .dateContainer{width: 25%;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 170px;overflow-y: auto;}.headerContainer > div, .footerContainer .footerContainerCopy > div {display: inline-block;text-align: right;} .footerContainer{margin-bottom: 82px;} tr {width:100%;}td {text-align: right;padding-right: 40px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
     					'</style>');
 
 	newWin.document.write(divToPrint.outerHTML);
@@ -67,11 +69,11 @@
     <div class="provider_container" id="rent_container">
 		<div id="rut" class="rut">
 			<label for="rut_input">RUT</label>
-			<input type="text" id="rut_input" value= <%= @rut %> />
+			<input type="text" id="rut_input" value= '<%= @rut %>'/>
 		</div>
 		<div id="rut" class="productora">
 			<label for="prod_input">Productora</label>
-			<input type="text" id="prod_input" value= <%= @prod %> />
+			<input type="text" id="prod_input" value= '<%= @prod %>'/>
 		</div>
 		<table id="articles">
 			<thead>
@@ -125,8 +127,8 @@
 		<div id="headerContainer" class="headerContainer">
 			<table id="headerTable" class="tableClass">
 				<tr>
-					<td class="nameContainer">
-						<p></p>
+					<td id="billingName" class="nameContainer">
+						
 					</td>
 					<td class="nameContainer">
 						<p></p>
@@ -190,8 +192,8 @@
 		<div id="headerContainer" class="headerContainer">
 			<table id="headerTable" class="tableClass">
 				<tr>
-					<td class="nameContainer">
-						<p></p>
+					<td id="billingName" class="nameContainer">
+						
 					</td>
 					<td class="nameContainer">
 						<p></p>

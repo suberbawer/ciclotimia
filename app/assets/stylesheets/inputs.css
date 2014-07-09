@@ -49,7 +49,12 @@
 	text-align: left;
 }
 	.inputCollectionTable th, .outputTable th, .inputTable th{
-	  background: #C5C6C8; 
+		font-size: 12px;
+	  	background: #C5C6C8; 
+	}
+
+	.inputCollectionTable td, .outputTable td, .inputTable td{
+		font-size: 12px;
 	}
 
 	.inputCollectionTable tr:nth-child(even), .outputTable tr:nth-child(even), .inputTable tr:nth-child(even){
