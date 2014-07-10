@@ -3,6 +3,10 @@
     height:700px;
     overflow-y: auto;
   }
+
+  a, a:visited {
+      color:#333;
+  }
 </style>
 
 <script type="text/javascript">
@@ -22,6 +26,7 @@
           <th>Fecha de Alquiler</th>
           <th>Porcentaje Comisión</th>
           <th>Estado</th>
+          <th>Vestuarista</th>
           <th>Proveedor</th>
           <th>Código</th>
         </tr>
@@ -36,6 +41,7 @@
             <td><%= l article.created_at %></td>
             <td><%= article.input.comission_per + '%' + ' + iva'%></td>
             <td><%= article.obtain_human_label %></td>
+            <td><%= link_to article.input.staff.name + ' ' + article.input.staff.lastname, article.input.staff %></td>
             <td><%= article.provider.name + ' ' + article.provider.lastname %></td>
             <td><%= image_tag('barcodes/'+article.id.to_s+'.png', size: "60x30", :class => 'barcode_image', :id => "barcode_" + article.id.to_s) %></td>
           </tr>

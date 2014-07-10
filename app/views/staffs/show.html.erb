@@ -1,16 +1,24 @@
+<script type="text/javascript">  
+
+	$(document).ready(function(){
+	    $('table#reports').sieve();
+	 });
+</script>
+
+<style type="text/css">
+	.articles_container{
+	    max-height: 280px;
+	    overflow-y: auto;
+  	}
+
+  	a, a:visited {
+    	color:#333;
+  	}
+</style>
+
 <h3><%= @staff.name %> <%= @staff.lastname %></h3>
 
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @staff.name %>
-</p>
-
-<p>
-  <strong>Lastname:</strong>
-  <%= @staff.lastname %>
-</p>
 
 <p>
   <strong>Productora:</strong>
@@ -18,49 +26,64 @@
 </p>
 
 <p>
-  <strong>Phone:</strong>
+  <strong>Nombre:</strong>
+  <%= @staff.name %>
+</p>
+
+<p>
+  <strong>Apellido:</strong>
+  <%= @staff.lastname %>
+</p>
+
+<p>
+  <strong>Teléfono:</strong>
   <%= @staff.phone %>
 </p>
 
-<hr>
+<p>
+  <strong>Correo:</strong>
+  <%= @staff.email %>
+</p>
 
-<h3>Artículos sin devolver de este vestuarista</h3>
-	<div id="table_container">
-		<table class="inputCollectionTable">
-			<thead>
-		        <tr>
-		        	<th>Código de artículo</th>
-		            <th>Descripción de artículo</th>
-		            <th>Precio</th>
-		            <th>Tipo de transacción</th>
-		            <th>Estado de artículo</th>
-		        </tr>
-		    </thead>
-		    <tbody>
-		    	<% @staff.input.each do |input| %>
-		    		<% if !input.article.nil? %>
-						<tr class="pseudo-link" onclick="location.href='/articles/<%= input.article.id %>'">
-							<td>
-								<span><%= input.article.id %></span>
-							</td>
-							<td>
-								<span><%= input.article.description %></span>
-							</td> 
-							<td>
-								<span>$<%= input.amount %></span>
-							</td>
-							<td>
-								<span><%= input.obtain_human_label %></span>
-							</td>
-							<td>
-								<span><%= input.article.obtain_human_label %></span>
-							</td>
-						</tr>
-					<% end %>
-				<% end %>	
-			</tbody>
-		</table>
-	</div>
+<div class="articles_container">
+  <h3> Artículos alquilados por este vestuarista</h3>
+  <table id="reports">
+      <thead>
+          <tr class="ignore">
+              <th>Código</th>
+              <th>Descripción de Artículo</th>
+              <th>Precio Estimado</th>
+              <th>Estado</th>
+              <th>Fecha Venta/Alquiler</th>
+          </tr>
+      </thead>
+      <tbody>
+          <% @article_list.each do |article| %>
+          <tr>
+            <td><%= article.id %></td>
+            <td><%= link_to article.description, article %></td>
+            <td><%= '$' + article.estimated_price %></td>
+            <td><%= article.obtain_human_label %></td>
+            <td><%= article.input && article.obtain_human_label ? (l article.input.created_at) : '-' %></td>
+          </tr>
+          <% end %>
+         <tr class="ignore">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>---------------------------</td>
+          </tr>
+          <tr class="ignore">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
 
 
 <%= button_to 'Editar', edit_staff_path(@staff), :method => "get", :class => 'edit_btn' %> 

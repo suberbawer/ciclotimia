@@ -1,6 +1,7 @@
 var input;           // Input actual (a ingresar).
 var inputCollection; // Input list (lote).
 var staffId;
+var inType;
 
 $(document).ready(function(){
     /**
@@ -13,7 +14,7 @@ $(document).ready(function(){
         this._staffContainer    = $('#staffContainer');
         this._modalBackground   = $('.modalBackground');
         this._newInputContainer = $('#newInputPopup');          // Contenedor del nuevo input.
-        this._confirmButton      = $('#confirmInput');        // Boton para confirmar insertar el input.
+        this._confirmButton     = $('#confirmInput');        // Boton para confirmar insertar el input.
         this._articleId         = $('#articleInputId');         // Articulo relacionado.
         this._typeRadio         = $('input:radio[name=type]');  // Selector de tipo (venta, alquiler).
         this._amountContainer   = $('.amountContainer');        // Amount container.
@@ -112,6 +113,7 @@ $(document).ready(function(){
 
         this.enableConfirmButton = function() {
             this._confirmButton.attr('disabled', false);
+            this._confirmButton.removeClass('disBtn');
         }
 
         /**
@@ -203,6 +205,13 @@ $(document).ready(function(){
                             var currentAmount = $('#selectedAmount').val();
                             self.setAmount(currentAmount);
                             
+                            // Seteo el tipo para la impresion
+                            if (inputCollection.inputList.length == 0 &&
+                                $('.articleData').attr('class') != undefined) {
+                                
+                                inType = $('#type_rent').prop('checked') ? 'rent' : 'sale';
+                            }
+
                             if ($('#type_rent').prop('checked') && inputCollection.inputList.length == 0 &&
                                 $('.articleData').attr('class') != undefined) {
                                 
@@ -231,7 +240,7 @@ $(document).ready(function(){
         /**
          *  Traigo los vestuaristas dependiendo de la productora
          */
-        this.retrieveStaffroductoras = function(){
+        this.retrieveStaffProductoras = function(){
             var productora_id = self.getProductoraId();
             if (productora_id != undefined) {
                 $.ajax({
@@ -241,9 +250,10 @@ $(document).ready(function(){
                     data     : { 'productora_id' : productora_id},
                     success:function(data){
                         self._staffContainer.html(data);
-                        $('.search').after('<button class="backBtn" type="btn" style="width: 20px; font-size: 12px; padding: 0px; cursor:pointer;"><<</button>');
                         self.showStaffContainer();
-
+                        
+                        $('#staffContainer .search').prepend('<button class="backBtn" type="btn" style="width: 20px; font-size: 12px; padding: 1px; cursor:pointer; margin: 1px;"><<</button>');
+                        
                         self._backBtn           = $('.backBtn');
                         self._selectedTrStaff   = $('tr[id="staff"]');
 
@@ -267,7 +277,7 @@ $(document).ready(function(){
         this._selectedTrProd.on('click', function() {
             var productoraId = $(this).find('td[id="prodId"]').text();
             self.setProductoraId(productoraId);
-            self.retrieveStaffroductoras();
+            self.retrieveStaffProductoras();
         });
 
         /**
@@ -298,13 +308,20 @@ $(document).ready(function(){
         this._typeRadio.on('change', function(e){
             var type = $(this).val();
             self.setType(type);
-            if (type == 'rent' && inputCollection.inputList.length == 0) {
-                self.showProductoras();
-            } else {
+
+            // Seteo el tipo para la impresion
+            if (inputCollection.inputList.length == 0) {
+                inType = type;
+            }
+
+            if (type == 'rent') {
+                if (inputCollection.inputList.length == 0) {
+                    self.showProductoras();
                 // Si no es el primer articulo entonces le seteo a todos el mismo vestuarista
-                if (inputCollection.inputList.length != 0) {
+                } else {
                     self.setStaffId(staffId);
                 }
+            } else {
                 self.enableConfirmButton();
                 self.hideProductoras();
                 self.hideStaffContainer();
@@ -342,11 +359,21 @@ $(document).ready(function(){
         var printInputs = function(path) {
             newWin = window.open(path);
             newWin.onload = function(){
-                var divToPrint = newWin.document.getElementById('receiptContainer');
-                newWin.document.write('<style>' + 
-                                        '@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} .size {width:200px; font-size:10px;} table {margin: 5px auto;width:180px; font-size:10px;}} ' +
-                                      '</style>');
-                newWin.document.write(divToPrint.outerHTML);
+                var divToPrint      = newWin.document.getElementById('receiptContainer');
+                var rent_disclaimer = '';
+
+                if (inType == 'sale') {
+                    newWin.document.write('<style>' + 
+                                            '@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} .size {width:200px; font-size:10px;} table {margin: 5px auto; width:180px; font-size:10px;}} ' +
+                                          '</style>');
+                } else {
+                    newWin.document.write('<style>' + 
+                                            '@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} table {margin: 5px auto; width:100%;}} ' +
+                                          '</style>');
+                    // Disclaimer
+                    rent_disclaimer = ('<p style="font-size:10px; text-align: justify;">Condiciones de alquiler:<br/>Para realizar el alquiler, el interesado deberá dejar en garantía cheque o efectivo por el monto total.<br/>Los artículos se darán en alquiler por un plazo de 15 días, cobrando por el mismo, un 30% más iva, sobre el precio de venta de los artículos.<br/>Vencido dicho plazo, la empresa se reserva el derecho de aumentar el porcentaje de cobro por concepto de alquiler.<br/>Los artículos deberán ser devueltos en las mismas condiciones que fueron entregados, de lo contrario deberán ser abonados en su totalidad</p>');
+                }
+                newWin.document.write(divToPrint.outerHTML + rent_disclaimer);
                 newWin.print();
                 newWin.close();
             }

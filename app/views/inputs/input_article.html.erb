@@ -1,217 +1,218 @@
 <script>
-	$(document).ready(function(){
-		focusCursorOnInput();
-		makeEnterClick();
-		$('table#productoras').sieve();
-	})
+    $(document).ready(function(){
+        focusCursorOnInput();
+        makeEnterClick();
+        $('table#productoras').sieve();
+    })
 
-	function makeEnterClick() {
-		$('#articleInputId').keypress(function (e) {
-		    var key = e.which;
-		    if(key == 13) {
-		        $('#newInputButton').click();
-		        return false;  
-		    }
-		});
-	}
+    function makeEnterClick() {
+        $('#articleInputId').keypress(function (e) {
+            var key = e.which;
+            if(key == 13) {
+                $('#newInputButton').click();
+                return false;  
+            }
+        });
+    }
 
-	function focusCursorOnInput() {
-    	$('#articleInputId').focus();
-	}
+    function focusCursorOnInput() {
+        $('#articleInputId').focus();
+    }
 
 </script>
 <style type="text/css">
-	#productorasContainer, #staffContainer{
-		float:right;
-		width: 40%;
-		height:220px;
-	}
+    #productorasContainer, #staffContainer{
+        float:right;
+        width: 40%;
+        height:220px;
+        overflow-y: auto;
+    }
 
-	#productoras tbody tr :hover, #staffs tbody tr :hover{
-		color: #2222aa;
-		cursor:pointer;
-	}
+    #productoras tbody tr :hover, #staffs tbody tr :hover{
+        color: #2222aa;
+        cursor:pointer;
+    }
 
-	.search{
-		float:left;
-		margin-top: 11px;
-	}
+    .search{
+        float:left;
+        margin-top: 11px;
+    }
 
-	.radios{
-		width:100%;
-		display: flex;
-	}
+    .radios{
+        width:100%;
+        display: flex;
+    }
 
-	.disBtn{
-		background-color: gray !important;
-	}
+    .disBtn{
+        background-color: gray !important;
+    }
 </style>
 
 <p id="notice"><%= notice %></p>
 
 <h3>Venta / alquiler de artículos</h3>
 <div class="modalBackground">
-	<div id="newInputPopup" >
-		
-		<div id="articleDetailContainer">
+    <div id="newInputPopup" >
+        
+        <div id="articleDetailContainer">
 
-		</div>
+        </div>
 
-		<div id="productorasContainer" style="display:none;">
-			<table id="productoras">
-				<thead>
-					<th>Productoras</th>
-				</thead>
-				<tbody>
-					<% @productoras.each do |productora|%>
-						<tr id="prod">
-							<td id="prodId" style="display:none;"><%= productora.id %></td>
-							<td><%= productora.name %></td>
-						</tr>
-					<% end %>
-				</tbody>
-			</table>
-		</div>
+        <div id="productorasContainer" style="display:none;">
+            <table id="productoras">
+                <thead>
+                    <th>Productoras</th>
+                </thead>
+                <tbody>
+                    <% @productoras.each do |productora|%>
+                        <tr id="prod">
+                            <td id="prodId"><%= productora.id %></td>
+                            <td><%= productora.name %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
 
-		<div id="staffContainer" style="display:none;">
-			
-		</div>
+        <div id="staffContainer" style="display:none;">
+            
+        </div>
 
-		<div id="formContainer">
-			<%= form_tag({:action => 'new_manual_input'}, :class => 'radios', :remote => true, :'data-update-target' => 'inputSuccessMessage') do %>
+        <div id="formContainer">
+            <%= form_tag({:action => 'new_manual_input'}, :class => 'radios', :remote => true, :'data-update-target' => 'inputSuccessMessage') do %>
 
-				<%= radio_button_tag(:type, "sale", :checked => 'checked') %>
-				<%= label_tag(:sale, "Venta") %>
-				<%= radio_button_tag(:type, "rent") %>
-				<%= label_tag(:rent, "Alquiler") %> 
+                <%= radio_button_tag(:type, "sale", :checked => 'checked') %>
+                <%= label_tag(:sale, "Venta") %>
+                <%= radio_button_tag(:type, "rent") %>
+                <%= label_tag(:rent, "Alquiler") %> 
 
-			<% end %>
+            <% end %>
 
-			<input type="button" value="Confirmar transaccion" id="confirmInput"/>
-		</div>
-	</div>
+            <input type="button" value="Confirmar transaccion" id="confirmInput"/>
+        </div>
+    </div>
 </div>
 
 <div class="inputArticleSection">
-	<h3>Ingreso de artículo</h3>
-	<input type="text" id="articleInputId" placeholder="Ingrese código"/>
-	<input type="button" value="Nuevo ingreso" id="newInputButton"/>
-	<div id="inputSuccessMessage"></div>
-</div>	
+    <h3>Ingreso de artículo</h3>
+    <input type="text" id="articleInputId" placeholder="Ingrese código"/>
+    <input type="button" value="Nuevo ingreso" id="newInputButton"/>
+    <div id="inputSuccessMessage"></div>
+</div>  
 
 <div class="batchSection">
 <!-- Lista de inputs en el lote actual. -->
-	<h3>Lote</h3>
-	<div id="table_container">
-		<table class="inputCollectionTable">
-			<thead>
-		        <tr>
-		        	<th>Código</th>
-		            <th>Artículo</th>
-		            <th>Precio</th>
-		            <th>Tipo</th>
-		            <th></th>
-		        </tr>
-		    </thead>
-		    <tbody>
-				<tr>
-					<td>
-						No hay articulos en el lote
-					</td>
-					<td>
-						
-					</td> 
-					<td>
-						
-					</td>
-					<td>
-						
-					</td>	
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<input type="button" value="Confirmar lote" id="confirmBatchButton"/>
+    <h3>Lote</h3>
+    <div id="table_container">
+        <table class="inputCollectionTable">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Artículo</th>
+                    <th>Precio</th>
+                    <th>Tipo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        No hay articulos en el lote
+                    </td>
+                    <td>
+                        
+                    </td> 
+                    <td>
+                        
+                    </td>
+                    <td>
+                        
+                    </td>   
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <input type="button" value="Confirmar lote" id="confirmBatchButton"/>
 </div>
 
 <!-- Templates (ponerlos en algun lugar de assets)-->
 <script type="text/template" id="template-inputList">
-	
-  	<%% if (inputs.length > 0) { %>
-	  	  	<%%- total = 0 %>
-	  	  	<%%- iva = 0 %>
-	  	  	<%% _.each(inputs, function(currentInput){ %>
-	  	  		<%%- price = currentInput.type == 'rent' ? Math.round(((currentInput.amount * 0.3) + (currentInput.amount * 0.3 * 0.22))) : currentInput.amount %>
-	  	  		<%%- iva   = iva + ( currentInput.type == 'rent' ? Math.round(currentInput.amount * 0.3 * 0.22) : 0 ) %>
-	  	  		<%%- total = total + parseInt(price) %>
-		  	  	
-		  	  	<tr data-id="<%%- currentInput.id %>">
-		  		 	<td>
-		  		 		<%%- currentInput.getArticleId() %>
-		  		 	</td>
-		  		 	<td> 
-		  		 		<a href="/articles/<%%- currentInput.article %>" target="_blank">
-		  		 			<%%- currentInput.articleData.description %>
-		  		 		</a>
-		  		 	</td>
-		  		 	<td> 
-		  		 		$<%%- price %>
-		  		 	</td>
-		  		 	<td> 
-		  		 		<%%- obtainTransactionType(currentInput.type) %>
-		  		 	</td>
-		  		 	<td class="deleteButton"> 
-		  		 		<img alt="Delete" height="16" src="/assets/delete.png" width="16" class="withPointer">
-		  		 	</td>
-		  		</tr>
-	  	<%% }); %>
-	  			<tr>
-		  			<td>
-		  			</td>
-		  			<td>
-		  			</td>
-		  			<td>
-		  				Total: 
-		  			</td>
-		  			<td>
-		  				$<%%- total %>
-		  			</td>
-		  			<td>
-		  			</td>
-		  		</tr>
-		  		<tr>
-		  			<td>
-		  			</td>
-		  			<td>
-		  			</td>
-		  			<td>
-		  				IVA: 
-		  			</td>
-		  			<td>
-		  				$<%%- iva %>
-		  			</td>
-		  			<td>
-		  			</td>
-		  		</tr>
- 				<tr>
-		  			<td>
-		  			</td>
-		  			<td>
-		  			</td>
-		  			<td>
-		  				Total Excento: 
-		  			</td>
-		  			<td>
-		  				$<%%- total - iva %>
-		  			</td>
-		  			<td>
-		  			</td>
-		  		</tr>
-	  	<%% } else { %>
-	  		<tr>
-	  			<td>
-	  				 No hay articulos en el lote
-	  			</td>
-	  		</tr>	
-	<%% } %>
+    
+    <%% if (inputs.length > 0) { %>
+            <%%- total = 0 %>
+            <%%- iva = 0 %>
+            <%% _.each(inputs, function(currentInput){ %>
+                <%%- price = currentInput.type == 'rent' ? Math.round(((currentInput.amount * 0.3) + (currentInput.amount * 0.3 * 0.22))) : currentInput.amount %>
+                <%%- iva   = iva + ( currentInput.type == 'rent' ? Math.round(currentInput.amount * 0.3 * 0.22) : 0 ) %>
+                <%%- total = total + parseInt(price) %>
+                
+                <tr data-id="<%%- currentInput.id %>">
+                    <td>
+                        <%%- currentInput.getArticleId() %>
+                    </td>
+                    <td> 
+                        <a href="/articles/<%%- currentInput.article %>" target="_blank">
+                            <%%- currentInput.articleData.description %>
+                        </a>
+                    </td>
+                    <td> 
+                        $<%%- price %>
+                    </td>
+                    <td> 
+                        <%%- obtainTransactionType(currentInput.type) %>
+                    </td>
+                    <td class="deleteButton"> 
+                        <img alt="Delete" height="16" src="/assets/delete.png" width="16" class="withPointer">
+                    </td>
+                </tr>
+        <%% }); %>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        Total: 
+                    </td>
+                    <td>
+                        $<%%- total %>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        IVA: 
+                    </td>
+                    <td>
+                        $<%%- iva %>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        Total Excento: 
+                    </td>
+                    <td>
+                        $<%%- total - iva %>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+        <%% } else { %>
+            <tr>
+                <td>
+                     No hay articulos en el lote
+                </td>
+            </tr>   
+    <%% } %>
 </script>

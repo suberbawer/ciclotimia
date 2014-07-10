@@ -101,10 +101,8 @@ class Input < ActiveRecord::Base
 	# Llamado luego de borrarse un input (deja el articulo disponible para ser alquilado o vendido de nuevo).
 	def free_article
 		if self.article
-			puts self.article
 			self.article.status = ""
 			self.article.save()
-			puts self.article
 		end	
 	end
 

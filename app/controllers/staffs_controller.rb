@@ -10,6 +10,7 @@ class StaffsController < ApplicationController
   # GET /staffs/1
   # GET /staffs/1.json
   def show
+    @article_list = @staff.get_staff_articles
   end
 
   # GET /staffs/new
@@ -77,6 +78,6 @@ class StaffsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def staff_params
-      params.require(:staff).permit(:name, :lastname, :productora_id, :phone)
+      params.require(:staff).permit(:name, :lastname, :productora_id, :phone, :email)
     end
 end

@@ -17,7 +17,7 @@ $.validator.addMethod('noDecimal',
 
   function set_required_data() {
     $('#productora_name').addClass('required');
-    $('#productora_address').addClass('required');
+    $('#productora_billing_name').addClass('required');
 
     $('.new_productora').validate({
       rules: {
@@ -48,7 +48,7 @@ $.validator.addMethod('noDecimal',
     </div>
   <% end %>
 
-  <table>
+  <table> 
       <tr class="name">
         <td>
           <%= f.label 'Nombre' %>
@@ -57,12 +57,12 @@ $.validator.addMethod('noDecimal',
           <%= f.text_field :name %>
         </td>
       </tr>
-      <tr class="address">
+      <tr class="billing_name">
         <td>
-          <%= f.label 'Nombre Facturación' %>
+          <%= f.label 'Nombre Factura' %>
         </td>
         <td>
-          <%= f.text_field :address %>
+          <%= f.text_field :billing_name %>
         </td>
       </tr>
       <tr class="rut">

@@ -27,6 +27,7 @@
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Teléfono</th>
+                <th>Correo</th>
                 <th>Productora</th>
                 <th></th>
                 <th></th>
@@ -38,8 +39,9 @@
             <% aux = "" %>
             <% @staffs.each do |staff| %>
                 <% if staff.productora.name != aux %>
-                    <tr>
+                    <tr class="not_searchable">
                         <td><strong>Productora: <%= staff.productora.name %></strong></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -53,6 +55,7 @@
                     <td><%= staff.name %></td>
                     <td><%= staff.lastname %></td>
                     <td><%= staff.phone %></td>
+                    <td><%= staff.email %></td>
                     <td><%= staff.productora.name %></td>
                     <td class="im_col"><%= link_to image_tag('show.png', size: "16x16"), staff %></td>
                     <td class="im_col"><%= link_to image_tag('edit.png', size: "16x16"), edit_staff_path(staff) %></td>

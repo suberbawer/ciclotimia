@@ -26,7 +26,7 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Nombre Facturación</th>
+                <th>Nombre Factura</th>
                 <th>Rut</th>
                 <th></th>
                 <th></th>
@@ -38,7 +38,7 @@
             <% @productoras.each do |productora| %>
             <tr>
                 <td><%= productora.name %></td>
-                <td><%= productora.address %></td>
+                <td><%= productora.billing_name %></td>
                 <td><%= productora.rut %></td>
                 <td class="im_col"><%= link_to image_tag('show.png', size: "16x16"), productora %></td>
                 <td class="im_col"><%= link_to image_tag('edit.png', size: "16x16"), edit_productora_path(productora) %></td>

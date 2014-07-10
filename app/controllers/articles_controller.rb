@@ -116,15 +116,9 @@ class ArticlesController < ApplicationController
     @total     = Report.total_amount(new_inputs)
     @iva       = @total * 0.22
     @subtotal  = @total - @iva
-    render :partial => 'actual_billing_rent', :content_type => 'text/html'
-  end
-
-  def test
-    new_inputs = Input.where(id:params[:inputs])
-    puts new_inputs
-    @total     = Report.total_amount(new_inputs)
-    @iva       = @total * 0.22
-    @subtotal  = @total - @iva
+    @rut       = new_inputs[0].staff_id.nil? ? '' : Staff.find_by_id(new_inputs[0].staff_id).productora.rut
+    @prod      = new_inputs[0].staff_id.nil? ? '' : Staff.find_by_id(new_inputs[0].staff_id).productora.billing_name
+    
     render :partial => 'actual_billing_rent', :content_type => 'text/html'
   end
 
