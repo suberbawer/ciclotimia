@@ -5,6 +5,17 @@
     }
 </style>
 
+<div class="modalBackgroundReprint">
+    <div id="newInputPopup" >
+        
+        <div id="articleDetailContainerReprint">
+
+        </div>
+
+    </div>
+
+</div>
+
 <h3>Caja Anterior</h3>
     <% if !@isclosed %>
         <p>$ <%= @last_caja_total %></p>
@@ -35,7 +46,7 @@
             <tbody>
                 <% if @today_inputs.length > 0 %>
                         <% @today_inputs.each do |transaction|  %>
-                            <tr>
+                            <tr id="<%= transaction.article ? transaction.article.id : transaction.article_id %>">
                                 <td><%= transaction.article ? transaction.article.id : transaction.article_id %></td>
                                 <td>$<%= transaction.amount %></td>
                                 <td><% if transaction.comission_per %> 
@@ -56,7 +67,8 @@
                                 <td><%= l transaction.created_at %></td>
                                 <td>
                                 <% if transaction.status == "active" && %>
-                                    <%= check_box_tag 'inputs[]', transaction.id %>
+                                    <!-- here set correct staff-id -->
+                                    <%= check_box_tag 'inputs[]', transaction.id, false, data: { "input-type" => transaction.type, "staff-id" => transaction.id }, :class => 'inputCheckbox' %>
                                 <% end %>
                                 </td>
                                 <% if transaction.status == "active" %> 
@@ -78,7 +90,14 @@
             </tbody>    
         </table>
     </div>
-    <%= submit_tag 'Reimprimir transacciones seleccionadas', :disable_with => 'Espere', :class => 'submit c-submit collect' %>
+    <div id="submitSalesContainer" class="hide">
+        <%= submit_tag 'Reimprimir ventas seleccionadas', :disable_with => 'Espere', :class => 'submit c-submit collect' %>
+    </div>
+
+    <div id="submitRentsContainer" class="hide">
+         <input type="button" value="Reimprimir alquileres seleccionadas" id="printRents" class="submit c-submit collect"/>
+    </div>
+
 <% end %>
 <strong>Total ingresos: $<%= @today_inputs_total %></strong>
 
