@@ -100,7 +100,7 @@
     overflow-y: auto; 
 }
 /* Botones */
-body input[type="button"], button{
+body input[type="button"], #submitSalesContainer > input[type="submit"], button {
     width: 100%;
     background: #5555dd;
     -webkit-border-radius: 3px;
@@ -110,4 +110,9 @@ body input[type="button"], button{
     margin-top: 10px;
     color: white;
     padding: 5px 0;
+}
+
+.reprintContainer{
+	width: 250px;
+	float: right;
 }

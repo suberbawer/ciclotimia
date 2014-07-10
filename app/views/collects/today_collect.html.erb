@@ -90,12 +90,14 @@
             </tbody>    
         </table>
     </div>
-    <div id="submitSalesContainer" class="hide">
-        <%= submit_tag 'Reimprimir ventas seleccionadas', :disable_with => 'Espere', :class => 'submit c-submit collect' %>
-    </div>
+    <div class="reprintContainer">
+        <div id="submitSalesContainer" class="hide">
+            <%= submit_tag 'Reimprimir ventas seleccionadas', :disable_with => 'Espere', :class => 'submit c-submit collect' %>
+        </div>
 
-    <div id="submitRentsContainer" class="hide">
-         <input type="button" value="Reimprimir alquileres seleccionadas" id="printRents" class="submit c-submit collect"/>
+        <div id="submitRentsContainer" class="hide">
+             <input type="button" value="Reimprimir alquileres seleccionadas" id="printRents" class="submit c-submit collect"/>
+        </div>
     </div>
 
 <% end %>
