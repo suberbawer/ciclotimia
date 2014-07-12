@@ -212,18 +212,20 @@ $(document).ready(function(){
                                 inType = $('#type_rent').prop('checked') ? 'rent' : 'sale';
                             }
 
-                            if ($('#type_rent').prop('checked') && inputCollection.inputList.length == 0 &&
-                                $('.articleData').attr('class') != undefined) {
-                                
-                                self.showProductoras();
-                                self.hideStaffContainer();
-                            } else {
-                                // Si no es el primer articulo entonces le seteo a todos el mismo vestuarista
-                                if (inputCollection.inputList.length != 0) {
-                                    self.setStaffId(staffId);
+                            if ($('.articleData').attr('class') != undefined) {
+                                if ($('#type_rent').prop('checked')) {
+                                    
+                                    if (inputCollection.inputList.length == 0) {
+                                        self.showProductoras();
+                                        self.hideStaffContainer();
+                                    // Si no es el primer articulo entonces le seteo a todos el mismo vestuarista
+                                    } else {
+                                        self.setStaffId(staffId);
+                                    }
+                                } else {
+                                    self.hideProductoras();
+                                    self.hideStaffContainer();
                                 }
-                                self.hideProductoras();
-                                self.hideStaffContainer();
                             }
                         }
                     });
