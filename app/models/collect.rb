@@ -88,7 +88,12 @@ class Collect < Caja
 		today_cajas   = self.get_today_cajas
 		today_inputs  = []
 		today_cajas.each do |today_caja|
-		   today_inputs.concat( today_caja.inputs )
+			today_caja.inputs.each do |input|
+				if input.type != 'Rent' || input.type == 'Rent' && input.amount != 0
+					today_inputs.push( input )
+				end
+			end
+		   	
 		end
 		return today_inputs 
 	end

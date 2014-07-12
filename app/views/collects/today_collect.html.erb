@@ -3,7 +3,17 @@
         text-align: right;
         padding-right: 30px;
     }
+    
+    a, a:visited {
+        color:#333;
+    }
 </style>
+<script>
+    $(document).ready(function(){
+        $('table.inputTable').sieve();
+        $('table.outputTable').sieve();
+    });
+</script>
 
 <div class="modalBackgroundReprint">
     <div id="newInputPopup" >
@@ -38,6 +48,7 @@
                         <th>Ganancia Neta</th>
                         <th>Descripción</th>
                         <th>Tipo</th>
+                        <th>Vestuarista</th>
                         <th>Creado</th>
                         <th>Reimprimir</th>
                         <th></th>
@@ -64,6 +75,7 @@
                                     <%= transaction.article_desc %>
                                 </td>
                                 <td><%= transaction.obtain_human_label %></td>
+                                <td><%= transaction.staff ? (link_to transaction.staff.name + ' ' + transaction.staff.lastname, transaction.staff) : '-' %></td>
                                 <td><%= l transaction.created_at %></td>
                                 <td>
                                 <% if transaction.status == "active" && %>
