@@ -92,8 +92,8 @@
                     <% total     = 0 %>
                     <% (provider.instance_variable_get "@custom_input_list").each do |input| %>
                         <% sub_total = sub_total + input.amount %>
-                        <% total     = total + (input.amount - input.comission_cash.to_i) %>
                     <% end %>
+                    <% total = sub_total - (sub_total * 0.35 + sub_total * 0.35 * 0.22).round %>
                     <tr class="border_bottom">
                         <td class="codigo"><%= provider.id %></td>
                         <td class="name"><%= provider.name %> <%= provider.lastname %></td>
