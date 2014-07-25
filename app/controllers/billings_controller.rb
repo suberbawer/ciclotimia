@@ -63,7 +63,7 @@ class BillingsController < ApplicationController
 			parcial = 0
 
 			(provider.instance_variable_get "@custom_input_list").each do |input|
-				parcial += input.amount.to_i - input.comission_cash.to_i
+				parcial += (input.amount.to_i - (input.amount * 0.35 + input.amount * 0.35 * 0.22)).round
 			end
 			
 			@total += parcial
