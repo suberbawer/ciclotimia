@@ -66,8 +66,8 @@
 						<td>$<%= input.comission_cash %></td>
 					</tr>
 					<% sub_total = sub_total + input.amount %>
-					<% total     = total + (input.amount - input.comission_cash.to_i) %>
 				<% end %>
+				<% total = (sub_total * 0.35 + sub_total * 0.35 * 0.22).round %>
 				<tr>
 					<td></td>
 					<td></td>
@@ -90,7 +90,7 @@
 					<td></td>
 					<td></td>
 					<td>Comisión + iva:</td>
-					<td>$<%= sub_total - total %></td>
+					<td>$<%= total %></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -98,7 +98,7 @@
 					<td></td>
 					<td></td>
 					<td>Total Neto:</td>
-					<td>$<%= total %></td>
+					<td>$<%= sub_total - total %></td>
 				</tr>
 			</tbody>
 		</table>
