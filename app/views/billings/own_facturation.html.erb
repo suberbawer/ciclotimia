@@ -64,7 +64,7 @@
 				<% end %>
 				<tr>
 					<td>Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
-					<td>$<%= (total * 0.35 + total * 0.35 * 0.22).round %></td>
+					<td>$<%= (total * 0.35).round %></td>
 				</tr>
 				<tr>
 					<td class="right">SUB TOTAL</td>
@@ -119,7 +119,7 @@
 						<% end %>
 						<tr class="tableTrData">
 							<td class="tableData">Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
-							<td>$<%= (total * 0.35 + total * 0.35 * 0.22).round %></td>
+							<td>$<%= (total * 0.35).round %></td>
 						</tr>
 					</tbody>
 				</table>
@@ -175,7 +175,7 @@
 						<% end %>
 						<tr class="tableTrData">
 							<td class="tableData">Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
-							<td>$<%= (total * 0.35 + total * 0.35 * 0.22).round %></td>
+							<td>$<%= (total * 0.35).round %></td>
 						</tr>
 					</tbody>
 				</table>
