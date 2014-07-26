@@ -4,8 +4,8 @@ class OtherInput < Input
 		self[:amount]  		  = input_data[:amount]
 		self[:comission_per]  = 100
 		self[:concept] 		  = input_data[:concept]
-		self[:article_desc]   = article.description
-        self[:article_id]     = article.id
+		self[:article_desc]   = input_data[:article_desc]
+        self[:article_id]     = input_data[:article_id]
 	end
 
 	def obtain_human_label
