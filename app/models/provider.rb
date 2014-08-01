@@ -9,7 +9,7 @@ class Provider < ActiveRecord::Base
 	end
 
 	def set_inputs(list_inputs)
-		instance_variable_set("@custom_input_list", list_inputs.find_all{|input| input.status != 'cancelled' && input.status != 'cancel_input' && input.article.provider.id == self.id})
+		instance_variable_set("@custom_input_list", list_inputs.find_all{|input| input.status != 'cancelled' && input.status != 'cancel_input' && !input.article.nil? && input.article.provider.id == self.id})
 		instance_variable_get "@custom_input_list"
 	end
 
