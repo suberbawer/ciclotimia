@@ -13,7 +13,7 @@
 
 <%= form_tag(controller: "article", action: "show", method: "get", :remote => true, :'data-update-target' => 'update-amount-container') do%>
 
-	<%= label_tag(:article_id, "Ingresar articulo") %>
+	<%= label_tag(:article_id, "Ingresar artículo") %>
 	<%= text_field_tag(:article_id) %>
 
 	<%= submit_tag 'Submit', :disable_with => 'Please wait...', :class => 'submit' %>

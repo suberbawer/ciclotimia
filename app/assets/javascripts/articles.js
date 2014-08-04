@@ -5,7 +5,7 @@ $(document).ready(function(){
 		var amount; 							// Monto (por defecto).
 		var description = '';
 
-	    var _articleContainer  = $('#articleDetailContainer');	// Contenedor del detalle del articulo.
+	    var _articleContainer  = $('#articleDetailContainer');	// Contenedor del detalle del artículo.
 	    var _modalBackground   = $('.modalBackground');
 	    var _formContainer     = $('#returnFormContainer');			// Container of the form.
 		var _articleId         = $('#returnArticleId');
@@ -13,7 +13,7 @@ $(document).ready(function(){
 
 	    /**
 	     *	Metodo encargado de mostrar o esconder el form container.
-	     *	(depende de el estado del articulo).
+	     *	(depende de el estado del artículo).
 	     */
 	    var showFormContainer = function(relatedArticle){
 	    	if (relatedArticle.data('status') == null) {
@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 	    return {
 	    	/**
-		     *	Traigo los detalles del articulo de {this}.
+		     *	Traigo los detalles del artículo de {this}.
 		     */
 	    	retrieveArticleData: function(){
 				$.ajax({
@@ -42,7 +42,7 @@ $(document).ready(function(){
 						description  	   = $(articlePartial[1]).find('#selectedDescription').text();
 						type 			   = $(articlePartial[1]).find('#selectedType').text();
 						_articleId.val('');
-						_articleContainer.html(data); 	// Muestro detalle del articulo seleccionado...
+						_articleContainer.html(data); 	// Muestro detalle del artículo seleccionado...
 						showFormContainer($('.articleData'));
 						_modalBackground.show();
 					}
@@ -68,7 +68,7 @@ $(document).ready(function(){
 	}
 
 	/**
-	 *	Coleccion de articulos. 
+	 *	Coleccion de artículos. 
 	 */
 	function ArticleCollection()
 	{
@@ -77,7 +77,7 @@ $(document).ready(function(){
 		var _articleId              = $('#returnArticleId');
 		var _returnRentedArticle    = $('#returnRentedArticle');
 		var _articleDetailContainer = $('#articleDetailContainer');
-		var _articleListContainer   = $('.articleCollectionTable'); // Contenedor de los articulos en el lote.
+		var _articleListContainer   = $('.articleCollectionTable'); // Contenedor de los artículos en el lote.
 		var _modalBackground        = $('.modalBackground');
 		var _devolutionContainer    = $('#devolutionContainer');
 		var _returnBatchButton      = $('#returnBatchButton');
@@ -88,7 +88,7 @@ $(document).ready(function(){
 		var articles = [];
 
 		/**
-	     *	Refresco lista de articulos.
+	     *	Refresco lista de artículos.
 	     */
 	    var refreshArticleList = function(){
 	    	_articleListContainer.find('tbody').html(_.template(_templateArticleList, {articles : articles}));
@@ -143,23 +143,26 @@ $(document).ready(function(){
 		}
 
 		_returnSoldButton.on('click', function() {
-	    	alert('ta seguro?');
 	    	if (_articleId.val() != '' && _articleId.val() != undefined) {
 				$.ajax({
-					url      : '/articles/devolution_article',
+					url      : '/articles/sold_devolution_article',
  					type     : "POST",
 					dataType : 'html',
 					data     : { 'article_id' : _articleId.val() },
 					success:function(data){
+						data = JSON.parse(data);
 						console.log(data);
-						if (data.message && !(data.message.length > 0)) {
-							new Messi('dfasdfasdfasdfasd', {title: 'Información', modal: true});
+						console.log(data.message.length);
+						if (data.message && data.message.length > 0) {
+							window.location.reload();
+						} else {
+							new Messi('No se ingresó ningún artículo en venta, verifique', {title: 'Información', modal: true});
 						}
 					}
 				});
 			}
 			else{
-				new Messi('No hay articulos a devolver', {title: 'Información', modal: true});
+				new Messi('No hay artículos a devolver', {title: 'Información', modal: true});
 			}
 	    });
 
@@ -199,7 +202,7 @@ $(document).ready(function(){
 				});
 			}
 			else{
-				new Messi('No hay articulos a devolver', {title: 'Información', modal: true});
+				new Messi('No hay artículos a devolver', {title: 'Información', modal: true});
 			}
 
 		});
@@ -240,7 +243,7 @@ $(document).ready(function(){
 				});
 			}
 			else{
-				new Messi('No hay articulos a devolver', {title: 'Información', modal: true});
+				new Messi('No hay artículos a devolver', {title: 'Información', modal: true});
 			}
 		});
 
@@ -258,6 +261,6 @@ $(document).ready(function(){
 		}
 	}
 
-	// Creo nuevo listado de articulos (se comienza un lote).
+	// Creo nuevo listado de artículos (se comienza un lote).
 	articleCollection = new ArticleCollection();
 });

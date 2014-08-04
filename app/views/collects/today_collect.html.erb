@@ -137,7 +137,7 @@
                             <td>$<%= transaction.amount %></td>
                             <td>
                                 <% if transaction.article.present? %>
-                                    <!--  El transaction tiene articulo, asi que mostramos su descripcion -->
+                                    <!--  El transaction tiene artículo, asi que mostramos su descripcion -->
                                     <a href="/articles/<%= transaction.article.id %>">
                                         <%= transaction.article.description %>
                                     </a>

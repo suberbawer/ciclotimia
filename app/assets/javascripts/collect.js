@@ -61,7 +61,7 @@ $(document).on('click', '#printRents', function(){
 		});
 	}
 	else{
-		new Messi('No hay articulos a devolver', {title: 'Información', modal: true});
+		new Messi('No hay artículos a devolver', {title: 'Información', modal: true});
 	}
 });
 

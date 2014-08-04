@@ -35,7 +35,8 @@ function toggleActiveOption(url){
 			url.toLowerCase().indexOf('articles/filter_debtors') > -1 ||
 			url.toLowerCase().indexOf('articles/devolution') > -1) {
 		$('.rents').addClass('active');
-	} else if (url.toLowerCase().indexOf('articles') > -1) {
+	} else if (url.toLowerCase().indexOf('articles') > -1 || 
+			url.toLowerCase().indexOf('articles/sold_devolution_article') > -1) {
 		$('.articles').addClass('active');
 	} else if (url.toLowerCase().indexOf('sales') > -1) {
 		$('.sales').addClass('active');

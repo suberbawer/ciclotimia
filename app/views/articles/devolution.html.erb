@@ -1,31 +1,8 @@
 <script>
-// Change message of required validation
-jQuery.extend(jQuery.validator.messages, {
-    required: "Este campo es requerido."
-});
-
-$.validator.addMethod('number',
-    function (value) { 
-        return  Number(value);
-    }, 'Por favor ingresa un número');
-
-$.validator.addMethod('positiveNumber',
-        function (value) { 
-            return Number(value) > 0;
-        }, 'Por favor ingresa un valor positivo');
 
 $(document).ready(function(){
     makeEnterClick();
     focusCursorOnInput();
-	$('.devolution_article').validate({
-        rules: {
-            'article_id': {
-                required: true,
-                number: true,
-                positiveNumber: true
-            }
-        }
-    });
     disableBillingButton();
 });
 
@@ -94,9 +71,9 @@ function disableBillingButton() {
 
 </div>
 
-<div id="devolutionContainer">
+<div id="devolutionContainer" class="tete">
 
-    <input type="text" id="returnArticleId" />
+    <input type="text" id="returnArticleId"/>
     <input type="button" value="Devolver" id="newReturnButton"/>
 
     <div id="table_container">
@@ -113,7 +90,7 @@ function disableBillingButton() {
             <tbody>
                 <tr>
                     <td>
-                        No hay articulos en el lote
+                        No hay artículos en el lote
                     </td>
                     <td>
                         
@@ -164,7 +141,7 @@ function disableBillingButton() {
         } else { %>
             <tr>
                 <td>
-                     No hay articulos en el lote
+                     No hay artículos en el lote
                 </td>
             </tr>   
     <%% } %>

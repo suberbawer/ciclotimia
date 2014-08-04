@@ -4,8 +4,8 @@ Ciclotimia::Application.routes.draw do
     post "staffs/fetch_staff_by_productora"
 
   resources :productoras
-    get "articles/devolution_article"
-    post "articles/devolution_article"
+    get "articles/sold_devolution_article"
+    post "articles/sold_devolution_article"
 
     get "articles/devolution"
     post "articles/devolution"

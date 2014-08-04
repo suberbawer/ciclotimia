@@ -72,7 +72,7 @@ class Rent < Input
                     # Salvo el nuevo input
                     new_input.save
                 
-                    # Cambio la relacion del articulo con el input
+                    # Cambio la relacion del artículo con el input
                     article.input_id = new_input.id
                     article.status   = ""
                     article.save

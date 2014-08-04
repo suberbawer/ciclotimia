@@ -93,7 +93,7 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def devolution_article
+  def sold_devolution_article
     if request.post?
         begin
             article_to_return = Article.find(params['article_id'])
@@ -111,7 +111,7 @@ class ArticlesController < ApplicationController
         end
         render json: {message: returned}
         flash[:notice] = returned
-    end
+      end
   end
   
   def fetch_data

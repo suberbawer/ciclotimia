@@ -9,7 +9,7 @@ $(document).ready(function(){
      */
     function Input()
     {
-        this._articleContainer  = $('#articleDetailContainer'); // Contenedor del detalle del articulo.
+        this._articleContainer  = $('#articleDetailContainer'); // Contenedor del detalle del artículo.
         this._prodContainer     = $('#productorasContainer');
         this._staffContainer    = $('#staffContainer');
         this._modalBackground   = $('.modalBackground');
@@ -118,7 +118,7 @@ $(document).ready(function(){
 
         /**
          *  Metodo encargado de mostrar o esconder el form container.
-         *  (depende de el estado del articulo).
+         *  (depende de el estado del artículo).
          */
         this.showFormContainer = function(relatedArticle){
             if (relatedArticle.data('status') == null) {
@@ -186,7 +186,7 @@ $(document).ready(function(){
         }
 
         /**
-         *  Traigo los detalles del articulo de {this}.
+         *  Traigo los detalles del artículo de {this}.
          */
         this.retrieveArticleData = function(){
             if (this.hasArticle()) {
@@ -198,7 +198,7 @@ $(document).ready(function(){
                         dataType : 'html',
                         data     : { 'id' : self.getArticleId() },
                         success:function(data){
-                            self._articleContainer.html(data);  // Muestro detalle del articulo seleccionado...
+                            self._articleContainer.html(data);  // Muestro detalle del artículo seleccionado...
                             self.showFormContainer($('.articleData'));
                             self._modalBackground.show();       // ... y muestro popup de la venta.
                             self.makeConfirmClick('#selectedAmount', '#confirmInput');
@@ -218,7 +218,7 @@ $(document).ready(function(){
                                     if (inputCollection.inputList.length == 0) {
                                         self.showProductoras();
                                         self.hideStaffContainer();
-                                    // Si no es el primer articulo entonces le seteo a todos el mismo vestuarista
+                                    // Si no es el primer artículo entonces le seteo a todos el mismo vestuarista
                                     } else {
                                         self.setStaffId(staffId);
                                     }
@@ -300,7 +300,7 @@ $(document).ready(function(){
 
         // Listeners
 
-        // Usuario cambia articulo a referenciar.
+        // Usuario cambia artículo a referenciar.
         this._articleId.on('blur', function(e){
             var articleId = $(e.currentTarget).val();
             self.setArticleId(articleId);
@@ -319,7 +319,7 @@ $(document).ready(function(){
             if (type == 'rent') {
                 if (inputCollection.inputList.length == 0) {
                     self.showProductoras();
-                // Si no es el primer articulo entonces le seteo a todos el mismo vestuarista
+                // Si no es el primer artículo entonces le seteo a todos el mismo vestuarista
                 } else {
                     self.setStaffId(staffId);
                 }
@@ -347,7 +347,7 @@ $(document).ready(function(){
         this.templateInputList   = $("#template-inputList").html();
         this.lastInputId         = 0;                         // Indice del ultimo input creado (puede haber sido borrado) del lote.
 
-        this._articleId          = $('#articleInputId');      // Input text (codigo de barras) del articulo.
+        this._articleId          = $('#articleInputId');      // Input text (codigo de barras) del artículo.
         this._newInputButton     = $('#newInputButton');      // Boton para agregar nuevo input popup (tb bindear cuando lee codigo de barras o da enter). 
         this._confirmButton      = $('#confirmInput');        // Boton para confirmar insertar el input.
         this._confirmBatchButton = $('#confirmBatchButton');  // Confirma agregar lote.
@@ -425,8 +425,8 @@ $(document).ready(function(){
          */
         this.insertInput = function() {
             this.currentInput.hideStaffContainer();
-            var relatedArticle = $('.articleData');                     // Obtengo los datos del articulo... 
-            this.currentInput.setArticle(relatedArticle);               // ... y seteo los datos del articulo en el input actual.
+            var relatedArticle = $('.articleData');                     // Obtengo los datos del artículo... 
+            this.currentInput.setArticle(relatedArticle);               // ... y seteo los datos del artículo en el input actual.
             var clonedInput    = $.extend(true, {}, this.currentInput); // Clono el objeto a guardar para evitar inconsistencias.  
             this.inputList.push(clonedInput);
             this._modalBackground.hide();
@@ -503,9 +503,9 @@ $(document).ready(function(){
         this._newInputButton.on('click', function(){
             self.currentInput = new Input();            // Creo nuevo input...
             self.setNewInputId();                       // ... seteo id del nuevo input...
-            var articleId = self._articleId.val();      // ... obtengo el id del articulo seleccionado...
-            self.currentInput.setArticleId(articleId);  // ... seteo el articulo...
-            self.currentInput.retrieveArticleData();    // ... y traigo el detalle del articulo.
+            var articleId = self._articleId.val();      // ... obtengo el id del artículo seleccionado...
+            self.currentInput.setArticleId(articleId);  // ... seteo el artículo...
+            self.currentInput.retrieveArticleData();    // ... y traigo el detalle del artículo.
         });
 
         // Usuario confirma ingresar el input.
@@ -548,7 +548,7 @@ $(document).ready(function(){
 
         $('.modalBackground:not(.modalBackground#newInputPopup)').on('click', function(e){
             if (e.target === e.currentTarget) {
-                // Esta dando click fuera del detalle del articulo, quiere cerrar el popup.
+                // Esta dando click fuera del detalle del artículo, quiere cerrar el popup.
                 $('.modalBackground').hide();
             }
         });

@@ -2,7 +2,7 @@ class Staff < ActiveRecord::Base
 	belongs_to :productora
 	has_many   :input
 	
-	# Devuelve los articulos alquilados por el vestuarista
+	# Devuelve los artículos alquilados por el vestuarista
 	def get_staff_articles
 		staff_articles = Array.new
 		self.input.each do |input|

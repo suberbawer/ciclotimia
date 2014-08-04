@@ -1,0 +1,43 @@
+<script>
+$(document).ready(function(){
+    makeEnterClick();
+    focusCursorOnInput();
+});
+
+function makeEnterClick() {
+    $('#returnArticleId').keypress(function (e) {
+        var key = e.which;
+        if(key == 13) {
+            $('#newReturnSoldButton').click();
+            return false;  
+        }
+    });
+}
+
+function focusCursorOnInput() {
+    $('#returnArticleId').focus();
+}
+
+</script>
+
+<style>
+    #newReturnSoldButton {
+        width:100px;
+    }
+
+    #returnArticleId{
+        height: 23px;
+        width: 10%;
+    }
+
+</style>
+
+<h3>Devolucion de artículos comprados dentro del mismo mes</h3>
+
+<p id="notice"><%= notice %></p>
+
+<div id="devolutionContainer">
+
+    <input type="text" id="returnArticleId" />
+    <input type="button" value="Devolver" id="newReturnSoldButton"/>
+</div>
