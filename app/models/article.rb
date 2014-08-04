@@ -60,6 +60,31 @@ class Article < ActiveRecord::Base
         return false    
     end
 
+    def return_sold_article
+        if !self.input.nil?
+            if self.input.created_at.year == Time.now.year && self.input.created_at.month == Time.now.month 
+                if self.status == "sold"
+                    self.status = ""
+                    self.save
+                    return ''
+                else
+                   return 'El artículo seleccionado no se encuentra vendido'
+                end
+            else
+                return 'El mes de cambio a finalizado, fecha de compra: '+self.input.created_at.to_s
+            end
+        else
+            return 'El artículo seleccionado no tiene un ingreso relacionado'
+        end
+    end
+
+    def destroy_input_related
+        if !self.input.nil?
+            return self.input.destroy
+        end
+        return false
+    end
+
     def is_rented
         return self.status == 'rented'
     end

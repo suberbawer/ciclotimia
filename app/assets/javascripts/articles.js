@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 	function Article(_id){
 	    
 	    var id = _id;							// Id (client side) del article.
@@ -10,7 +9,8 @@ $(document).ready(function(){
 	    var _modalBackground   = $('.modalBackground');
 	    var _formContainer     = $('#returnFormContainer');			// Container of the form.
 		var _articleId         = $('#returnArticleId');
-	    
+	    var _returnSoldButton  = $('#newReturnSoldButton');
+
 	    /**
 	     *	Metodo encargado de mostrar o esconder el form container.
 	     *	(depende de el estado del articulo).
@@ -83,6 +83,7 @@ $(document).ready(function(){
 		var _returnBatchButton      = $('#returnBatchButton');
 		var _returnBatchButtonBill  = $('#returnBatchButtonBilling');
 		var _deleteButton			= $('.deleteButton');
+	    var _returnSoldButton  		= $('#newReturnSoldButton');
 		var article;
 		var articles = [];
 
@@ -140,6 +141,27 @@ $(document).ready(function(){
     			button.addClass('disabled');
 
 		}
+
+		_returnSoldButton.on('click', function() {
+	    	alert('ta seguro?');
+	    	if (_articleId.val() != '' && _articleId.val() != undefined) {
+				$.ajax({
+					url      : '/articles/devolution_article',
+ 					type     : "POST",
+					dataType : 'html',
+					data     : { 'article_id' : _articleId.val() },
+					success:function(data){
+						console.log(data);
+						if (data.message && !(data.message.length > 0)) {
+							new Messi('dfasdfasdfasdfasd', {title: 'Información', modal: true});
+						}
+					}
+				});
+			}
+			else{
+				new Messi('No hay articulos a devolver', {title: 'Información', modal: true});
+			}
+	    });
 
 		_newReturnButton.on('click', function(){
 			var articleId = _articleId.val();

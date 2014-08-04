@@ -92,6 +92,27 @@ class ArticlesController < ApplicationController
         end    
     end
   end
+
+  def devolution_article
+    if request.post?
+        begin
+            article_to_return = Article.find(params['article_id'])
+                        
+            returned = article_to_return.return_sold_article
+            
+            if returned == ''
+                if article_to_return.destroy_input_related
+                  returned = "El artículo se devolvió correctamente"
+                end
+            end
+        
+        rescue ActiveRecord::RecordNotFound
+            returned = "No hay artículos con ese id"
+        end
+        render json: {message: returned}
+        flash[:notice] = returned
+    end
+  end
   
   def fetch_data
     @article = Article.find_by_id(params[:id])

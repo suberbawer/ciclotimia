@@ -17,7 +17,7 @@ class InputsController < ApplicationController
 
 	    respond_to do |format|
 	      if @input.save
-	        format.html { redirect_to @input, notice: 'Input was successfully created.' }
+	        format.html { redirect_to @input, notice: 'El ingreso fue creado correctamente' }
 	        format.json { render action: 'show', status: :created, location: @input }
 	      else
 	        format.html { render action: 'new' }

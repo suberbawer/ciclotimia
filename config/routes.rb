@@ -4,22 +4,24 @@ Ciclotimia::Application.routes.draw do
     post "staffs/fetch_staff_by_productora"
 
   resources :productoras
+    get "articles/devolution_article"
+    post "articles/devolution_article"
 
-  get "articles/devolution"
-  post "articles/devolution"
+    get "articles/devolution"
+    post "articles/devolution"
 
-  get "articles/debtors"
+    get "articles/debtors"
 
-  get "reports/index"
-  post "reports/index"
+    get "reports/index"
+    post "reports/index"
 
-  get "billings/index"
-  post "billings/send_billing_monthly"
-  get "billings/own_facturation"
-  get "billings/rent_facturation"
-  get "billings/provider_month_total"
+    get "billings/index"
+    post "billings/send_billing_monthly"
+    get "billings/own_facturation"
+    get "billings/rent_facturation"
+    get "billings/provider_month_total"
 
-  post "search/index"
+    post "search/index"
 
   resources :reports
 

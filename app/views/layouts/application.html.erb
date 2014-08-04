@@ -30,10 +30,13 @@
 
 
         <li class='articles has-sub'>
-            <%= link_to 'Articulos', articles_path, :method => "get" %>
+            <%= link_to 'Artículos', articles_path, :method => "get" %>
             <ul>
                 <li>
-                    <%= link_to 'Nuevo Articulo', new_article_path, :method => "get" %>
+                    <%= link_to 'Nuevo Artículo', new_article_path, :method => "get" %>
+                </li>
+                <li>
+                    <%= link_to 'Devolución de Artículo', '/articles/devolution_article', :method => "get" %>
                 </li>
             </ul>
         </li>
