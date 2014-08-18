@@ -58,16 +58,15 @@ class BillingsController < ApplicationController
 		@dos 	 = 0
 		@uno 	 = 0
 		@total   = 0
-		total    = 0
 		
 		list_providers.each do |provider|
 			parcial = 0
 			(provider.instance_variable_get "@custom_input_list").each do |input|
-				parcial += (input.amount.to_i - (input.amount * 0.35 + input.amount * 0.35 * 0.22))
+				parcial += input.amount.to_i
 			end
 
-			total  += parcial
-			parcial = parcial.round
+			parcial = parcial - (parcial * 0.35 + parcial * 0.35 * 0.22).round
+			@total  += parcial
 			
 			if parcial >= 1000
 				@mil = @mil + (parcial.to_f / 1000).to_i
@@ -119,7 +118,5 @@ class BillingsController < ApplicationController
 				parcial = parcial - (parcial.to_f / 1).to_i * 1
 			end
 		end
-		@total = total.round
-
 	end
 end
