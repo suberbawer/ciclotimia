@@ -53,6 +53,35 @@ class Report < Caja
 		return total_amount
 	end
 
+	def self.total_alquiler_amount(list_transactions)
+		aux = 0;
+		total_amount = 0;
+		list_transactions.each do |transaction|
+			aux = (transaction.future_amount.to_i * 0.3) + (transaction.future_amount.to_i * 0.3 * 0.22)
+			total_amount = aux + total_amount
+		end
+
+		return total_amount
+	end
+
+	def self.total_iva_rent(list_transactions)
+		total_iva = 0;
+		list_transactions.each do |transaction|
+			total_iva += (transaction.future_amount.to_i * 0.3 * 0.22)
+		end
+
+		return total_iva
+	end
+
+	def self.total_excent_rent(list_transactions)
+		total_excent = 0
+		list_transactions.each do |transaction|
+			total_excent += (transaction.future_amount.to_i * 0.3)
+		end
+
+		return total_excent
+	end
+
 	def self.total_liquid(list_transactions)
 		aux = 0;
 		total_liquid = 0;

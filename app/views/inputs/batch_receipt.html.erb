@@ -67,14 +67,14 @@
             <% excent         = 0 %>
             
             <% @new_inputs.each do |input| %>
-                <% future = ((input.future_amount.to_i * 0.3) + (input.future_amount.to_i * 0.3 * 0.22)).round %>
+                <% future = (input.future_amount.to_i * 0.3) + (input.future_amount.to_i * 0.3 * 0.22) %>
                 <tr>
                     <td class="left"><%= input.article ? input.article.id : input.article_id %></td>
                 	<td class="left"><%= input.article ? input.article.description : input.article_desc %></td>
                 	<td class="right">$<%= input.type == 'Rent' ? input.future_amount : input.amount %></td>
                     <% if input.type == 'Rent'%>
                         <% rent = true %>
-                        <td id="rent" class="right">$<%= future %></td>
+                        <td id="rent" class="right">$<%= future.round %></td>
                         <script type="text/javascript">
                             if ($('#rent_head').attr('id') == undefined) {
                                 $('#head').append('<td id="rent_head" class="right"><strong>Precio Alquiler</strong></td>');
@@ -84,8 +84,8 @@
                 </tr>
                 <% if rent %>
                     <% total_alquiler += future %>
-                    <% iva            += (input.future_amount.to_i * 0.3 * 0.22).round %>
-                    <% excent         += (input.future_amount.to_i * 0.3).round %>
+                    <% iva            += input.future_amount.to_i * 0.3 * 0.22 %>
+                    <% excent         += input.future_amount.to_i * 0.3 %>
                 <% end %>
                 <% total += input.type == 'Rent' ? input.future_amount.to_i : input.amount %>
             <% end %>
@@ -97,20 +97,20 @@
                 <% else %>
                     <td class="right">Total:</td>
                 <% end %>
-                <td class="right">$<%= total %></td>
+                <td class="right">$<%= total.round %></td>
             </tr>
             <% if rent %>
                 <tr id='iva'>
                     <td class="left"></td>
                     <td class="left"></td>
                     <td class="right">IVA:</td>
-                    <td class="right">$<%= iva %></td>
+                    <td class="right">$<%= iva.round %></td>
                 </tr>
                 <tr id='excent'>
                     <td class="left"></td>
                     <td class="left"></td>
                     <td class="right">Total Excento:</td>
-                    <td class="right">$<%= excent %></td>
+                    <td class="right">$<%= excent.round %></td>
                 </tr>
             <% end %>
             <tr id="total_ex">
@@ -119,10 +119,10 @@
                 <% if rent %>
                     <td class="left"></td>
                     <td class="right">Total Alquiler:</td>
-                    <td class="right">$<%= total_alquiler %></td>
+                    <td class="right">$<%= total_alquiler.round %></td>
                 <% else %>
                     <td class="right">Total Excento:</td>
-                    <td class="right">$<%= total %></td>
+                    <td class="right">$<%= total.round %></td>
                 <% end %>
             </tr>
         </tbody>

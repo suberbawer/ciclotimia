@@ -134,9 +134,9 @@ class ArticlesController < ApplicationController
     end
     
     new_inputs = Input.where("id IN (?)", inputs_ids)
-    @total     = Report.total_amount(new_inputs)
-    @iva       = @total * 0.22
-    @subtotal  = @total - @iva
+    @total     = Report.total_alquiler_amount(new_inputs).round
+    @iva       = Report.total_iva_rent(new_inputs).round
+    @subtotal  = Report.total_excent_rent(new_inputs).round
     @rut       = new_inputs[0].staff_id.nil? ? '' : Staff.find_by_id(new_inputs[0].staff_id).productora.rut
     @prod      = new_inputs[0].staff_id.nil? ? '' : Staff.find_by_id(new_inputs[0].staff_id).productora.billing_name
     

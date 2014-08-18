@@ -38,10 +38,11 @@ class Rent < Input
     def self.set_final_rent_amount(article, save)
 
         if !article.nil? && !article.input.nil?
-            new_input              = Rent.new
-            new_input.article_id   = article.id
-            new_input.article_desc = article.description
-            new_input.staff_id     = article.input.staff_id
+            new_input               = Rent.new
+            new_input.article_id    = article.id
+            new_input.article_desc  = article.description
+            new_input.staff_id      = article.input.staff_id
+            new_input.future_amount = article.input.future_amount
 
             if save    
                 json_response = Collect.get_open_caja
@@ -53,7 +54,7 @@ class Rent < Input
             end
             
             # Si esta entre la semana 4 y  la 2 ( dos semanas de atraso maximo )
-            if 2.week.ago > article.input.created_at &&  article.input.created_at >= 4.week.ago
+            if 2.week.ago > article.input.created_at && article.input.created_at >= 4.week.ago
                 # Se le suma un 10% 
                 new_input.amount        = Rent.obtain_cash(article.input.future_amount.to_i, 40)
                 new_input.comission_per = 40
