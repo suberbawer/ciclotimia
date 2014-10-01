@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807234044) do
+ActiveRecord::Schema.define(version: 20141001204830) do
 
   create_table "articles", force: true do |t|
     t.string   "description"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20140807234044) do
     t.string   "article_desc"
     t.string   "article_id"
     t.integer  "staff_id"
+    t.boolean  "sent"
   end
 
   create_table "outputs", force: true do |t|

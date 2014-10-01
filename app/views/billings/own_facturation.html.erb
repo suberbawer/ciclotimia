@@ -45,6 +45,8 @@
 </style>
 
 <div id="billing_table">
+	<p id="notice"><%= notice %></p>
+
 	<h3> Facturas ganancia neta para imprimir del mes <%= Time.now.strftime("%m-%Y") %></h3>
 
 	<% @providers_to_print.each do |provider| %>

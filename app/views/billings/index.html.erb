@@ -39,6 +39,8 @@
 <div id="billing_table">
 	<h3> Facturas para imprimir del mes <%= Time.now.strftime("%m-%Y") %></h3>
 
+	<p id="notice"><%= notice %></p>
+
 	<% @providers_to_print.each do |provider| %>
      <div class="provider_container" id="provider_container_<%= provider.id%>">
 		<p>Sr/Sra. <%= provider.name %> <%= provider.lastname %></p>
