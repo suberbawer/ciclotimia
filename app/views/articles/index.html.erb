@@ -2,14 +2,13 @@
   function printImg(id) {
 	var printWindow = window.open('');
 	printWindow.document.write('<style>' + 
-    							'.barcode_with_code{display: inline-block; text-align:center;} .barcode_image {height: 80px; float: left; margin-bottom:-7px} .code{font-size: 12px; margin-top: -10px;}  ' +
+    							'.barcode_with_code{display: inline-block; text-align:center;} .barcode_image {height: 80px; margin-bottom:5px} .code{font-size: 12px; margin-top: -10px;}  ' +
     							'</style>');
     printWindow.document.write('<html><div class="barcode_with_code"><img class="barcode_image" src=\'');
     printWindow.document.write(document.getElementById(id).src);
     printWindow.document.write('\' /><p class="code">'+id.substring(8)+'</p></div></html>');
-    printWindow.print();
     printWindow.document.close();
-    printWindow.close();
+    setTimeout(function(){printWindow.print(); printWindow.close();}, 10);
   }
 
   $(document).ready(function(){

@@ -14,45 +14,115 @@
 	.mainDiv{
 		display:none;
 	}
-
+	#select_all, #unselect_all {
+		cursor: pointer;
+		color: #00388b;
+		font-size: 10px;
+		text-decoration: underline;
+	}
+	#select_all:hover, #unselect_all:hover  {
+		color:#ff0000; background-color:transparent
+	}
+	.first{
+		width: 2%;
+	}
+	.second{
+		width: 83%;
+	}
+	.third{
+		width: 15%;
+	}
+	#billing_table{
+    	height: 800px;
+    	overflow-y: auto;
+	}
 </style>
 
 <script>
- function printImg() {
+function printImg() {
     var divToPrint = document.getElementById('mainDiv');
     newWin = window.open("");
     // Css y salto de pagina cuando un div queda cortado en la impresion
     newWin.document.write('<style>' + 
-    						'@media print{#billing_table{font-size: 10px; page-break-inside: avoid; padding-top:155px;} .nameContainer{width: 40%; text-align: center;} .dateContainer{width: 25%;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 170px;overflow-y: auto;}.headerContainer > div, .footerContainer .footerContainerCopy > div {display: inline-block;text-align: right;} .footerContainer{margin-bottom: 76px;} tr {width:100%;}td {text-align: right;padding-right: 40px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
+    						'@media print{.no-print{display:none;} .table-print{font-size: 10px; page-break-inside: avoid; padding-top:155px;} .nameContainer{width: 40%; text-align: center;} .dateContainer{width: 25%;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 170px;overflow-y: auto;}.headerContainer > div, .footerContainer .footerContainerCopy > div {display: inline-block;text-align: right;} .footerContainer{margin-bottom: 76px;} tr {width:100%;}td {text-align: right;padding-right: 40px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
     					'</style>');
 	newWin.document.write(divToPrint.outerHTML);
 	newWin.print();
 	newWin.close();
-  }
-
-  $(document).ready(function(){
-    $('.print').click(function(){
-    	printImg();
-    });
-  });
-</script>
-
-<style>
-#billing_table{
-    height: 800px;
-    overflow-y: auto;
 }
-</style>
+
+$(document).ready(function(){
+	$('.print').click(function(){
+		var someChecked = false;
+		$('input[type="checkbox"]').each(function(){
+			if ($(this).is(':checked')) {
+				someChecked = true;
+			} 
+		});
+		if (someChecked) {
+			printImg();
+		} else {
+			alert('No se ha seleccionado ninguna factura para imprimir, por favor seleccione.');
+		}
+	});
+	clickCheckbox();
+	clickSelectAll();
+	clickUnselectAll();
+});
+
+function clickCheckbox() {
+	$('input[type="checkbox"]').click(function() {
+	    var id = $(this).val();
+	    if ($(this).is(':checked')) {
+        	$('#' + id +'_1').removeClass('no-print');
+        	$('#' + id +'_2').removeClass('no-print');
+	    } else {
+	        $('#' + id +'_1').addClass('no-print');
+	        $('#' + id +'_2').addClass('no-print');
+	    }
+	});
+}
+
+function clickSelectAll() {
+	$('#select_all').click(function() {
+		$('input[type="checkbox"]').prop('checked', 'true');
+		
+		$('input[type="checkbox"]').each(function() {
+			var id = $(this).val();
+	    	$('#' + id +'_1').removeClass('no-print');
+	    	$('#' + id +'_2').removeClass('no-print');
+		});
+	});
+}
+
+function clickUnselectAll() {
+	$('#unselect_all').click(function() {
+		$('input[type="checkbox"]').removeAttr('checked');
+		
+		$('input[type="checkbox"]').each(function() {
+			var id = $(this).val();
+			$('#' + id +'_1').addClass('no-print');
+		    $('#' + id +'_2').addClass('no-print');
+		});
+	});
+}
+</script>
 
 <div id="billing_table">
 	<h3> Facturas ganancia neta para imprimir del mes <%= Time.now.strftime("%m-%Y") %></h3>
-
+	<% first = true %>
 	<% @providers_to_print.each do |provider| %>
      <div class="provider_container" id="provider_container_<%= provider.id%>">
 		<p>Sr/Sra. <%= provider.name %> <%= provider.lastname %></p>
+		<% if first %>
+			<a id="select_all">Todas</a>
+			<a id="unselect_all">Ninguna</a>
+		<% end %>
+		<% first = false %>
 		<table id="articles">
 			<thead>
 		        <tr>
+		        	<th><input type="checkbox" value="<%= provider.id %>" id="check" name="check"/></th>
 					<th>Detalle</th>
 					<th>Importe</th>
 		        </tr>
@@ -63,20 +133,24 @@
 					<% total = total + input.amount %>
 				<% end %>
 				<tr>
+					<td class="first"></td>
 					<td>Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
 					<td>$<%= (total * 0.35).round %></td>
 				</tr>
 				<tr>
-					<td class="right">SUB TOTAL</td>
-					<td>$<%= (total * 0.35).round %></td>
+					<td class="first"></td>
+					<td class="right second">SUB TOTAL</td>
+					<td class="third">$<%= (total * 0.35).round %></td>
 				</tr>
 				<tr>
-					<td class="right">IVA</td>
-					<td>$<%= (total * 0.35 * 0.22).round %></td>
+					<td class="first"></td>
+					<td class="right second">IVA</td>
+					<td class="third">$<%= (total * 0.35 * 0.22).round %></td>
 				</tr>
 				<tr>
-					<td class="right">TOTAL</td>
-					<td>$<%= (total * 0.35 + total * 0.35 * 0.22).round %></td>
+					<td class="first"></td>
+					<td class="right second">TOTAL</td>
+					<td class="third">$<%= (total * 0.35 + total * 0.35 * 0.22).round %></td>
 				</tr>
 			</tbody>
 		</table>
@@ -90,7 +164,7 @@
 
 <div id="mainDiv" class="mainDiv">
 	<% @providers_to_print.each do |provider| %>
-		<div id="billing_table">
+		<div class="table-print no-print" id="<%= provider.id %>_1">
 			<% total = 0 %>
 
 			<div id="headerContainer" class="headerContainer">
@@ -146,7 +220,7 @@
 				</table>
 			</div>
 		</div>
-		<div id="billing_table">
+		<div class="table-print no-print" id="<%= provider.id %>_2">
 			<% total = 0 %>
 
 			<div id="headerContainer" class="headerContainer">

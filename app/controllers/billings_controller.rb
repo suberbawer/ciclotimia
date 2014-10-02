@@ -19,8 +19,34 @@ class BillingsController < ApplicationController
 
 	def send_billing_monthly
 		@providers_to_print = set_list_to_print
-		@providers_to_print.each do |provider|
-			UserMailer.send_billing_monthly(provider).deliver
+		sent    = true
+		sentNow = false
+		begin
+			@providers_to_print.each do |provider|
+				provider.instance_variable_get('@custom_input_list').each do |input|
+					if input.sent.nil? || !input.sent
+						sent = false
+					end
+				end
+				
+				if !sent 
+					UserMailer.send_billing_monthly(provider).deliver
+					provider.instance_variable_get('@custom_input_list').each do |input|
+						input.sent = true
+						input.save
+					end
+					sent    = true
+					sentNow = true
+				end
+			end
+
+			if sentNow
+				flash[:notice] = 'Mails enviados correctamente.'
+			else
+				flash[:notice] = 'No quedan Mails pendientes para enviar.'
+			end
+		rescue
+			flash[:notice] = 'No se pudo enviar algun mail por un error interno, o de internet. Enviar nuevamente'
 		end
 		redirect_to action: :index
 	end
