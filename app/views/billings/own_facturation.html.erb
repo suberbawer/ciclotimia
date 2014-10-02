@@ -23,7 +23,15 @@
 	#select_all:hover, #unselect_all:hover  {
 		color:#ff0000; background-color:transparent
 	}
-
+	.first{
+		width: 5%;
+	}
+	.second{
+		width: 80%;
+	}
+	.third{
+		width: 15%;
+	}
 </style>
 
 <script>
@@ -76,7 +84,6 @@ function clickSelectAll() {
 		$('input[type="checkbox"]').prop('checked', 'true');
 		
 		$('input[type="checkbox"]').each(function() {
-			alert($(this).val());
 			var id = $(this).val();
 	    	$('#' + id +'_1').removeClass('no-print');
 	    	$('#' + id +'_2').removeClass('no-print');
@@ -129,24 +136,24 @@ function clickUnselectAll() {
 					<% total = total + input.comission_cash.to_i %>
 				<% end %>
 				<tr>
-					<td></td>
-					<td>Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
-					<td>$<%= total - total * 0.22 %></td>
+					<td class="first"></td>
+					<td class="second">Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
+					<td class="third">$<%= total - total * 0.22 %></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td class="right">SUB TOTAL</td>
-					<td>$<%= total - total * 0.22 %></td>
+					<td class="first"></td>
+					<td class="right second">SUB TOTAL</td>
+					<td class="third">$<%= total - total * 0.22 %></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td class="right">IVA</td>
-					<td>$<%= total * 0.22 %></td>
+					<td class="first"></td>
+					<td class="right second">IVA</td>
+					<td class="third">$<%= total * 0.22 %></td>
 				</tr>
 				<tr>
-					<td></td>
-					<td class="right">TOTAL</td>
-					<td>$<%= total %></td>
+					<td class="first"></td>
+					<td class="right second">TOTAL</td>
+					<td class="third">$<%= total %></td>
 				</tr>
 			</tbody>
 		</table>
