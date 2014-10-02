@@ -14,27 +14,74 @@
 	.mainDiv{
 		display:none;
 	}
+	#select_all, #unselect_all {
+		cursor: pointer;
+		color:#0000FF;
+		font-size: 10px;
+		text-decoration: underline;
+	}
+	#select_all:hover, #unselect_all:hover  {
+		color:#ff0000; background-color:transparent
+	}
 
 </style>
 
 <script>
- function printImg() {
+function printImg() {
     var divToPrint = document.getElementById('mainDiv');
     newWin = window.open("");
     // Css y salto de pagina cuando un div queda cortado en la impresion
     newWin.document.write('<style>' + 
-    						'@media print{#billing_table{font-size: 10px; page-break-inside: avoid; padding-top:155px;} .nameContainer{width: 40%; text-align: center;} .dateContainer{width: 25%;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 170px;overflow-y: auto;}.headerContainer > div, .footerContainer .footerContainerCopy > div {display: inline-block;text-align: right;} .footerContainer{margin-bottom: 76px;} tr {width:100%;}td {text-align: right;padding-right: 40px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
+    						'@media print{.no-print{display:none;} .table-print{font-size: 10px; page-break-inside: avoid; padding-top:155px;} .nameContainer{width: 40%; text-align: center;} .dateContainer{width: 25%;} .tableTrData{vertical-align:top;} .tableContainer{padding-top:60px;} #bodyTable{height: 170px;overflow-y: auto;}.headerContainer > div, .footerContainer .footerContainerCopy > div {display: inline-block;text-align: right;} .footerContainer{margin-bottom: 76px;} tr {width:100%;}td {text-align: right;padding-right: 40px;}.tableClass {width:100%;}.subTotalContainer {width: 16.6%;}} ' +
     					'</style>');
 	newWin.document.write(divToPrint.outerHTML);
 	newWin.print();
 	newWin.close();
-  }
+}
 
-  $(document).ready(function(){
-    $('.print').click(function(){
-    	printImg();
-    });
-  });
+$(document).ready(function(){
+	$('.print').click(function(){
+		var someChecked = false;
+		$('input[type="checkbox"]').each(function(){
+			if ($(this).is(':checked')) {
+				someChecked = true;
+			} 
+		});
+		if (someChecked) {
+			printImg();
+		} else {
+			alert('No se ha seleccionado ninguna factura para imprimir, por favor seleccione.');
+		}
+	});
+	clickCheckbox();
+	clickSelectAll();
+	clickUnselectAll();
+});
+
+function clickCheckbox() {
+	$('input[type="checkbox"]').click(function() {
+	    var id = $(this).val();
+	    if ($(this).is(':checked')) {
+        	$('#' + id +'_1').removeClass('no-print');
+        	$('#' + id +'_2').removeClass('no-print');
+	    } else {
+	        $('#' + id +'_1').addClass('no-print');
+	        $('#' + id +'_2').addClass('no-print');
+	    }
+	});
+}
+
+function clickSelectAll() {
+	$('#select_all').click(function() {
+		$('input[type="checkbox"]').prop('checked', 'true');
+	});
+}
+
+function clickUnselectAll() {
+	$('#unselect_all').click(function() {
+		$('input[type="checkbox"]').removeAttr('checked');
+	});
+}
 </script>
 
 <style>
@@ -45,16 +92,20 @@
 </style>
 
 <div id="billing_table">
-	<p id="notice"><%= notice %></p>
-
 	<h3> Facturas ganancia neta para imprimir del mes <%= Time.now.strftime("%m-%Y") %></h3>
-
+	<% first = true %>
 	<% @providers_to_print.each do |provider| %>
      <div class="provider_container" id="provider_container_<%= provider.id%>">
 		<p>Sr/Sra. <%= provider.name %> <%= provider.lastname %></p>
+		<% if first %>
+			<a id="select_all">Todas</a>
+			<a id="unselect_all">Ninguna</a>
+		<% end %>
+		<% first = false %>
 		<table id="articles">
 			<thead>
 		        <tr>
+		        	<th><input type="checkbox" value="<%= provider.id %>" id="check" name="check"/></th>
 					<th>Detalle</th>
 					<th>Importe</th>
 		        </tr>
@@ -62,23 +113,27 @@
 			<tbody>
 				<% total = 0 %>
 				<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
-					<% total = total + input.amount %>
+					<% total = total + input.comission_cash.to_i %>
 				<% end %>
 				<tr>
+					<td></td>
 					<td>Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
-					<td>$<%= (total * 0.35).round %></td>
+					<td>$<%= total - total * 0.22 %></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td class="right">SUB TOTAL</td>
-					<td>$<%= (total * 0.35).round %></td>
+					<td>$<%= total - total * 0.22 %></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td class="right">IVA</td>
-					<td>$<%= (total * 0.35 * 0.22).round %></td>
+					<td>$<%= total * 0.22 %></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td class="right">TOTAL</td>
-					<td>$<%= (total * 0.35 + total * 0.35 * 0.22).round %></td>
+					<td>$<%= total %></td>
 				</tr>
 			</tbody>
 		</table>
@@ -92,7 +147,7 @@
 
 <div id="mainDiv" class="mainDiv">
 	<% @providers_to_print.each do |provider| %>
-		<div id="billing_table">
+		<div class="table-print no-print" id="<%= provider.id %>_1">
 			<% total = 0 %>
 
 			<div id="headerContainer" class="headerContainer">
@@ -117,11 +172,11 @@
 				    </thead>
 					<tbody>
 						<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
-							<% total = total + input.amount %>
+							<% total = total + input.comission_cash.to_i %>
 						<% end %>
 						<tr class="tableTrData">
 							<td class="tableData">Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
-							<td>$<%= (total * 0.35).round %></td>
+							<td>$<%= total - total * 0.22 %></td>
 						</tr>
 					</tbody>
 				</table>
@@ -136,19 +191,19 @@
 						<td class="subTotalContainer">
 						</td>
 						<td class="subTotalContainer">
-							$<%= (total * 0.35).round %>
+							$<%= total - total * 0.22 %>
 						</td>
 						<td class="subTotalContainer">
-							$<%= (total * 0.35 * 0.22).round %>
+							$<%= total * 0.22 %>
 						</td>
 						<td class="subTotalContainer">
-							$<%= (total * 0.35 + total * 0.35 * 0.22).round %>
+							$<%= total %>
 						</td>
 					</tr>
 				</table>
 			</div>
 		</div>
-		<div id="billing_table">
+		<div class="table-print no-print" id="<%= provider.id %>_2">
 			<% total = 0 %>
 
 			<div id="headerContainer" class="headerContainer">
@@ -173,11 +228,11 @@
 				    </thead>
 					<tbody>
 						<% (provider.instance_variable_get "@custom_input_list").each do |input| %>
-							<% total = total + input.amount %>
+							<% total = total + input.comission_cash.to_i %>
 						<% end %>
 						<tr class="tableTrData">
 							<td class="tableData">Comisión por intermediación del mes <%= Time.now.strftime("%m-%Y") %></td>
-							<td>$<%= (total * 0.35).round %></td>
+							<td>$<%= total - total * 0.22 %></td>
 						</tr>
 					</tbody>
 				</table>
@@ -192,13 +247,13 @@
 						<td class="subTotalContainer">
 						</td>
 						<td class="subTotalContainer">
-							$<%= (total * 0.35).round %>
+							$<%= total - total * 0.22 %>
 						</td>
 						<td class="subTotalContainer">
-							$<%= (total * 0.35 * 0.22).round %>
+							$<%= total * 0.22 %>
 						</td>
 						<td class="subTotalContainer">
-							$<%= (total * 0.35 + total * 0.35 * 0.22).round %>
+							$<%= total %>
 						</td>
 					</tr>
 				</table>
