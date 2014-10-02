@@ -74,12 +74,25 @@ function clickCheckbox() {
 function clickSelectAll() {
 	$('#select_all').click(function() {
 		$('input[type="checkbox"]').prop('checked', 'true');
+		
+		$('input[type="checkbox"]').each(function() {
+			alert($(this).val());
+			var id = $(this).val();
+	    	$('#' + id +'_1').removeClass('no-print');
+	    	$('#' + id +'_2').removeClass('no-print');
+		});
 	});
 }
 
 function clickUnselectAll() {
 	$('#unselect_all').click(function() {
 		$('input[type="checkbox"]').removeAttr('checked');
+		
+		$('input[type="checkbox"]').each(function() {
+			var id = $(this).val();
+			$('#' + id +'_1').addClass('no-print');
+		    $('#' + id +'_2').addClass('no-print');
+		});
 	});
 }
 </script>
