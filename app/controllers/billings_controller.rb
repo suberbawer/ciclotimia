@@ -18,8 +18,9 @@ class BillingsController < ApplicationController
 	end
 
 	def send_billing_monthly
-		sent = true
 		@providers_to_print = set_list_to_print
+		sent    = true
+		sentNow = false
 		begin
 			@providers_to_print.each do |provider|
 				provider.instance_variable_get('@custom_input_list').each do |input|
@@ -34,11 +35,15 @@ class BillingsController < ApplicationController
 						input.sent = true
 						input.save
 					end
-					flash[:notice] = 'Mails enviados correctamente.'
-				else
-					flash[:notice] = 'No quedan Mails pendientes para enviar.'
+					sent    = true
+					sentNow = true
 				end
+			end
 
+			if sentNow
+				flash[:notice] = 'Mails enviados correctamente.'
+			else
+				flash[:notice] = 'No quedan Mails pendientes para enviar.'
 			end
 		rescue
 			flash[:notice] = 'No se pudo enviar algun mail por un error interno, o de internet. Enviar nuevamente'
