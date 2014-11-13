@@ -60,7 +60,7 @@ class Rent < Input
                 new_input.comission_per = 40
 
             # Si esta dentro de las 2 semanas o es despues de un mes
-            elsif article.input.created_at >= 2.week.ago || article.input.created_at < 4.week.ago
+            elsif article.input.created_at >= 2.week.ago || article.input.created_at <= 4.week.ago
                 new_input.amount         = Rent.obtain_cash(article.input.future_amount.to_i, article.input.comission_per.to_i)
                 new_input.comission_per  = article.input.comission_per
             end

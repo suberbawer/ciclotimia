@@ -107,7 +107,7 @@
                 <tr>
                     <td><%= transaction.article ? transaction.article.id : transaction.article_id %></td>
                 	<td><%= transaction.article ? transaction.article.description : transaction.article_desc %></td>
-                	<td><%= transaction.type != "Rent" ? '$' + transaction.article.estimated_price : '-' %></td>
+                	<td><%= transaction.type != "Rent" && transaction.article ? '$' + transaction.article.estimated_price : '-' %></td>
                 	<td><%= transaction.obtain_human_label %></td>
                     <td>$<%= transaction.amount %></td>
                     <td><% if transaction.comission_per %> 

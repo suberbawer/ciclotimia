@@ -133,12 +133,12 @@ class ArticlesController < ApplicationController
     articles   = Article.where(id:params['id_list'])
     inputs_ids = Set.new
     
-    articles.each do |article| 
-      inputs_ids.add(article.input.id)
+    articles.each do |article|
+        inputs_ids.add(article.input.id)
     end
     
     new_inputs = Input.where("id IN (?)", inputs_ids)
-    @total     = Report.total_alquiler_amount(new_inputs).round
+    @total     = Report.total_alquiler_amount(new_inputs)
     @iva       = Report.total_iva_rent(new_inputs).round
     @subtotal  = Report.total_excent_rent(new_inputs).round
     @rut       = new_inputs[0].staff_id.nil? ? '' : Staff.find_by_id(new_inputs[0].staff_id).productora.rut
