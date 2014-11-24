@@ -76,7 +76,11 @@ class ArticlesController < ApplicationController
   end
 
   def devolution
-    if request.post?
+    @is_open_caja = Collect.get_open_caja['result'] == 'ok'
+    
+    if !@is_open_caja
+      flash[:notice] = Collect.get_open_caja['message']
+    elsif request.post?
         begin
             article_to_return = Article.find(params['article_id'])
                         

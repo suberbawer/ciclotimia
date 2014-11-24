@@ -1,6 +1,7 @@
 <script>
 
 $(document).ready(function(){
+    disableWhenCajaClosed();
     makeEnterClick();
     focusCursorOnInput();
     disableBillingButton();
@@ -23,6 +24,13 @@ function focusCursorOnInput() {
 function disableBillingButton() {
     $(returnBatchButtonBilling).attr('disabled','disabled');
     $(returnBatchButtonBilling).addClass('disabled');
+}
+
+function disableWhenCajaClosed() {
+    if (<%= !@is_open_caja %>) {
+        $('#newReturnButton').attr('disabled', 'disabled');
+        $('#newReturnButton').addClass('disabled');
+    }
 }
 </script>
 

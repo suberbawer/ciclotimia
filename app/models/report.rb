@@ -57,7 +57,7 @@ class Report < Caja
 		aux = 0;
 		total_amount = 0;
 		list_transactions.each do |transaction|
-			aux = (transaction.future_amount.to_i * 0.3) + (transaction.future_amount.to_i * 0.3 * 0.22)
+			aux = transaction.comission_cash.to_i
 			total_amount = aux + total_amount
 		end
 
@@ -67,7 +67,7 @@ class Report < Caja
 	def self.total_iva_rent(list_transactions)
 		total_iva = 0;
 		list_transactions.each do |transaction|
-			total_iva += (transaction.future_amount.to_i * 0.3 * 0.22)
+			total_iva += (transaction.future_amount.to_i * transaction.comission_per.to_i/100 * 0.22)
 		end
 
 		return total_iva
@@ -76,7 +76,7 @@ class Report < Caja
 	def self.total_excent_rent(list_transactions)
 		total_excent = 0
 		list_transactions.each do |transaction|
-			total_excent += (transaction.future_amount.to_i * 0.3)
+			total_excent += (transaction.future_amount.to_i * transaction.comission_per.to_i/100)
 		end
 
 		return total_excent
