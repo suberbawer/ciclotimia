@@ -7,7 +7,7 @@
         width:10%;
     }
     .name{
-        width:80%;
+        width:70%;
         text-align: left;
     }
     .toPay{
@@ -81,12 +81,14 @@
         <table id="articles">
             <thead>
                 <tr>
-                    <th class="codigo">Código</th>
+                    <th class="codigo"> No.</th>
+                    <th class="codigo">Código Proov.</th>
                     <th class="name">Nombre</th>
                     <th class="toPay">A Pagar</th>
                 </tr>
             </thead>
             <tbody>
+                <% quant = 1 %>
                 <% @providers_to_print.each do |provider| %>
                     <% sub_total = 0 %>
                     <% total     = 0 %>
@@ -95,10 +97,12 @@
                     <% end %>
                     <% total = sub_total - (sub_total * 0.35 + sub_total * 0.35 * 0.22).round %>
                     <tr class="border_bottom">
+                        <td class="codigo"><%= quant %></td> 
                         <td class="codigo"><%= provider.id %></td>
                         <td class="name"><%= provider.name %> <%= provider.lastname %></td>
                         <td class="toPay">$<%= total %></td>
                     </tr>
+                    <% quant = quant + 1 %>
                 <% end %>
             </tbody>
         </table>

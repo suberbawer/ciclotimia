@@ -92,7 +92,8 @@
         <table id="articles">
             <thead>
                 <tr>
-                    <th>Descripcion de Articulo</th>
+                    <th>Código</th>
+                    <th>Descripción</th>
                     <th>Precio Estimado</th>
                     <th>Estado</th>
                     <th>Precio Final</th>
@@ -104,8 +105,9 @@
             <tbody>
                 <% @transactions.each do |transaction| %>
                 <tr>
-                	<td><%= transaction.article ? transaction.article.description : '-' %></td>
-                	<td><%= transaction.article ? '$' + transaction.article.estimated_price : '-' %></td>
+                    <td><%= transaction.article ? transaction.article.id : transaction.article_id %></td>
+                	<td><%= transaction.article ? transaction.article.description : transaction.article_desc %></td>
+                	<td><%= transaction.type != "Rent" ? '$' + transaction.article.estimated_price : '-' %></td>
                 	<td><%= transaction.obtain_human_label %></td>
                     <td>$<%= transaction.amount %></td>
                     <td><% if transaction.comission_per %> 
@@ -129,9 +131,11 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td>---------------------------</td>
                 </tr>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
