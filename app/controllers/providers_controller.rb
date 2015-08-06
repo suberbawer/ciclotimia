@@ -4,7 +4,8 @@ class ProvidersController < ApplicationController
   # GET /providers
   # GET /providers.json
   def index
-    @providers = Provider.all.sort_by{|provider| provider.name}
+    providers  = Provider.all.sort_by{|provider| provider.name}
+    @providers = providers.paginate(:page => params[:page], :per_page => 1000)
   end
 
   # GET /providers/1

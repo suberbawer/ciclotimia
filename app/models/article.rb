@@ -46,7 +46,7 @@ class Article < ActiveRecord::Base
                 barcode = Barby::Code128B.new(articleId) # fall back to Code128 type B
             end
                         
-            File.open(File.join("app/assets/images/barcodes", fname), 'w') do |f|
+            File.open(File.join("app/assets/images/barcodes", fname), 'wb') do |f|
                 f.write Barby::PngOutputter.new(barcode).to_png
             end
         end
@@ -89,11 +89,19 @@ class Article < ActiveRecord::Base
         return self.status == 'rented'
     end
 
-    def self.search_articles(search_text)
-        if search_text != ''
-            return Article.find(:all, :conditions => ["description like ? or id = ?", "%#{search_text}%", search_text])
+    def self.search(str)
+        
+        if !str.blank?
+            cond_text   = str.split.map{|w| "description LIKE ?"}.join(" OR ")
+            cond_text2  = str.split.map{|w| "id = ?"}.join(" OR ")
+            cond_text3  = str.split.map{|w| "estimated_price LIKE ?"}.join(" OR ")
+            cond_text.concat(" OR " + cond_text2).concat(" OR " + cond_text3)
+            
+            cond_values = str.split.map{|w| "%#{w}%"}
+            cond_values2 = str.split.map{|w| w}
+            all(:conditions =>  (str ? [cond_text, *cond_values, *cond_values2, *cond_values] : []))
         else
-            return Article.all
+            Article.all
         end
     end
 

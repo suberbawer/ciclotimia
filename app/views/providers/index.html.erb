@@ -47,4 +47,6 @@
         </tbody>
     </table>
 </div>
+<%= will_paginate @providers %>
+
 <%= button_to 'Nuevo Proveedor', new_provider_path, :method => "get", :class => 'new_provider_btn' %>

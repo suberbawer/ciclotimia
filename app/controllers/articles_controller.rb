@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
   def index
-    @articles = Article.find(:all, :order => "created_at DESC" ).sort_by{|article| - article.id}
+    @articles = Article.order("created_at DESC").search(params[:search]).sort_by{|article| - article.id}.paginate(:page => params[:page], :per_page => 100)
   end
 
   # GET /articles/1

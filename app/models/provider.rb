@@ -17,7 +17,7 @@ class Provider < ActiveRecord::Base
 		if search_text != ''
 			return Provider.find(:all, :conditions => ["name like ? or lastname like ? or ci = ?", "%#{search_text}%", "%#{search_text}%", search_text])
 		else
-			return Provider.all
+			return Provider.all(:limit => 100)
 		end
 	end
 
