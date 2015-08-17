@@ -5,6 +5,8 @@ class ArticlesController < ApplicationController
   # GET /articles.json
   def index
     @articles = Article.order("created_at DESC").search(params[:search]).sort_by{|article| - article.id}.paginate(:page => params[:page], :per_page => 100)
+    @providers_by_id      = Article.reutrn_provider_map(@articles)
+    @staffs_by_article_id = Article.return_input_map(@articles)
   end
 
   # GET /articles/1
@@ -154,7 +156,6 @@ class ArticlesController < ApplicationController
   
   def filter
     @articles = Article.search_articles(params[:search_text]).sort_by{|article| - article.id}
-    render :index
   end
 
   def filter_debtors

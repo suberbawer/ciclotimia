@@ -88,18 +88,38 @@ class Article < ActiveRecord::Base
     def is_rented
         return self.status == 'rented'
     end
+    
+    def self.reutrn_provider_map(articles)
+        providers       = Provider.where("id in (?)", articles.map(&:provider_id))
+        providers_by_id = Hash[providers.map{ |c| [c.id, c] }]
+        return providers_by_id
+    end
 
-    def self.search(str)
+    def self.return_input_map(articles)
+        inputs = Input.where("article_id in (?) AND staff_id IS NOT NULL", articles.map(&:id))
+        staffs = Staff.where("id in (?)", inputs.map(&:staff_id))
         
+        staffs_by_id         = Hash[staffs.map{ |c| [c.id, c] }]
+        staffs_by_article_id = Hash.new
+        
+        inputs.each do |input|
+            staffs_by_article_id[input.article_id] = staffs_by_id[input.staff_id]
+        end
+                
+        return staffs_by_article_id
+
+    end
+    
+    def self.search(str)
         if !str.blank?
-            cond_text   = str.split.map{|w| "description LIKE ?"}.join(" OR ")
+            cond_text   = str.split.map{|w| "description LIKE ?"}.join(" AND ")
             cond_text2  = str.split.map{|w| "id = ?"}.join(" OR ")
             cond_text3  = str.split.map{|w| "estimated_price LIKE ?"}.join(" OR ")
             cond_text.concat(" OR " + cond_text2).concat(" OR " + cond_text3)
-            
+
             cond_values = str.split.map{|w| "%#{w}%"}
             cond_values2 = str.split.map{|w| w}
-            all(:conditions =>  (str ? [cond_text, *cond_values, *cond_values2, *cond_values] : []))
+            Article.where(cond_text, *cond_values, *cond_values2, *cond_values)
         else
             Article.all
         end
@@ -109,7 +129,7 @@ class Article < ActiveRecord::Base
         articles_debtors = obtain_debtors
 
         if search_text != ''
-            return Article.find(:all, :conditions => ["id in (?) and (description like ? or id = ?)", articles_debtors.map(&:id), "%#{search_text}%", search_text])
+            Article.where("id in (?) and (description like ? or id = ?)", articles_debtors.map(&:id), "%#{search_text}%", search_text)
         else
             return articles_debtors
         end
@@ -137,7 +157,7 @@ class Article < ActiveRecord::Base
         when "rented", "Rented"
           return "Alquilado"    
         else
-          puts "Tipo no reconocido"
+          return "Disponible"
         end
     end
 end

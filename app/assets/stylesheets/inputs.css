@@ -54,7 +54,7 @@
 	}
 
 	.inputCollectionTable td, .outputTable td, .inputTable td{
-		font-size: 12px;
+		font-size: 11px;
 	}
 
 	.inputCollectionTable tr:nth-child(even), .outputTable tr:nth-child(even), .inputTable tr:nth-child(even){

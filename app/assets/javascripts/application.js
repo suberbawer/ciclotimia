@@ -29,8 +29,6 @@ function toggleActiveOption(url){
 	// Add active class by url, to select the option on the menu
 	if (url.toLowerCase().indexOf('providers') > -1 ) {
 		$('.providers').addClass('active');
-	} else if (url.toLowerCase().indexOf('home') > -1 ) {
-		$('.home').addClass('active');
 	}  else if (url.toLowerCase().indexOf('articles/debtors') > -1 || 
 			url.toLowerCase().indexOf('articles/filter_debtors') > -1 ||
 			url.toLowerCase().indexOf('articles/devolution') > -1) {
