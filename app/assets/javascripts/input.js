@@ -377,7 +377,7 @@ $(document).ready(function(){
                 }
                 newWin.document.write(divToPrint.outerHTML + rent_disclaimer);
                 newWin.print();
-                newWin.close();
+                setTimeout(function(){newWin.close();}, 0);
             }
         }
 
