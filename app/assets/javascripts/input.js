@@ -1,5 +1,5 @@
+﻿var inputCollection; // Input list (lote).
 var input;           // Input actual (a ingresar).
-var inputCollection; // Input list (lote).
 var staffId;
 var inType;
 
