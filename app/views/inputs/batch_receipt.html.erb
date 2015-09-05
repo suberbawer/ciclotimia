@@ -1,4 +1,4 @@
-<style>
+﻿<style>
     .center{
         text-align: center;
     }
@@ -13,8 +13,9 @@
     }
     table {
         margin: 0 auto;
-        width:275px;
+        width:255px;
     }
+
 </style>
 
 <script>
@@ -23,7 +24,7 @@
     newWin = window.open("");
     // Css y salto de pagina cuando un div queda cortado en la impresion
     newWin.document.write('<style>' + 
-                            '@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} .size {width:200px; font-size:10px;} table {margin: 5px auto;width:180px; font-size:10px;}} ' +
+                            '@media print{.center {text-align: center;} .left {text-align: left;} .right {text-align: right;} .size {margin-left: 16px; width:280px; font-size:15px;} table {margin: 18px auto;width:230px; font-size:15px;}} ' +
                         '</style>');
     newWin.document.write(divToPrint.outerHTML);
     newWin.print();
